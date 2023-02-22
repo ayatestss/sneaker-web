@@ -43,11 +43,9 @@ opacity: 1;
   };
 
   return (
-    <Box sx={{ background: "black" }}>
+    <Box sx={{ background: "black", height: "100vh" }}>
       <Stack alignItems="center" spacing={3} pb={7} width="auto">
-        {/* <LogoAnimationDiv> */}
         <img src={Logo} style={{ height: "30vh", width: "auto" }} />
-        {/* </LogoAnimationDiv> */}
         <Typography
           variant="h4"
           fontStyle="italic"
