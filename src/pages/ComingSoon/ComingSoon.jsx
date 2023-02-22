@@ -1,16 +1,6 @@
-import {
-  Box,
-  Stack,
-  Typography,
-  InputBase,
-  Button,
-  TextField,
-} from "@mui/material";
+import { Box, Stack, Typography, InputBase, Button } from "@mui/material";
 import { styled, keyframes } from "@mui/system";
-
 import Logo from "../../assets/ss-logo.svg";
-
-import { Container } from "@mui/system";
 import { useState } from "react";
 
 export default function ComingSoon() {
@@ -56,7 +46,7 @@ opacity: 1;
     <Box sx={{ background: "black" }}>
       <Stack alignItems="center" spacing={3} pb={7} width="auto">
         {/* <LogoAnimationDiv> */}
-          <img src={Logo} style={{ height: "30vh", width: "auto" }} />
+        <img src={Logo} style={{ height: "30vh", width: "auto" }} />
         {/* </LogoAnimationDiv> */}
         <Typography
           variant="h4"
@@ -79,8 +69,9 @@ opacity: 1;
         >
           Join the waitlist below
         </Typography>
-        {/* <InputAnimationDiv> */}
-          {/* <TextField
+
+        <Box sx={{ display: "flex", width: "auto", height: "auto" }}>
+          <InputBase
             style={{
               border: "solid white",
               borderRadius: "0.2rem",
@@ -89,23 +80,8 @@ opacity: 1;
               background: "white",
             }}
             placeholder="Enter your email address"
-            required
-            id="email"
-            type="email"
-            value={email}
-            onChange={handleSubmit}
-          /> */}
-          <TextField
-            style={{
-              border: "solid white",
-              borderRadius: "0.2rem",
-              width: "25vh",
-              fontSize: "2vh",
-              background: "white",
-            }}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            // label="email"
           />
           <Button
             style={{
@@ -119,7 +95,7 @@ opacity: 1;
           >
             Sign Up
           </Button>
-        {/* </InputAnimationDiv> */}
+        </Box>
       </Stack>
     </Box>
   );
