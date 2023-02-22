@@ -1,4 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { FirebaseAuth } from "./firebase";
 
 const googleProvider = new GoogleAuthProvider();
@@ -13,6 +17,14 @@ export const singInWithGoogle = async () => {
   } catch (e) {
     alert(e.message);
   }
+};
+
+export const onAuthStateChanged = (setSession) => {
+  onAuthStateChanged(FirebaseAuth, (user) => {
+    if (!user) return setSession({ status: "no-authenticated", userId: null });
+
+    setSession({ status: "authenticated", userId: user.uid });
+  });
 };
 
 export const logOut = async () => await FirebaseAuth.signOut();
