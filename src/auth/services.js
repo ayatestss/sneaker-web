@@ -19,7 +19,7 @@ export const singInWithGoogle = async () => {
   }
 };
 
-export const onAuthStateChanged = (setSession) => {
+export const onAuthStateHasChanged = (setSession) => {
   onAuthStateChanged(FirebaseAuth, (user) => {
     if (!user) return setSession({ status: "no-authenticated", userId: null });
 
