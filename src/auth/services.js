@@ -14,3 +14,5 @@ export const singInWithGoogle = async () => {
     alert(e.message);
   }
 };
+
+export const logOut = async () => await FirebaseAuth.signOut();
