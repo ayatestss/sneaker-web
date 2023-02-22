@@ -6,6 +6,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/authContext";
 import { ProtectedRoute } from "./components/PrivateRoute";
+import ContractForm from "./pages/ContractForm/ContractForm";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -13,10 +14,12 @@ function App() {
   useEffect(() => {
     console.log({ status, userId });
   }, [status]);
+
   return (
     <div className="App">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/member" element={<ContractForm />} />
         <Route
           path="/test"
           element={
