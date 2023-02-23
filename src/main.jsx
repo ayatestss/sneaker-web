@@ -5,12 +5,16 @@ import App from "./App";
 import "./index.css";
 
 import { AuthProvider } from "./context/authContext";
+import { ThemeProvider } from "@mui/material/styles";
+import { appTheme } from "./theme/theme";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <ThemeProvider theme={appTheme}>
+          <App />
+        </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
