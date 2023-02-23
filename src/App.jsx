@@ -25,9 +25,9 @@ function App() {
         <Route
           path="/test"
           element={
-            // <ProtectedRoute status={status}>
-            <h1>Test Private</h1>
-            // </ProtectedRoute>
+            <ProtectedRoute status={status}>
+              <h1>Test Private</h1>
+            </ProtectedRoute>
           }
         />
         <Route path="*" element={<ErrorPage />} />
