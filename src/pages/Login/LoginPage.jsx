@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
+import { useMutation } from "@apollo/client";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -24,7 +25,6 @@ export default function LoginPage() {
       <Button variant="contained" onClick={handleLogin}>
         Login
       </Button>
-
       <Button variant="contained" onClick={handleLogOut}>
         Logout
       </Button>

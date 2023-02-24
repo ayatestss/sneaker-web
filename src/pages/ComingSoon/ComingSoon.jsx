@@ -2,10 +2,16 @@ import { Box, Stack, Typography, InputBase, Button } from "@mui/material";
 import { styled, keyframes } from "@mui/system";
 import Logo from "../../assets/ss-logo.svg";
 import { useState } from "react";
+import { CREATE_EMAIL } from "../ComingSoon/graphql/addEmail";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 
 export default function ComingSoon() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [createEmail, { data, loading }] = useMutation(CREATE_EMAIL);
 
   const fadeInFirst = keyframes`
 0% {
@@ -89,7 +95,20 @@ opacity: 1;
               marginLeft: "0.5rem",
               color: "white",
             }}
-            onClick={() => console.log(email)}
+            onClick={async () => {
+              try {
+                await createEmail({
+                  variables: {
+                    data: {
+                      email: email,
+                    },
+                  },
+                });
+                navigate("/confirmationPage");
+              } catch (e) {
+                console.log(e);
+              }
+            }}
           >
             Sign Up
           </Button>
