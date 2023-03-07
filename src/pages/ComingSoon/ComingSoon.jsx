@@ -1,4 +1,11 @@
-import { Box, Stack, Typography, InputBase, Button } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Typography,
+  InputBase,
+  Button,
+  Alert,
+} from "@mui/material";
 import { styled, keyframes } from "@mui/system";
 import Logo from "../../assets/ss-logo.svg";
 import { useState } from "react";
@@ -9,6 +16,7 @@ import { useMutation } from "@apollo/client";
 export default function ComingSoon() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const [createEmail, { data, loading }] = useMutation(CREATE_EMAIL);
@@ -43,11 +51,6 @@ opacity: 1;
     animation: `${fadeInSecond} 2s ease-in-out`,
   });
 
-  const handleEmailInput = (e) => {
-    e.preventDefault();
-    setEmail(e.target.value);
-  };
-
   return (
     <Box sx={{ background: "black", height: "100vh" }}>
       <Stack alignItems="center" spacing={3} pb={7} width="auto">
@@ -74,13 +77,29 @@ opacity: 1;
           Join the waitlist below
         </Typography>
 
-        <Box sx={{ display: "flex", width: "auto", height: "auto" }}>
+        <Stack
+          spacing={3}
+          sx={{
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <InputBase
             style={{
               border: "solid white",
               borderRadius: "0.2rem",
-              width: "25vh",
-              fontSize: "2vh",
+              minWidth: "25vh",
+              background: "white",
+            }}
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <InputBase
+            style={{
+              border: "solid white",
+              borderRadius: "0.2rem",
+              minWidth: "25vh",
               background: "white",
             }}
             placeholder="Enter your email address"
@@ -92,8 +111,7 @@ opacity: 1;
               background: "#FFD700",
               border: "none",
               borderRadius: "0.3rem",
-              marginLeft: "0.5rem",
-              color: "white",
+              color: "black",
             }}
             onClick={async () => {
               try {
@@ -104,16 +122,23 @@ opacity: 1;
                     },
                   },
                 });
+                console.log({ email, name });
                 navigate("/confirmationPage");
               } catch (e) {
                 console.log(e);
+                setErrorMessage(e.message);
               }
             }}
           >
             Sign Up
           </Button>
-        </Box>
+        </Stack>
       </Stack>
+      {errorMessage ? (
+        <Alert severity="error" color="error">
+          {errorMessage}
+        </Alert>
+      ) : null}
     </Box>
   );
 }
