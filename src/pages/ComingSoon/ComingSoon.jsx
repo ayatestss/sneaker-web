@@ -118,11 +118,11 @@ opacity: 1;
                 await createEmail({
                   variables: {
                     data: {
+                      name: name,
                       email: email,
                     },
                   },
                 });
-                console.log({ email, name });
                 navigate("/confirmationPage");
               } catch (e) {
                 console.log(e);

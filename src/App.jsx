@@ -8,6 +8,7 @@ import { AuthContext } from "./context/authContext";
 import { ProtectedRoute } from "./components/PrivateRoute";
 import ContractForm from "./pages/ContractForm/ContractForm";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
+import ConfirmationPage from "./pages/ComingSoon/ConfirmationPage";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/member" element={<ContractForm />} />
         <Route path="/" element={<ComingSoon />} />
+        <Route path="/confirmationPage" element={<ConfirmationPage />} />
         <Route
           path="/test"
           element={
