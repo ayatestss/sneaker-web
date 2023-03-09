@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation } from "@apollo/client";
@@ -22,12 +22,14 @@ export default function LoginPage() {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleLogin}>
-        Login
-      </Button>
-      <Button variant="contained" onClick={handleLogOut}>
-        Logout
-      </Button>
+      <Container>
+        <Button variant="contained" onClick={handleLogin}>
+          Login
+        </Button>
+        <Button variant="contained" onClick={handleLogOut}>
+          Logout
+        </Button>
+      </Container>
     </div>
   );
 }

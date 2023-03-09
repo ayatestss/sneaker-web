@@ -52,7 +52,7 @@ opacity: 1;
   });
 
   return (
-    <Box sx={{ background: "black", height: "100vh" }}>
+    <Box sx={{ bgcolor: "background.default", height: "100vh" }}>
       <Stack alignItems="center" spacing={3} pb={7} width="auto">
         <img src={Logo} style={{ height: "30vh", width: "auto" }} />
         <Typography
@@ -107,12 +107,7 @@ opacity: 1;
             onChange={(e) => setEmail(e.target.value)}
           />
           <Button
-            style={{
-              background: "#FFD700",
-              border: "none",
-              borderRadius: "0.3rem",
-              color: "black",
-            }}
+            variant="contained"
             onClick={async () => {
               try {
                 await createEmail({

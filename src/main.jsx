@@ -8,9 +8,10 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { AuthProvider } from "./context/authContext";
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "./theme/theme";
+import { Paper } from "@mui/material";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: `${import.meta.env.VITE_API_URL}/graphql`,
   cache: new InMemoryCache(),
 });
 
