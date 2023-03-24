@@ -8,6 +8,7 @@ import { AuthContext } from "./context/authContext";
 import { ProtectedRoute } from "./components/PrivateRoute";
 import ContractForm from "./pages/ContractForm/ContractForm";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
+import PasswordReset from "./pages/PasswordReset/PasswordReset";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/passwordReset" element={<PasswordReset />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/member" element={<ContractForm />} />
         <Route path="/" element={<ComingSoon />} />

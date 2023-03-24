@@ -1,25 +1,34 @@
-import { Button, InputBase, Typography } from "@mui/material";
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
-import { useMutation } from "@apollo/client";
-import { Box, margin, Stack} from "@mui/system";
-import Logo from "../../assets/ss-logo.svg"
+import { Box, Button, InputBase, Stack, Snackbar } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../context/authContext';
+import Logo from '../../assets/ss-logo.svg';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Link } from 'react-router-dom';
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  const { handleLoginWithGoogle, handleLogOut } = useContext(AuthContext);
+  const { handleLoginWithGoogle } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      handleLoginWithGoogle();
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+      setError(errorMessage);
     }
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setError(null);
   };
 
   return (
@@ -33,16 +42,17 @@ export default function LoginPage() {
       alignItems="center"
     >
       <Stack spacing={2} pb={3}>
-        <img src={Logo} style={{ height: "auto", width: "auto" }} />
+        <img src={Logo} style={{ height: 'auto', width: 'auto' }} alt="Logo" />
       </Stack>
-      <Stack spacing={2} pb={7}>
+      <Stack spacing={3} pb={7}>
         <InputBase
-          style={{
-            border: "solid white",
-            borderRadius: "0.2rem",
-            width: "25vh",
-            fontSize: "2vh",
-            background: "white",
+            style={{
+            border: 'solid white',
+            borderRadius: '0.2rem',
+            width: '30vh',
+            height: '5vh',
+            fontSize: '2vh',
+            background: 'white',
           }}
           placeholder="Enter your email address"
           required
@@ -53,11 +63,12 @@ export default function LoginPage() {
         />
         <InputBase
           style={{
-            border: "solid white",
-            borderRadius: "0.2rem",
-            width: "25vh",
-            fontSize: "2vh",
-            background: "white",
+            border: 'solid white',
+            borderRadius: '0.2rem',
+            width: '30vh',
+            height: '5vh',
+            fontSize: '2vh',
+            background: 'white',
           }}
           placeholder="Enter your password"
           required
@@ -66,19 +77,37 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div style={{display: 'flex', alignSelf: 'center' }}>
-          <div>
+        <Stack direction="row" justifyContent="center">
           <Button variant="contained" onClick={handleLogin}>
             Login
           </Button>
-          </div>
-          <div style={{paddingLeft: '0.8rem'}}>
-          <Button variant="contained" onClick={handleLogOut}>
-            Logout
-          </Button>
-          </div>
-        </div>
+        </Stack>
+        <Link
+          to="/passwordReset"
+          style={{
+            textDecoration: 'none',
+            color: '#FFD700',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginTop: '1rem',
+          }}
+        >
+          Forgot Password?
+        </Link>
+        <Snackbar
+          open={error !== null}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+          message={error}
+          action={(key) => (
+            <Button color="secondary" size="small" onClick={handleCloseSnackbar}>
+              Close
+            </Button>
+          )}
+        />
       </Stack>
-      </Box>
+    </Box>
   );
 }
+
+export default LoginPage;

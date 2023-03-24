@@ -33,11 +33,26 @@ export const AuthProvider = ({ children }) => {
     const userId = await singInWithGoogle();
     validateAuth(userId);
   };
+
+  // my changes with the handle login
+
+  const handleLogin = async (email, password) => {
+    checking();
+    try {
+      const userId = await signInWithEmailAndPassword(email, password);
+      validateAuth(userId);
+    } catch (error) {
+      console.error("Error signing in", error);
+      setSession({ userId: null, status: "no-authenticated" });
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ ...session, handleLoginWithGoogle, handleLogOut }}
+      value={{ ...session, handleLoginWithGoogle, handleLogOut, handleLogin }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
+
