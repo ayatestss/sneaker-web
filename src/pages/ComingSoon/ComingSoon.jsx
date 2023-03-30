@@ -52,6 +52,8 @@ export default function ComingSoon() {
     <Box
       bgcolor="black"
       minHeight="100%"
+      height="auto"
+      width="auto"
       display="flex"
       alignItems="center"
       justifyContent="center"
