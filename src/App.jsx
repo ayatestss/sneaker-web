@@ -9,6 +9,7 @@ import { ProtectedRoute } from "./components/PrivateRoute";
 import ContractForm from "./pages/ContractForm/ContractForm";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/member" element={<ContractForm />} />
         <Route path="/" element={<ComingSoon />} />
+        <Route path='/registerPage' element={<RegisterPage/>} />
         <Route
           path="/test"
           element={
