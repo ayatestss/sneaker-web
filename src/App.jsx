@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-
 import LoginPage from "./pages/Login/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 import { useContext, useEffect } from "react";
@@ -9,22 +9,38 @@ import { ProtectedRoute } from "./components/PrivateRoute";
 import ContractForm from "./pages/ContractForm/ContractForm";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 import ConfirmationPage from "./pages/ComingSoon/ConfirmationPage";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { useMode, ColorModeContext } from "./theme/theme";
+import Services from "./pages/services";
+import Invoices from "./pages/invoices";
+import FAQ from "./pages/faq";
+import Topbar from "./dashboard/TopBar";
+//import Sidebar from "./dashboard/Sidebar";
+import MemberSettings from "./pages/membersettings";
+import Dashboard from "./dashboard/Dashboard";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
+  const [theme, colorMode] = useMode();
+  const [isSidebar, setIsSidebar] = useState(true);
 
   useEffect(() => {
     console.log({ status, userId });
   }, [status]);
 
   return (
-    <div className="App">
-      <Routes>
-        {/* <Route path="/login" element={<LoginPage />} /> */}
-        {/* <Route path="/member" element={<ContractForm />} /> */}
-        <Route path="/" element={<ComingSoon />} />
-        <Route path="/confirmationPage" element={<ConfirmationPage />} />
-        {/* <Route
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
+          {/* <Sidebar isSidebar={isSidebar} /> */}
+          <Topbar setIsSidebar={setIsSidebar} />
+          <Routes>
+            {/* <Route path="/login" element={<LoginPage />} /> */}
+            {/* <Route path="/member" element={<ContractForm />} /> */}
+            <Route path="/" element={<ComingSoon />} />
+            <Route path="/confirmationPage" element={<ConfirmationPage />} />
+            {/* <Route
           path="/test"
           element={
             <ProtectedRoute status={status}>
@@ -32,9 +48,16 @@ function App() {
             </ProtectedRoute>
           }
         /> */}
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </div>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="*" element={<ErrorPage />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/invoices" element={<Invoices />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="membersettings" element={<MemberSettings />} />
+          </Routes>
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 
