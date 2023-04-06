@@ -56,6 +56,7 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/membersettings" element={<MemberSettings />} />
             <Route path="/MemberChat" element={<MemberChat />} />
+            <Route path="membersettings" element={<MemberSettings />} />
           </Routes>
         </div>
       </ThemeProvider>
