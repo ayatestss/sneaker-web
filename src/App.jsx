@@ -18,6 +18,7 @@ import Topbar from "./dashboard/TopBar";
 //import Sidebar from "./dashboard/Sidebar";
 import MemberSettings from "./pages/membersettings";
 import Dashboard from "./dashboard/Dashboard";
+import MemberChat from "./pages/MemberChat/MemberChat";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -53,7 +54,8 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route path="membersettings" element={<MemberSettings />} />
+            <Route path="/membersettings" element={<MemberSettings />} />
+            <Route path="/MemberChat" element={<MemberChat />} />
           </Routes>
         </div>
       </ThemeProvider>
