@@ -59,6 +59,17 @@ import { createContext, useState, useMemo } from "react";
           800: "#2a2d64",
           900: "#151632",
         },
+        yellowAccent: {
+          100: "#fff6d5",
+          200: "#ffeaa7",
+          300: "#ffdd79",
+          400: "#ffd04a",
+          500: "#ffc31c",
+          600: "#e6a800",
+          700: "#b38600",
+          800: "#806900",
+          900: "#4d4d00",
+        },
       }
     : {
         grey: {
@@ -116,6 +127,17 @@ import { createContext, useState, useMemo } from "react";
           800: "#c3c6fd",
           900: "#e1e2fe",
         },
+        yellowAccent: {
+          100: "#4d4d00",
+          200: "#806900",
+          300: "#b38600",
+          400: "#e6a800",
+          500: "#ffc31c",
+          600: "#ffd04a",
+          700: "#ffdd79",
+          800: "#ffeaa7",
+          900: "#fff6d5",
+        },
       }),
 });
 
@@ -139,7 +161,7 @@ export const themeSettings = (mode) => {
               light: colors.grey[100],
             },
             background: {
-              default: colors.primary[500],
+              default: colors.primary[900],
             },
           }
         : {

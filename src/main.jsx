@@ -9,6 +9,7 @@ import { AuthProvider } from "./context/authContext";
 import { ThemeProvider } from "@mui/material/styles";
 //import { appTheme } from "./theme/theme";
 import { Paper } from "@mui/material";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 const client = new ApolloClient({
   uri: `${import.meta.env.VITE_API_URL}/graphql`,
@@ -20,9 +21,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ApolloProvider client={client}>
       <BrowserRouter>
         <AuthProvider>
-          {/* <ThemeProvider theme={themeSettings}> */}
-          <App />
-          {/* </ThemeProvider> */}
+          <ProSidebarProvider>
+            {/* <ThemeProvider theme={themeSettings}> */}
+            <App />
+            {/* </ThemeProvider> */}
+          </ProSidebarProvider>
         </AuthProvider>
       </BrowserRouter>
     </ApolloProvider>
