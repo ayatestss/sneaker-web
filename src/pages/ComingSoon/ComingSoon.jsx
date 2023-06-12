@@ -2,7 +2,7 @@ import {
   Box,
   Grid,
   Typography,
-  InputBase,
+  TextField,
   Button,
   Alert,
   Stack,
@@ -57,17 +57,17 @@ export default function ComingSoon() {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      sx={{ padding: { xs: 0, sm: 0 } }}
+      sx={{ padding: { xs: 0, sm: 0 }, margin: "auto" }}
     >
       <Grid
         container
         alignItems="center"
         justifyContent="center"
-        spacing={4}
+        spacing={2}
         maxWidth="25rem"
         sx={{ width: "100%" }}
       >
-        <Grid item xs={10} pb={3} style={{ textAlign: "center" }}>
+        <Grid item xs={12} style={{ textAlign: "center" }}>
           <LogoAnimationDiv>
             <img
               src={Logo}
@@ -81,16 +81,18 @@ export default function ComingSoon() {
             />
           </LogoAnimationDiv>
         </Grid>
-        <Grid item xs={10} sm={10} md={8} lg={12}>
+        <Grid item xs={12}>
           <Typography
             variant="h6"
             fontWeight="bold"
             color="white"
             textAlign="center"
-            fontSize="1.5rem"
-            border="white solid 2px"
-            p={2}
-            sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
+            sx={{
+              fontSize: { xs: "1.2rem", sm: "1.5rem" },
+              border: "2px solid white",
+              borderRadius: "8px",
+              p: 1,
+            }}
           >
             Our mission is to create a platform that will cultivate a community of
             sneakerheads by giving them the power to market their brand and manage
@@ -108,98 +110,88 @@ export default function ComingSoon() {
             Join the waitlist below
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={8} md={6} lg={4}>
+         <Grid item xs={12} sm={10} md={8} lg={6}>
           <Stack
-            spacing={3}
+            spacing={2}
             sx={{
               justifyContent: "center",
               alignItems: "center",
             }}
           >
             <InputAnimationDiv>
-              <InputBase
-                sx={{
-                  border: "solid 1px white",
-borderRadius: "0.2rem",
-width: "30vh",
-background: "white",
-p: 1,
-fontSize: { xs: "0.9rem", sm: "1rem" },
-}}
-placeholder="Enter your name"
+              <TextField
+                label="Enter your name"
+id="name"
+type="text"
 value={name}
 onChange={(e) => setName(e.target.value)}
+sx={{ width: { xs: "90%", sm: "20rem" }, bgcolor: "white", mb: 1 }}
 />
 </InputAnimationDiv>
 <InputAnimationDiv>
-<InputBase
-sx={{
-border: "solid 1px white",
-borderRadius: "0.2rem",
-width: "30vh",
-background: "white",
-p: 1,
-fontSize: { xs: "0.9rem", sm: "1rem" },
-}}
-placeholder="Enter your email address"
+<TextField
+label="Enter your email address"
+type="email"
+id="email"
 value={email}
 onChange={(e) => setEmail(e.target.value)}
+sx={{ width: { xs: "90%", sm: "20rem" }, bgcolor: "white", mb: 1 }}
 />
 </InputAnimationDiv>
 <Button
-sx={{
-background: "#FFD700",
-border: "none",
-borderRadius: "0.3rem",
-color: "black",
-fontSize: { xs: "0.9rem", sm: "1rem" },
-}}
-onClick={async () => {
-try {
-await createEmail({
-variables: {
-data: {
-email: email,
-name: name,
-},
-},
-});
-console.log({ email, name });
-navigate("/confirmationPage");
-} catch (e) {
-console.log(e);
-setErrorMessage(e.message);
-}
-}}
->
+              variant="contained"
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: { xs: '50%', sm: '100%' },
+                maxWidth: 400,
+                mb: 1,
+              }}
+              onClick={async () => {
+                try {
+                  await createEmail({
+                    variables: {
+                      data: {
+                        email: email,
+                        name: name,
+                      },
+                    },
+                  });
+                  console.log({ email, name });
+                  navigate("/confirmationPage");
+                } catch (e) {
+                  console.log(e);
+                  setErrorMessage(e.message);
+                }
+              }}
+            >
 Sign Up
 </Button>
 </Stack>
 </Grid>
-<Grid item xs={12}>
-<Typography variant="body1" color="white" textAlign="center" sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}>
-Already have an account?
-<Button
-variant="text"
-sx={{
-color: "#FFD700",
-marginLeft: "0.5rem",
-fontSize: { xs: "0.9rem", sm: "1rem" },
-}}
-onClick={() => navigate("/login")}
->
-Log In
-</Button>
-</Typography>
-</Grid>
-</Grid>
-{errorMessage ? (
-<Alert severity="error" color="error" sx={{ maxWidth: "80%", marginTop: "1rem", fontSize: { xs: "0.9rem", sm: "1rem" } }}>
-{errorMessage}
-</Alert>
-) : null}
+    <Grid item xs={12}>
+      <Typography variant="body1" color="white" textAlign="center" sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}>
+        Already have an account?
+        <Button
+          variant="text"
+          sx={{
+            color: "#FFD700",
+            marginLeft: "0.5rem",
+            fontSize: { xs: "0.9rem", sm: "1rem" },
+          }}
+          onClick={() => navigate("/login")}
+        >
+          Log In
+        </Button>
+      </Typography>
+    </Grid>
+  </Grid>
+  {errorMessage ? (
+    <Alert severity="error" color="error" sx={{ maxWidth: "80%", marginTop: "1rem", fontSize: { xs: "0.9rem", sm: "1rem" } }}>
+      {errorMessage}
+    </Alert>
+  ) : null}
 </Box>
 );
 }
-
-

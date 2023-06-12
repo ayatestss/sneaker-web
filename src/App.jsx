@@ -10,6 +10,10 @@ import ContractForm from "./pages/ContractForm/ContractForm";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import HomePage from "./pages/HomePage/HomePage";
+import AboutUs from "./pages/AboutUs/AboutUs";
+import Chat from "./pages/MemberChat/MemberChat";
+import FAQ from "./pages/FAQ/FAQ";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -26,6 +30,10 @@ function App() {
         <Route path="/member" element={<ContractForm />} />
         <Route path="/" element={<ComingSoon />} />
         <Route path='/registerPage' element={<RegisterPage/>} />
+        <Route path='/homePage' element={<HomePage/>} />
+        <Route path="/MemberChat" element={<Chat />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/FAQ" element={<FAQ />} />
         <Route
           path="/test"
           element={
