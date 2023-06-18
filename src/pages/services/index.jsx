@@ -5,9 +5,8 @@ import {
   useTheme,
   Button,
   Grid,
-  TextField,
   List,
-  ListItemButton,
+  ListItem,
   ListItemIcon,
   ListItemText,
   Stack,
@@ -20,8 +19,15 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { ViewCompact, List as ListIcon } from "@mui/icons-material";
+import { useState } from "react";
 
 const Services = () => {
+  const [isListView, setIsListView] = useState(false);
+
+  const handleViewChange = () => {
+    setIsListView(!isListView);
+  };
   return (
     <Box m="20px">
       <Header
@@ -29,299 +35,229 @@ const Services = () => {
         subtitle="Add, Edit, and Delete your services you provide. List your prices, create custom packages, and more!"
       />
 
-      <Grid spacing={3}>
+      <Grid container spacing={1}>
         <List>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <ListItemButton>
-              <ListItemIcon>
-                <ViewCompact />
-              </ListItemIcon>
-              <ListItemText primary="View" />
-            </ListItemButton>
-
-            <ListItemButton>
-              <ListItemIcon>
-                <ListIcon />
-              </ListItemIcon>
-              <ListItemText primary="List" />
-            </ListItemButton>
-          </Stack>
-          <Grid item xs={12} sm={6} md={3}>
-            <Card
-              sx={{
-                maxWidth: 400,
-                paddingTop: 5,
-                paddingLeft: 5,
-                paddingRight: 5,
-              }}
+          <Box alignItems="center" justifyContent="space-between">
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
             >
-              <CardMedia
-                textalign={"center"}
-                component="img"
-                height="500"
-                width="300"
-                src="/assets/yellowrestoration.jpg"
-                alt="sneakerrestoration"
-              />
-              <Typography
-                textalign={"center"}
-                variant="h3"
-                fontWeight="600"
-                sx={{ padding: "10px 15px 10 10px" }}
+              <ListItem>
+                <ListItemIcon onClick={handleViewChange}>
+                  <ViewCompact />
+                </ListItemIcon>
+                <ListItemText primary="View" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon onClick={handleViewChange}>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="List" />
+              </ListItem>
+            </Stack>
+            <Grid item xs={12} sm={6} md={3}>
+              <Card
+                sx={{
+                  maxWidth: 400,
+                }}
               >
-                Yellow Restoration
-              </Typography>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                sx={{ padding: "10px 15px 10 10px" }}
-              >
-                You dont even have to wear sneakers for them yellow over time.
-                It happens, it looks bad but we will take care of the sneaker
-                yellowing on your kicks and make them look new.
-              </Typography>
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="center"
-                padding="10px"
-              >
-                <Button
-                  variant="contained"
-                  startIcon={<DeleteIcon />}
-                  sx={{ marginRight: "10px" }}
+                <CardMedia
+                  textAlign={"center"}
+                  component="img"
+                  height="300"
+                  width="300"
+                  src="/assets/yellowrestoration.jpg"
+                  alt="sneakerrestoration"
+                />
+                <Typography
+                  variant="h3"
+                  fontWeight="600"
+                  sx={{ padding: "10px 15px 10 10px" }}
                 >
-                  Delete
-                </Button>
-                <Button variant="contained" startIcon={<EditIcon />}>
-                  Edit
-                </Button>
-              </Box>
-            </Card>
-          </Grid>
+                  Yellow Restoration
+                </Typography>
+                <Typography
+                  variant="h5"
+                  fontWeight="600"
+                  sx={{ padding: "10px 15px 10 10px" }}
+                >
+                  You dont even have to wear sneakers for them yellow over time.
+                  It happens, it looks bad but we will take care of the sneaker
+                  yellowing on your kicks and make them look new.
+                </Typography>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  padding="10px"
+                >
+                  <Button
+                    variant="contained"
+                    startIcon={<DeleteIcon />}
+                    sx={{ marginRight: "10px" }}
+                  >
+                    Delete
+                  </Button>
+                  <Button variant="contained" startIcon={<EditIcon />}>
+                    Edit
+                  </Button>
+                </Box>
+              </Card>
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Card
-              sx={{
-                maxWidth: 400,
-                paddingTop: 5,
-                paddingLeft: 5,
-                paddingRight: 5,
-              }}
-            >
-              <CardMedia
-                textalign={"center"}
-                component="img"
-                height="300"
-                width="300"
-                src="/assets/sneakercleaning.webp"
-                alt="sneakerrestoration"
-              />
-              <Typography
-                variant="h3"
-                fontWeight="600"
-                sx={{ padding: "10px 15px 10 10px" }}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card
+                sx={{
+                  maxWidth: 400,
+                }}
               >
-                Sneaker Cleaning
-              </Typography>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                sx={{ padding: "10px 15px 10 10px" }}
-              >
-                You dont even have to wear sneakers for them yellow over time.
-                It happens, it looks bad but we will take care of the sneaker
-                yellowing on your kicks and make them look new.
-              </Typography>
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="center"
-                padding="10px"
-              >
-                <Button
-                  variant="contained"
-                  startIcon={<DeleteIcon />}
-                  sx={{ marginRight: "10px" }}
+                <CardMedia
+                  textAlign={"center"}
+                  component="img"
+                  height="300"
+                  width="300"
+                  src="/assets/sneakercleaning.webp"
+                  alt="sneakerrestoration"
+                />
+                <Typography
+                  variant="h3"
+                  fontWeight="600"
+                  sx={{ padding: "10px 15px 10 10px" }}
                 >
-                  Delete
-                </Button>
-                <Button variant="contained" startIcon={<EditIcon />}>
-                  Edit
-                </Button>
-              </Box>
-            </Card>
-          </Grid>
+                  Sneaker Cleaning
+                </Typography>
+                <Typography
+                  variant="h5"
+                  fontWeight="600"
+                  sx={{ padding: "10px 15px 10 10px" }}
+                >
+                  You dont even have to wear sneakers for them yellow over time.
+                  It happens, it looks bad but we will take care of the sneaker
+                  yellowing on your kicks and make them look new.
+                </Typography>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  padding="10px"
+                >
+                  <Button
+                    variant="contained"
+                    startIcon={<DeleteIcon />}
+                    sx={{ marginRight: "10px" }}
+                  >
+                    Delete
+                  </Button>
+                  <Button variant="contained" startIcon={<EditIcon />}>
+                    Edit
+                  </Button>
+                </Box>
+              </Card>
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Card
-              sx={{
-                maxWidth: 400,
-                paddingTop: 5,
-                paddingLeft: 5,
-                paddingRight: 5,
-              }}
-            >
-              <CardMedia
-                textalign={"center"}
-                component="img"
-                height="300"
-                width="300"
-                src="/assets/soleswap.jpeg"
-                alt="sneakerrestoration"
-              />
-              <Typography
-                variant="h3"
-                fontWeight="600"
-                sx={{ padding: "10px 15px 10 10px" }}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card
+                sx={{
+                  maxWidth: 400,
+                }}
               >
-                Sole Swap
-              </Typography>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                sx={{ padding: "10px 15px 10 10px" }}
-              >
-                This sole swap hybrid service gives you the option to take two
-                different pairs of shoes you provide and use the upper and sole
-                from each to create one hybrid sneaker.
-              </Typography>
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="center"
-                padding="10px"
-              >
-                <Button
-                  variant="contained"
-                  startIcon={<DeleteIcon />}
-                  sx={{ marginRight: "10px" }}
+                <CardMedia
+                  textAlign={"center"}
+                  component="img"
+                  height="300"
+                  width="300"
+                  src="/assets/soleswap.jpeg"
+                  alt="sneakerrestoration"
+                />
+                <Typography
+                  variant="h3"
+                  fontWeight="600"
+                  sx={{ padding: "10px 15px 10 10px" }}
                 >
-                  Delete
-                </Button>
-                <Button variant="contained" startIcon={<EditIcon />}>
-                  Edit
-                </Button>
-              </Box>
-            </Card>
-          </Grid>
+                  Sole Swap
+                </Typography>
+                <Typography
+                  variant="h5"
+                  fontWeight="600"
+                  sx={{ padding: "10px 15px 10 10px" }}
+                >
+                  This sole swap hybrid service gives you the option to take two
+                  different pairs of shoes you provide and use the upper and
+                  sole from each to create one hybrid sneaker.
+                </Typography>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  padding="10px"
+                >
+                  <Button
+                    variant="contained"
+                    startIcon={<DeleteIcon />}
+                    sx={{ marginRight: "10px" }}
+                  >
+                    Delete
+                  </Button>
+                  <Button variant="contained" startIcon={<EditIcon />}>
+                    Edit
+                  </Button>
+                </Box>
+              </Card>
+            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Card
-              sx={{
-                maxWidth: 400,
-                paddingTop: 5,
-                paddingLeft: 5,
-                paddingRight: 5,
-              }}
-            >
-              <CardMedia
-                textalign={"center"}
-                component="img"
-                height="300"
-                width="300"
-                src="/assets/iceysolerestoration.jpeg"
-                alt="sneakerrestoration"
-              />
-              <Typography
-                variant="h3"
-                fontWeight="600"
-                sx={{ padding: "10px 15px 10 10px" }}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card
+                sx={{
+                  maxWidth: 400,
+                }}
               >
-                Icey Sole Restoration
-              </Typography>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                sx={{ padding: "10px 15px 10 10px" }}
-              >
-                Even the most dingy sneaker yellowing can be brought back to icy
-                so let us bring your icy soles back! We also now have a Icy Sole
-                Masterclass so you can learn how to Ice Sneakers with sole
-                sauce!
-              </Typography>
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="center"
-                padding="10px"
-              >
-                <Button
-                  variant="contained"
-                  startIcon={<DeleteIcon />}
-                  sx={{ marginRight: "10px" }}
+                <CardMedia
+                  textAlign={"center"}
+                  component="img"
+                  height="300"
+                  width="300"
+                  src="/assets/iceysolerestoration.jpeg"
+                  alt="sneakerrestoration"
+                />
+                <Typography
+                  variant="h3"
+                  fontWeight="600"
+                  sx={{ padding: "10px 15px 10 10px" }}
                 >
-                  Delete
-                </Button>
-                <Button variant="contained" startIcon={<EditIcon />}>
-                  Edit
-                </Button>
-              </Box>
-            </Card>
-          </Grid>
+                  Icey Sole Restoration
+                </Typography>
+                <Typography
+                  variant="h5"
+                  fontWeight="600"
+                  sx={{ padding: "10px 15px 10 10px" }}
+                >
+                  Even the most dingy sneaker yellowing can be brought back to
+                  icy so let us bring your icy soles back! We also now have a
+                  Icy Sole Masterclass so you can learn how to Ice Sneakers with
+                  sole sauce!
+                </Typography>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  padding="10px"
+                >
+                  <Button
+                    variant="contained"
+                    startIcon={<DeleteIcon />}
+                    sx={{ marginRight: "10px" }}
+                  >
+                    Delete
+                  </Button>
+                  <Button variant="contained" startIcon={<EditIcon />}>
+                    Edit
+                  </Button>
+                </Box>
+              </Card>
+            </Grid>
+          </Box>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Card
-              sx={{
-                maxWidth: 400,
-                paddingTop: 5,
-                paddingLeft: 5,
-                paddingRight: 5,
-              }}
-            >
-              <CardMedia
-                textalign={"center"}
-                component="img"
-                height="300"
-                width="300"
-                src="/assets/iceysolerestoration.jpeg"
-                alt="sneakerrestoration"
-                sx={{ gridColumn: "span 2", marginBottom: "30px" }}
-              />
-              <TextField
-                fullWidth
-                variant="outlined"
-                type="text"
-                label="Enter Your Service"
-                sx={{ gridColumn: "span 2", marginBottom: "30px" }}
-              />
-              <TextField
-                fullWidth
-                variant="outlined"
-                type="text"
-                label="Enter a description "
-                sx={{ gridColumn: "span 2", marginBottom: "30px" }}
-              />{" "}
-              <TextField
-                fullWidth
-                variant="outlined"
-                type="text"
-                label="Enter a Price"
-                sx={{ gridColumn: "span 2", marginBottom: "30px" }}
-              />
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="center"
-                padding="10px"
-              >
-                <Button
-                  variant="contained"
-                  startIcon={<DeleteIcon />}
-                  sx={{ marginRight: "10px" }}
-                >
-                  Cancel
-                </Button>
-                <Button variant="contained" startIcon={<EditIcon />}>
-                  Add Service
-                </Button>
-              </Box>
-            </Card>
-          </Grid>
         </List>
       </Grid>
     </Box>
