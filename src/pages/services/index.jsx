@@ -255,6 +255,7 @@ const Services = () => {
                   startIcon={<DeleteIcon />}
                   sx={{ marginRight: "10px" }}
                 >
+
                   Delete
                 </Button>
                 <Button variant="contained" startIcon={<EditIcon />}>
