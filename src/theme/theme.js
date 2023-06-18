@@ -59,6 +59,17 @@ import { createContext, useState, useMemo } from "react";
           800: "#2a2d64",
           900: "#151632",
         },
+        yellowAccent: {
+          100: "#f9f8de",
+          200: "#f2efbd",
+          300: "#ebe69c",
+          400: "#e4de7b",
+          500: "#ddd75a",
+          600: "#bfb63f",
+          700: "#918e33",
+          800: "#635c26",
+          900: "#342517",
+        },
       }
     : {
         grey: {
@@ -115,6 +126,17 @@ import { createContext, useState, useMemo } from "react";
           700: "#a4a9fc",
           800: "#c3c6fd",
           900: "#e1e2fe",
+        },
+        yellowAccent: {
+          100: "#e0dca9",
+          200: "#c2c577",
+          300: "#a3a046",
+          400: "#858515",
+          500: "#666600",
+          600: "#525200",
+          700: "#3d3d00",
+          800: "#292900",
+          900: "#141400",
         },
       }),
 });

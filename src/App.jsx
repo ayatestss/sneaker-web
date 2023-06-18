@@ -15,7 +15,7 @@ import Services from "./pages/services";
 import Invoices from "./pages/invoices";
 import FAQ from "./pages/faq";
 import Topbar from "./dashboard/TopBar";
-//import Sidebar from "./dashboard/Sidebar";
+import Sidebar from "./dashboard/NewSideBar";
 import MemberSettings from "./pages/membersettings";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";

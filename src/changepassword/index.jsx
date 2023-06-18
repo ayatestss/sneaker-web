@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  TextField,
-  Button,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { TextField, Button, Box } from "@mui/material";
 import * as yup from "yup";
+import { Formik } from "formik";
 
 const ChangePasswordPage = () => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -60,49 +53,59 @@ const ChangePasswordPage = () => {
   });
 
   return (
-    <Accordion>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="change-password-content"
-        id="change-password-header"
-      >
-        <Typography>Change Password</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
+    <Box m="20px">
+      <Formik>
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="Current Password"
-            variant="outlined"
-            type="password"
-            value={currentPassword}
-            onChange={handleCurrentPasswordChange}
-            error={!!errors.currentPassword}
-            helperText={errors.currentPassword}
-          />
-          <TextField
-            label="New Password"
-            variant="outlined"
-            type="password"
-            value={newPassword}
-            onChange={handleNewPasswordChange}
-            error={!!errors.newPassword}
-            helperText={errors.newPassword}
-          />
-          <TextField
-            label="Confirm Password"
-            variant="outlined"
-            type="password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword}
-          />
-          <Button variant="contained" color="primary" type="submit">
-            Save
-          </Button>
+          <Box
+            display="grid"
+            gap="30px"
+            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+            sx={{
+              "& > div": { gridColumn: "span 4" },
+            }}
+          >
+            <TextField
+              fullWidth
+              label="Current Password"
+              variant="filled"
+              type="password"
+              value={currentPassword}
+              onChange={handleCurrentPasswordChange}
+              error={!!errors.currentPassword}
+              helperText={errors.currentPassword}
+              sx={{ gridColumn: "span 2" }}
+            />
+            <TextField
+              fullWidth
+              label="New Password must be at least 8 characters"
+              variant="filled"
+              type="password"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+              error={!!errors.newPassword}
+              helperText={errors.newPassword}
+              sx={{ gridColumn: "span 2" }}
+            />
+            <TextField
+              fullWidth
+              label="Confirm Password"
+              variant="filled"
+              type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword}
+              sx={{ gridColumn: "span 2" }}
+            />
+          </Box>
+          <Box display="flex" justifyContent="end" mt="20px">
+            <Button type="submit" color="secondary" variant="contained">
+              Save Changes
+            </Button>
+          </Box>
         </form>
-      </AccordionDetails>
-    </Accordion>
+      </Formik>
+    </Box>
   );
 };
 

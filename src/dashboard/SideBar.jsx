@@ -36,7 +36,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const OldSidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -64,138 +64,138 @@ const Sidebar = () => {
         height: 1000,
       }}
     >
-      {/* <ProSidebar collapsed={isCollapsed}> */}
-      <Menu iconShape="square">
-        {/* LOGO AND MENU ICON */}
-        <MenuItem
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-          style={{
-            margin: "10px 0 20px 0",
-            color: colors.grey[100],
-          }}
-        >
+      <ProSidebar collapsed={isCollapsed}>
+        <Menu iconShape="square">
+          {/* LOGO AND MENU ICON */}
+          <MenuItem
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            style={{
+              margin: "10px 0 20px 0",
+              color: colors.grey[100],
+            }}
+          >
+            {!isCollapsed && (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                ml="15px"
+              >
+                <Typography variant="h3" color={colors.grey[100]}>
+                  ADMINIS
+                </Typography>
+                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                  <MenuOutlinedIcon />
+                </IconButton>
+              </Box>
+            )}
+          </MenuItem>
+
           {!isCollapsed && (
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              ml="15px"
-            >
-              <Typography variant="h3" color={colors.grey[100]}>
-                ADMINIS
-              </Typography>
-              <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                <MenuOutlinedIcon />
-              </IconButton>
+            <Box mb="25px">
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <img
+                  alt="profile-user"
+                  width="200px"
+                  height="200px"
+                  src={`../../assets/SNEAKER SOCIETY (Transparency).png`}
+                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                />
+              </Box>
             </Box>
           )}
-        </MenuItem>
 
-        {!isCollapsed && (
-          <Box mb="25px">
-            <Box display="flex" justifyContent="center" alignItems="center">
-              <img
-                alt="profile-user"
-                width="200px"
-                height="200px"
-                src={`../../assets/SNEAKER SOCIETY (Transparency).png`}
-                style={{ cursor: "pointer", borderRadius: "50%" }}
-              />
-            </Box>
+          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+            <Typography
+              variant="h6"
+              color={colors.grey[100]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Main Menu
+            </Typography>
+            <Item
+              title="Dashboard"
+              to="/"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Explore"
+              to="/"
+              icon={<ExploreIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Banking"
+              to="/invoices"
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Services"
+              to="/services"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Messages"
+              to="/"
+              icon={<MessageIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Groups"
+              to="/"
+              icon={<GroupsIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <IconButton onClick={colorMode.toggleColorMode}>
+              {theme.palette.mode === "dark" ? (
+                <DarkModeOutlinedIcon />
+              ) : (
+                <LightModeOutlinedIcon />
+              )}
+            </IconButton>
+
+            <Typography
+              variant="h6"
+              color={colors.grey[100]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Account
+            </Typography>
+
+            <Item
+              title="Help"
+              to="/faq"
+              icon={<HelpOutlineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Member Settings"
+              to="/membersettings"
+              icon={<SettingsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </Box>
-        )}
-
-        <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-          <Typography
-            variant="h6"
-            color={colors.grey[100]}
-            sx={{ m: "15px 0 5px 20px" }}
-          >
-            Main Menu
-          </Typography>
-          <Item
-            title="Dashboard"
-            to="/"
-            icon={<HomeOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-          <Item
-            title="Explore"
-            to="/"
-            icon={<ExploreIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-          <Item
-            title="Banking"
-            to="/invoices"
-            icon={<ReceiptOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-
-          <Item
-            title="Services"
-            to="/services"
-            icon={<PersonOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-
-          <Item
-            title="Messages"
-            to="/"
-            icon={<MessageIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-
-          <Item
-            title="Groups"
-            to="/"
-            icon={<GroupsIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-
-          <IconButton onClick={colorMode.toggleColorMode}>
-            {theme.palette.mode === "dark" ? (
-              <DarkModeOutlinedIcon />
-            ) : (
-              <LightModeOutlinedIcon />
-            )}
-          </IconButton>
-
-          <Typography
-            variant="h6"
-            color={colors.grey[100]}
-            sx={{ m: "15px 0 5px 20px" }}
-          >
-            Account
-          </Typography>
-
-          <Item
-            title="Help"
-            to="/faq"
-            icon={<HelpOutlineOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-
-          <Item
-            title="Member Settings"
-            to="/membersettings"
-            icon={<SettingsOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-        </Box>
-      </Menu>
-      {/* </ProSidebar> */}
+        </Menu>
+      </ProSidebar>
     </Box>
   );
 };
 
-export default Sidebar;
+export default OldSidebar;
