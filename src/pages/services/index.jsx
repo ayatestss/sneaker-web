@@ -19,7 +19,6 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { ViewCompact, List as ListIcon } from "@mui/icons-material";
 import { useState } from "react";
 
 const Services = () => {
@@ -257,7 +256,6 @@ const Services = () => {
               </Card>
             </Grid>
           </Box>
-
         </List>
       </Grid>
     </Box>
