@@ -15,7 +15,7 @@ import Services from "./pages/services";
 import Invoices from "./pages/invoices";
 import FAQ from "./pages/faq";
 import Topbar from "./dashboard/TopBar";
-//import Sidebar from "./dashboard/Sidebar";
+import Sidebar from "./dashboard/Sidebar";
 import MemberSettings from "./pages/membersettings";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";
@@ -34,14 +34,15 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="App">
-          {/* <Sidebar isSidebar={isSidebar} /> */}
-          <Topbar setIsSidebar={setIsSidebar} />
-          <Routes>
-            {/* <Route path="/login" element={<LoginPage />} /> */}
-            {/* <Route path="/member" element={<ContractForm />} /> */}
-            <Route path="/" element={<ComingSoon />} />
-            <Route path="/confirmationPage" element={<ConfirmationPage />} />
-            {/* <Route
+          <div className="content-container">
+            <Topbar setIsSidebar={setIsSidebar} />{" "}
+            {/* <Sidebar isSidebar={isSidebar} /> */}
+            <Routes>
+              {/* <Route path="/login" element={<LoginPage />} /> */}
+              {/* <Route path="/member" element={<ContractForm />} /> */}
+              <Route path="/" element={<ComingSoon />} />
+              <Route path="/confirmationPage" element={<ConfirmationPage />} />
+              {/* <Route
           path="/test"
           element={
             <ProtectedRoute status={status}>
@@ -49,14 +50,15 @@ function App() {
             </ProtectedRoute>
           }
         /> */}
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="*" element={<ErrorPage />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/invoices" element={<Invoices />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/membersettings" element={<MemberSettings />} />
-            <Route path="/MemberChat" element={<MemberChat />} />
-          </Routes>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="*" element={<ErrorPage />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/invoices" element={<Invoices />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/membersettings" element={<MemberSettings />} />
+              <Route path="/MemberChat" element={<MemberChat />} />
+            </Routes>
+          </div>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

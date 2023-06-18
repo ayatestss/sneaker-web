@@ -11,6 +11,8 @@ import {
   ListItemText,
   Stack,
 } from "@mui/material";
+import { ViewCompact, List as ListIcon } from "@mui/icons-material";
+
 //import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import Card from "@mui/material/Card";
@@ -28,7 +30,10 @@ const Services = () => {
   };
   return (
     <Box m="20px">
-      <Header title="Services" subtitle="List of Services" />
+      <Header
+        title="Services"
+        subtitle="Add, Edit, and Delete your services you provide. List your prices, create custom packages, and more!"
+      />
 
       <Grid container spacing={1}>
         <List>
@@ -252,6 +257,7 @@ const Services = () => {
               </Card>
             </Grid>
           </Box>
+
         </List>
       </Grid>
     </Box>
