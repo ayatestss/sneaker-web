@@ -1,4 +1,4 @@
-import { Button, Container } from "@mui/material";
+import { Button, Container, Box } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation } from "@apollo/client";
@@ -246,27 +246,27 @@ export default function LoginPage() {
           Create an Account
         </Link>
       </Typography>
-      <Snackbar
-            open={error !== null || successMessage !== null}
-            autoHideDuration={3000}
-            onClose={handleCloseSnackbar}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            action={(key) => (
-              <Button color="secondary" size="small" onClick={handleCloseSnackbar}>
-                Close
-        </Button>
-      )}
-    >
-      {error ? (
-        <Alert onClose={handleCloseSnackbar} severity="error">
-          {error}
-        </Alert>
-      ) : (
-        <Alert onClose={handleCloseSnackbar} severity="success">
-          {successMessage}
-        </Alert>
-      )}
-    </Snackbar>
+<Snackbar
+  open={error !== null || successMessage !== null}
+  autoHideDuration={3000}
+  onClose={handleCloseSnackbar}
+  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+  action={(key) => (
+    <Button color="secondary" size="small" onClick={handleCloseSnackbar}>
+      Close
+    </Button>
+  )}
+>
+  {error ? (
+    <Alert onClose={handleCloseSnackbar} severity="error">
+      {error}
+    </Alert>
+  ) : (
+    <Alert onClose={handleCloseSnackbar} severity="success">
+      {successMessage}
+    </Alert>
+  )}
+</Snackbar>
     </Box>
   </Box>
       <Box
@@ -319,7 +319,6 @@ export default function LoginPage() {
 );
 }
 
-export default LoginPage;
 
   //   <Grid container sx={{ height: '100vh', bgcolor: 'black' }}>
   //     <Grid item xs={12} sm={6} display="flex" flexDirection="column" alignItems="center" justifyContent="center">

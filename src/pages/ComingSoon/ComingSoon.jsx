@@ -61,85 +61,133 @@ export default function ComingSoon() {
   };
 
   return (
-    <Box sx={{ bgcolor: "background.default", height: "100vh" }}>
-      <Stack alignItems="center" spacing={3} pb={7} width="auto">
-        <img src={Logo} style={{ height: "30vh", width: "auto" }} />
-        <Typography
-          variant="h4"
-          fontStyle="italic"
-          color="white"
-          textAlign="center"
-          width="38vh"
-          fontSize="2.6vh"
-        >
-          Our mission is to create a platform that will cultivate a community of
-          sneakerheads by giving them the power to market their brand and manage
-          their business.
-        </Typography>
-        <Typography
-          variant="h6"
-          fontWeight="bold"
-          color="white"
-          textAlign="center"
-          fontSize="1.7rem"
-        >
-          Join the waitlist below
-        </Typography>
-
-        <Stack
-          spacing={3}
-          sx={{
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <InputBase
-            style={{
-              border: "solid white",
-              borderRadius: "0.2rem",
-              minWidth: "25vh",
-              background: "white",
-            }}
-            placeholder="Enter your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <InputBase
-            style={{
-              border: "solid white",
-              borderRadius: "0.2rem",
-              minWidth: "25vh",
-              background: "white",
-            }}
-            placeholder="Enter your email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            onClick={async () => {
-              try {
-                await createEmail({
-                  variables: {
-                    data: {
-                      name: name,
-                      email: email,
-                    },
-                  },
-                });
-                navigate("/confirmationPage");
-              } catch (e) {
-                console.log(e);
-                setErrorMessage(e.message);
-              }
+    <Box
+      bgcolor="black"
+      minHeight="100vh"
+      height="auto"
+      width="100%"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ padding: { xs: 0, sm: 0 }, margin: "auto" }}
+    >
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="center"
+        spacing={2}
+        maxWidth="25rem"
+        sx={{ width: "100%" }}
+      >
+        <Grid item xs={12} style={{ textAlign: "center" }}>
+          <LogoAnimationDiv>
+            <img
+              src={Logo}
+              alt="Logo"
+              style={{
+                height: "auto",
+                width: "100%",
+                maxWidth: "25rem",
+                objectFit: "contain",
+              }}
+            />
+          </LogoAnimationDiv>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            color="white"
+            textAlign="center"
+            sx={{
+              fontSize: { xs: "1.2rem", sm: "1.5rem" },
+              border: "2px solid white",
+              borderRadius: "8px",
+              p: 1,
             }}
           >
-            Sign Up
-          </Button>
-        </Stack>
-      </Stack>
-      {errorMessage ? (
-        <Alert severity="error" color="error">
+            Our mission is to create a platform that will cultivate a community of sneakerheads by giving them the power to market their brand and manage their business.
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            color="white"
+            textAlign="center"
+            sx={{ fontSize: { xs: "1.4rem", sm: "1.7rem" } }}
+          >
+            Join the waitlist below
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={10} md={8} lg={6}>
+          <Stack spacing={2} sx={{ justifyContent: "center", alignItems: "center" }}>
+            <InputAnimationDiv>
+              <TextField
+                label="Enter your first name"
+                id="firstName"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                sx={{ width: { xs: "90%", sm: "20rem" }, bgcolor: "white", mb: 1 }}
+              />
+            </InputAnimationDiv>
+            <InputAnimationDiv>
+              <TextField
+                label="Enter your last name"
+                id="lastName"
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                sx={{ width: { xs: "90%", sm: "20rem" }, bgcolor: "white", mb: 1 }}
+              />
+            </InputAnimationDiv>
+            <InputAnimationDiv>
+              <TextField
+                label="Enter your email address"
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                sx={{ width: { xs: "90%", sm: "20rem" }, bgcolor: "white", mb: 1 }}
+              />
+            </InputAnimationDiv>
+            <Button
+              variant="contained"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: { xs: "50%", sm: "100%" },
+                maxWidth: 400,
+                mb: 1,
+              }}
+              onClick={handleSignUp}
+              disabled={loading}
+            >
+              {loading ? "Signing Up..." : "Sign Up"}
+            </Button>
+          </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body1" color="white" textAlign="center" sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}>
+            Already have an account?
+            <Button
+              variant="text"
+              sx={{
+                color: "#FFD700",
+                marginLeft: "0.5rem",
+                fontSize: { xs: "0.9rem", sm: "1rem" },
+              }}
+              onClick={() => navigate("/login")}
+            >
+              Log In
+            </Button>
+          </Typography>
+        </Grid>
+      </Grid>
+      {errorMessage && (
+        <Alert severity="error" color="error" sx={{ maxWidth: "80%", marginTop: "1rem", fontSize: { xs: "0.9rem", sm: "1rem" } }}>
           {errorMessage}
         </Alert>
       )}
