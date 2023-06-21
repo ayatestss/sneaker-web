@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
-import { Box, Button, InputBase, Stack, Snackbar, Grid, Typography, TextField, Checkbox, FormControlLabel, IconButton } from '@mui/material';
-import Logo from '../../assets/ss-logo.svg';
-import { Link } from 'react-router-dom';
-import { signInWithEmailAndPassword } from '../../auth/services';
-import { FirebaseAuth } from '../../auth/firebase';
-import Alert from '@mui/lab/Alert';
+import { Button, Container } from "@mui/material";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../context/authContext";
+import { useMutation } from "@apollo/client";
 
-function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { handleLoginWithGoogle, handleLogOut } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();

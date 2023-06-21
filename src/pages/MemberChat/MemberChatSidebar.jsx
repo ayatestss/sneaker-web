@@ -10,11 +10,9 @@ import {
   TextField,
   Typography,
   IconButton,
-  useMediaQuery,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-
-const MemberChatSidebar = ({ onClose, selectUser }) => {
+import CloseIcon from "@mui/icons-material/Close"; // Import CloseIcon for the 'X' button
+const MemberChatSidebar = ({ onClose }) => {
   const [conversations, setConversations] = useState([
     { name: "Jane", message: "Hey! How are you?", timestamp: "2 minutes ago" },
     {
@@ -24,35 +22,20 @@ const MemberChatSidebar = ({ onClose, selectUser }) => {
     },
     { name: "Alice", message: "Did you get my email?", timestamp: "1 day ago" },
   ]);
-
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedUser, setSelectedUser] = useState(null);
-
   const filteredConversations = conversations.filter((conversation) =>
     conversation.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const handleUserClick = (name) => {
-    const selectedUser = conversations.find(
-      (conversation) => conversation.name === name
-    );
-    setSelectedUser(selectedUser);
-    selectUser(name);
-  };
-
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
   return (
-    <Drawer variant={isMobile ? "temporary" : "permanent"} onClose={onClose}>
+    <Drawer variant="permanent">
       <Box sx={{ p: 2 }}>
-        {isMobile && (
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <IconButton onClick={onClose} aria-label="close-sidebar">
-              <CloseIcon />
-            </IconButton>
-          </Box>
-        )}
-        <Typography variant="h6">Messages</Typography>
+        {/* Add a Box component to wrap the 'X' button */}
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <IconButton onClick={onClose} aria-label="close-sidebar">
+            <CloseIcon />
+          </IconButton>
+        </Box>
+        <Typography>Messages</Typography>
         <TextField
           label="Search"
           value={searchTerm}
@@ -62,39 +45,29 @@ const MemberChatSidebar = ({ onClose, selectUser }) => {
         />
         <List>
           {filteredConversations.map((conversation, index) => (
-            <ListItem
-              key={index}
-              button
-              sx={{ px: 1, py: 2 }}
-              onClick={() => handleUserClick(conversation.name)}
-            >
+            <ListItem key={index} button sx={{ px: 1, py: 2 }}>
               <ListItemAvatar>
-                <Avatar>
-                  {selectedUser && selectedUser.name === conversation.name
-                    ? selectedUser.name[0].toUpperCase()
-                    : ""}
-                </Avatar>
+                <Avatar />
               </ListItemAvatar>
-      <ListItemText
-        primary={
-          <Typography variant="subtitle1" sx={{ display: { sm: "none", xs: "block" } }}>
-            {conversation.name}
-          </Typography>
-        }
-        secondary={
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              mt: isMobile ? 1 : 0,
-            }}
-          >
-            <Typography variant="body2">{conversation.message}</Typography>
-            <Typography variant="caption">{conversation.timestamp}</Typography>
-          </Box>
-        }
-      />
+              <ListItemText
+                primary={
+                  <Typography variant="subtitle1">
+                    {conversation.name}
+                  </Typography>
+                }
+                secondary={
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Typography variant="body2">
+                      {conversation.message}
+                    </Typography>
+                    <Typography variant="caption">
+                      {conversation.timestamp}
+                    </Typography>
+                  </Box>
+                }
+              />
             </ListItem>
           ))}
         </List>
@@ -102,5 +75,4 @@ const MemberChatSidebar = ({ onClose, selectUser }) => {
     </Drawer>
   );
 };
-
 export default MemberChatSidebar;
