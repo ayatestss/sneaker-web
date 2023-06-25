@@ -1,12 +1,22 @@
-import { Button, Container, Box } from "@mui/material";
+import { Button, Container, Box, Typography, TextField } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation } from "@apollo/client";
+import IconButton from '@material-ui/core/IconButton';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { Link } from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@mui/material/Alert';
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState(null);
+const [successMessage, setSuccessMessage] = useState(null);
+  
+  const Logo = "https://via.placeholder.com/150";
   const { handleLoginWithGoogle, handleLogOut } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
@@ -148,14 +158,16 @@ export default function LoginPage() {
           }}
         >
           <TextField
+                    style={{background: 'black'}}
             label="Email"
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            sx={{ width: '100%', bgcolor: 'white', mb: 2 }}
+            sx={{ width: '100%', bgcolor: 'white', mb: 2, color: 'black' }}
           />
           <TextField
+          style={{background: 'black'}}
             label="Password"
             type="password"
             required
