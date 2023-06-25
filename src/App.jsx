@@ -18,6 +18,7 @@ import Sidebar from "./dashboard/Sidebar";
 import MemberSettings from "./pages/membersettings";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";
+import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -50,6 +51,7 @@ function App() {
                 }
               />
               <Route path="*" element={<ErrorPage />} />
+              <Route path="/HomePage" element={<HomePage />} />
               <Route path="/services" element={<Services />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/faq" element={<FAQ />} />
