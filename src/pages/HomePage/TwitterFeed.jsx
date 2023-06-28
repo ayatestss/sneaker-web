@@ -1,22 +1,27 @@
-import React from 'react';
-import { TwitterTimelineEmbed } from 'react-twitter-embed';
+import React, { useEffect } from 'react';
 
 const TwitterFeed = () => {
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    script.async = true;
+    document.getElementsByClassName("twitter-embed")[0].appendChild(script);
+  }, []);
+
   return (
-    <div style={{ 
-      width: '100%', // set the width of container to be 100% of its parent component
-      maxWidth: '800px', // limit the maximum width of container to 800px
-      overflow: 'auto', // add scroll bars if the content inside overflows the container
-      margin: '0 auto', // center the container horizontally
-      background: 'black'
+    <div className="twitter-embed" style={{
+      height: '200px', // adjust the height to your preference
+      width: '300px', // adjust the width to your preference
+      overflow: 'auto', // add scroll bars
+      margin: '0 auto', // center the container
+      padding: '10px', // add some padding around the tweets
+      borderRadius: '10px', // round the corners of the box
+      background: '#F5F8FA' // light gray background to match Twitter's style
     }}>
-      <TwitterTimelineEmbed
-        sourceType="profile"
-        screenName="elonmusk"
-        options={{height: 400, theme: 'dark', transparent: true}}
-      />
+      <a className="twitter-timeline" href="https://twitter.com/elonmusk?ref_src=twsrc%5Etfw">Tweets by elonmusk</a>
     </div>
-  );x
+  );
 }
 
 export default TwitterFeed;

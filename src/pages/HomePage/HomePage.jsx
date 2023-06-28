@@ -3,6 +3,7 @@ import Header from './Header';
 import HeroSection from './HeroSection';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
+import TwitterFeed from './TwitterFeed';
 
 
 function HomePage() {
@@ -16,6 +17,7 @@ function HomePage() {
       <Header toggleSidebar={toggleSidebar} />
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <HeroSection />
+      {/* <TwitterFeed /> */}
       <Footer />
     </>
   );

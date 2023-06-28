@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 const sections = [
   { id: 'HomePage', title: 'Home Page', path: '/HomePage' },
   { id: 'section2', title: 'Section 2', path: '/section2' },
-  { id: 'AboutUs', title: 'About Us', path: '/AboutUs' },
+  { id: 'AboutUs', title: 'About Us', path: '../AboutUs/AboutUs' },
   { id: 'Contact', title: 'Contact', path: '/contact' },
   { id: 'Member Chat', title: 'Chat', path: '/MemberChat' },
 ];
