@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 
 export default function PhotoUpload() {
