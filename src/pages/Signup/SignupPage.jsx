@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Link, Link as RouterLink } from "react-router-dom";
+import { useMutation, gql } from "@apollo/client";
 
 import {
   Box,
@@ -20,6 +21,34 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
+const SIGNUP_MUTATION = gql`
+  mutation Signup(
+    $firstName: String!
+    $lastName: String!
+    $dob: String!
+    $email: String!
+    $password: String!
+    $address: String!
+  ) {
+    signup(
+      firstName: $firstName
+      lastName: $lastName
+      dob: $dob
+      email: $email
+      password: $password
+      address: $address
+    ) {
+      id
+      firstName
+      lastName
+      dob
+      email
+      password
+      address
+    }
+  }
+`;
+
 const SignupPage = () => {
   const [level, setLevel] = useState();
   const [showPassword, setShowPassword] = useState();
@@ -35,6 +64,8 @@ const SignupPage = () => {
   useEffect(() => {
     changePassword();
   }, []);
+
+  const [signup] = useMutation(SIGNUP_MUTATION);
 
   return (
     <>
@@ -63,6 +94,20 @@ const SignupPage = () => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
+            const { data } = await signup({
+              variables: {
+                firstName: values.firstname,
+                lastName: values.lastname,
+                dob: values.dob,
+                email: values.email,
+                password: values.password,
+                address: values.address,
+              },
+            });
+
+            // Handle successful signup
+            console.log("User signed up successfully:", data.signup);
+
             setStatus({ success: false });
             setSubmitting(false);
           } catch (err) {
