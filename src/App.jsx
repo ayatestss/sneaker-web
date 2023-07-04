@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./pages/Login/LoginPage";
+import SignupPage from "./pages/Signup/SignupPage";
 import ErrorPage from "./pages/ErrorPage";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/authContext";
@@ -39,6 +40,7 @@ function App() {
             {/* <Sidebar isSidebar={isSidebar} /> */}
             <Routes>
               {/* <Route path="/login" element={<LoginPage />} /> */}
+              <Route path="/signup" element={<SignupPage />} />
               {/* <Route path="/member" element={<ContractForm />} /> */}
               <Route path="/" element={<ComingSoon />} />
               <Route path="/confirmationPage" element={<ConfirmationPage />} />
@@ -50,6 +52,7 @@ function App() {
             </ProtectedRoute>
           }
         /> */}
+
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="*" element={<ErrorPage />} />
               <Route path="/services" element={<Services />} />
