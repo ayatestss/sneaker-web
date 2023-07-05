@@ -12,7 +12,7 @@ import ComingSoon from "./pages/ComingSoon/ComingSoon";
 import ConfirmationPage from "./pages/ComingSoon/ConfirmationPage";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode, ColorModeContext } from "./theme/theme";
-import Services from "./pages/services";
+import Services from "./pages/services/Services";
 import Invoices from "./pages/invoices";
 import FAQ from "./pages/faq";
 import Topbar from "./dashboard/TopBar";
