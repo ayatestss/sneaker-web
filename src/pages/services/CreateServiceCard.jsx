@@ -3,6 +3,11 @@ import { Grid, Box, TextField, Button, Card, CardMedia } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
+// The CreateServiceCard component is responsible for rendering a card to
+// create a new service. It displays an image, text fields for entering the
+// service name, description, and price, as well as buttons for canceling
+// and adding the service.
+
 const CreateServiceCard = ({
   newService,
   handleInputChange,
