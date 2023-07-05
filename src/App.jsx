@@ -1,8 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./pages/Login/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/authContext";
 import { ProtectedRoute } from "./components/PrivateRoute";
 import ContractForm from "./pages/ContractForm/ContractForm";
@@ -18,7 +19,6 @@ import Sidebar from "./dashboard/Sidebar";
 import MemberSettings from "./pages/membersettings";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";
-import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -35,23 +35,23 @@ function App() {
         <CssBaseline />
         <div className="App">
           <div className="content-container">
-            <Topbar setIsSidebar={setIsSidebar} />
-            <Sidebar isSidebar={isSidebar} />
+            <Topbar setIsSidebar={setIsSidebar} />{" "}
+            {/* <Sidebar isSidebar={isSidebar} /> */}
             <Routes>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/member" element={<ContractForm />} />
+              {/* <Route path="/login" element={<LoginPage />} /> */}
+              {/* <Route path="/member" element={<ContractForm />} /> */}
               <Route path="/" element={<ComingSoon />} />
               <Route path="/confirmationPage" element={<ConfirmationPage />} />
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute status={status}>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
+              {/* <Route
+          path="/test"
+          element={
+            <ProtectedRoute status={status}>
+              <h1>Test Private</h1>
+            </ProtectedRoute>
+          }
+        /> */}
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="*" element={<ErrorPage />} />
-              <Route path="/HomePage" element={<HomePage />} />
               <Route path="/services" element={<Services />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/faq" element={<FAQ />} />
@@ -62,7 +62,7 @@ function App() {
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
-  )
+  );
 }
 
 export default App;
