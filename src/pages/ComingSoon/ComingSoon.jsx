@@ -80,7 +80,6 @@ export default function ComingSoon() {
         sx={{ width: "100%" }}
       >
         <Grid item xs={12} style={{ textAlign: "center" }}>
-          <LogoAnimationDiv>
             <img
               src={Logo}
               alt="Logo"
@@ -91,7 +90,6 @@ export default function ComingSoon() {
                 objectFit: "contain",
               }}
             />
-          </LogoAnimationDiv>
         </Grid>
         <Grid item xs={12}>
           <Typography
