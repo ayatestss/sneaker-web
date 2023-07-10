@@ -122,30 +122,36 @@ export default function ComingSoon() {
         </Grid>
         <Grid item xs={12} sm={10} md={8} lg={6}>
           <Stack spacing={2} sx={{ justifyContent: "center", alignItems: "center" }}>
+            <InputAnimationDiv>
               <TextField
                 label="Enter your first name"
                 id="firstName"
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
+                sx={{ width: { xs: "90%", sm: "20rem" }, bgcolor: "white", mb: 1 }}
               />
+            </InputAnimationDiv>
+            <InputAnimationDiv>
               <TextField
                 label="Enter your last name"
                 id="lastName"
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
+                sx={{ width: { xs: "90%", sm: "20rem" }, bgcolor: "white", mb: 1 }}
               />
+            </InputAnimationDiv>
+            <InputAnimationDiv>
               <TextField
                 label="Enter your email address"
                 type="email"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
+                sx={{ width: { xs: "90%", sm: "20rem" }, bgcolor: "white", mb: 1 }}
               />
+            </InputAnimationDiv>
             <Button
               variant="contained"
               sx={{
