@@ -1,3 +1,4 @@
+
 import { Button, Container, Box, Typography, TextField } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -8,7 +9,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@mui/material/Alert';
-
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -326,137 +326,15 @@ const [successMessage, setSuccessMessage] = useState(null);
     >
       For all your Sneaker needs. Business or Personal
     </Typography>
+    <div>
+      <Button variant="contained" onClick={handleLogin}>
+        Login
+      </Button>
+      <Button variant="contained" onClick={handleLogOut}>
+        Logout
+      </Button>
+    </div>
   </Box>
 </Box>
 );
 }
-
-
-  //   <Grid container sx={{ height: '100vh', bgcolor: 'black' }}>
-  //     <Grid item xs={12} sm={6} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-  //       <Box pb={3} style={{ textAlign: 'center' }}>
-  //         <img
-  //           src={Logo}
-  //           alt="Logo"
-  //           sx={{
-  //             height: 'auto',
-  //             width: '100%',
-  //             maxWidth: { xs: '15rem', sm: '25rem' },
-  //             objectFit: 'contain',
-  //           }}
-  //         />
-  //       </Box>
-  //       <Stack spacing={3} pb={7}>
-  //         <InputBase
-  //           sx={{
-  //             border: 'solid white',
-  //             borderRadius: '0.2rem',
-  //             width: { xs: '80vw', sm: '30vh' },
-  //             height: '5vh',
-  //             fontSize: { xs: '1.5vh', sm: '2vh' },
-  //             background: 'white',
-  //           }}
-  //           placeholder="Enter your email address"
-  //           required
-  //           id="email"
-  //           type="email"
-  //           value={email}
-  //           onChange={(e) => setEmail(e.target.value)}
-  //         />
-  //         <InputBase
-  //           sx={{
-  //             border: 'solid white',
-  //             borderRadius: '0.2rem',
-  //             width: { xs: '80vw', sm: '30vh' },
-  //             height: '5vh',
-  //             fontSize: { xs: '1.5vh', sm: '2vh' },
-  //             background: 'white',
-  //           }}
-  //           placeholder="Enter your password"
-  //           required
-  //           id="password"
-  //           type="password"
-  //           value={password}
-  //           onChange={(e) => setPassword(e.target.value)}
-  //         />
-  //         <Stack direction="row" justifyContent="center">
-  //           <Button variant="contained" onClick={handleLogin}>
-  //             Login
-  //           </Button>
-  //         </Stack>
-  //         <Stack direction='row' justifyContent='center' spacing={2}>
-  //         <Link
-  //           to="/passwordReset"
-  //           style={{
-  //             textDecoration: 'none',
-  //             color: '#FFD700',
-  //             fontWeight: 'bold',
-  //             textAlign: 'center',
-  //             marginTop: '1rem',
-  //           }}
-  //         >
-  //           Forgot Password?
-  //         </Link>
-  //         <Link
-  //           to="/registerPage"
-  //           style={{
-  //             textDecoration: 'none',
-  //             color: '#FFD700',
-  //             fontWeight: 'bold',
-  //             textAlign: 'center',
-  //             marginTop: '1rem',
-  //           }}
-  //         >
-  //           Create an Account
-  //         </Link>
-  //         </Stack>
-  //         <Snackbar
-  //           open={error !== null || successMessage !== null}
-  //           autoHideDuration={3000}
-  //           onClose={handleCloseSnackbar}
-  //           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-  //           action={(key) => (
-  //             <Button color="secondary" size="small" onClick={handleCloseSnackbar}>
-  //               Close
-  //       </Button>
-  //     )}
-  //   >
-  //     {error ? (
-  //       <Alert onClose={handleCloseSnackbar} severity="error">
-  //         {error}
-  //       </Alert>
-  //     ) : (
-  //       <Alert onClose={handleCloseSnackbar} severity="success">
-  //         {successMessage}
-  //       </Alert>
-  //     )}
-  //   </Snackbar>
-  //   </Stack>
-  // </Grid>
-  //     <Grid
-  //       item
-  //       xs={12}
-  //       sm={6}
-  //       sx={{ bgcolor: 'white', display: { xs: 'none', sm: 'block' } }}
-  //     >
-  //       <Box
-  //         display="flex"
-  //         alignItems="center"
-  //         justifyContent="flex-end"
-  //         width="100%"
-  //         height="100%"
-  //       >
-  //         <Typography
-  //           style={{
-  //             height: '100%',
-  //             width: '100%',
-  //             maxWidth: '30rem',
-  //             maxHeight: '30rem',
-  //             objectFit: 'contain',
-  //           }}
-  //         >
-  //           Hello
-  //         </Typography>
-  //       </Box>
-  //   </Grid>
-  //   </Grid>
