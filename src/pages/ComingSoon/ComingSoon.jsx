@@ -5,6 +5,7 @@ import Logo from "../../assets/ss-logo.svg";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CREATE_EMAIL } from "../ComingSoon/graphql/addEmail";
+// reverted code
 
 export default function ComingSoon() {
   const navigate = useNavigate();
