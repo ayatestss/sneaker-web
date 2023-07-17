@@ -8,6 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@mui/material/Alert';
+// reverted and updated code
 
 
 export default function LoginPage() {
