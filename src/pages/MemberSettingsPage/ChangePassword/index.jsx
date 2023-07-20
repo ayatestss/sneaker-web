@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
 
 const ChangePasswordPage = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +59,14 @@ const ChangePasswordPage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   return (
-    <Box m="20px">
+    <Box
+      m="20px"
+      p="20px"
+      borderRadius="10px"
+      boxShadow="0 4px 10px rgba(0, 0, 0, 0.1)"
+    >
+      <Typography variant="h3">Set New Password</Typography>
+
       <form onSubmit={handleSubmit}>
         <Box
           display="grid"
@@ -73,7 +84,9 @@ const ChangePasswordPage = () => {
             onChange={handleCurrentPasswordChange}
             error={!!errors.currentPassword}
             helperText={errors.currentPassword}
-            sx={{ gridColumn: "span 4" }}
+            sx={{
+              gridColumn: "span 4",
+            }}
           />
           <TextField
             label="New Password"
@@ -95,7 +108,7 @@ const ChangePasswordPage = () => {
             helperText={errors.confirmPassword}
             sx={{ gridColumn: "span 4" }}
           />
-          <Box display="flex" mt="20px" gap="30px">
+          <Box display="flex" mt="20px" gap="30px" gridColumn="span 4">
             <Button variant="contained" color="primary" type="submit">
               Cancel
             </Button>
@@ -103,7 +116,15 @@ const ChangePasswordPage = () => {
               Save
             </Button>
           </Box>
-        </Box>{" "}
+          <Button
+            size="small"
+            variant="contained"
+            startIcon={<ArrowBackIcon />}
+            onClick={() => navigate("/LoginPage")}
+          >
+            Back to log in
+          </Button>
+        </Box>
       </form>
     </Box>
   );
