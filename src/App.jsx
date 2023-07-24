@@ -20,7 +20,7 @@ import MemberSettings from "./pages/MemberSettingsPage";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";
 import MemberSettingsForm from "./pages/MemberSettingsPage/MemberSettingsForm/index";
-import ChangePasswordPage from "./pages/MemberSettingsPage/changepassword";
+import ChangePasswordPage from "./pages/MemberSettingsPage/ChangePassword";
 import MemberShipTier from "./pages/MemberSettingsPage/MembershipTierPage/MembershipTier";
 
 function App() {

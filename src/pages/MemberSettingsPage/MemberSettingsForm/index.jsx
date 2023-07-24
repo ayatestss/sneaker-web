@@ -1,5 +1,12 @@
-import React, { useState } from "react";
-import { Box, Button, TextField, InputLabel } from "@mui/material";
+import React, { useState, useRef } from "react";
+import {
+  Box,
+  Button,
+  TextField,
+  InputLabel,
+  Typography,
+  Avatar,
+} from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const MemberSettingsForm = () => {
@@ -9,6 +16,12 @@ const MemberSettingsForm = () => {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [email, setEmail] = useState("");
+
+  const fileInputRef = useRef(null);
+
+  const handleFileInputChange = () => {
+    const file = event.target.files[0];
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,81 +54,118 @@ const MemberSettingsForm = () => {
     history.push("/MemberSettings");
   };
 
+  const handleIconClick = () => {
+    fileInputRef.current.click();
+  };
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   return (
-    <Box m="20px">
-      <form onSubmit={handleSubmit}>
-        <Box
-          display="grid"
-          gap="30px"
-          gridTemplateColumns="repeat(4, minmax(0, 1fr)"
-          sx={{
-            "&  > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-          }}
+    <Box display="flex">
+      <Box m="20px">
+        <Typography
+          variant="h2"
+          sx={{ fontWeight: "bold", marginBottom: "20px" }}
         >
-          <Box display="flex" gap="30px" flexDirection="row">
-            <TextField
-              fullWidth
-              id="firstName"
-              value={firstName}
-              label="First Name"
-              onChange={handleFirstNameChange}
-              variant="filled"
-            />
-            <TextField
-              fullWidth
-              id="lastName"
-              value={lastName}
-              label="Last Name"
-              onChange={handleLastNameChange}
-              variant="filled"
-            />
-          </Box>
-          <Box display="flex" gap="30px" flexDirection="row">
-            <TextField
-              fullWidth
-              id="email"
-              value={email}
-              label="Email"
-              onChange={handleEmailChange}
-              variant="filled"
-            />
-            <TextField
-              fullWidth
-              id="phone"
-              value={phone}
-              label="Phone"
-              onChange={handlePhoneChange}
-              variant="filled"
-            />
-          </Box>
-          <InputLabel htmlFor="Address 1">Address 1</InputLabel>
-          <TextField
-            fullWidth
-            id="address-1"
-            value={address1}
-            label="Address 1"
-            onChange={handleAddress1Change}
-            variant="filled"
+          Edit Profile
+        </Typography>
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Avatar
+            onClick={handleIconClick}
+            alt="Remy Sharp"
+            src="/static/images/avatar/1.jpg"
+            sx={{
+              width: 75,
+              height: 75,
+              marginBottom: "10px",
+            }}
           />
-          <InputLabel htmlFor="Address 2">Address 2</InputLabel>
-          <TextField
-            fullWidth
-            id="address-2"
-            value={address2}
-            label="Address 2"
-            onChange={handleAddress2Change}
-            variant="filled"
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileInputChange}
           />
-          <Button variant="contained" onClick={handleBackClick}>
-            Back
-          </Button>
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", marginBottom: "20px" }}
+          >
+            Add A Photo
+          </Typography>
         </Box>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <Box
+            display="grid"
+            gap="20px"
+            gridTemplateColumns="1fr"
+            sx={{
+              "&  > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+            }}
+          >
+            <Box display="flex" gap="30px" flexDirection="row">
+              <TextField
+                fullWidth
+                id="firstName"
+                value={firstName}
+                label="First Name"
+                onChange={handleFirstNameChange}
+                variant="filled"
+              />
+              <TextField
+                fullWidth
+                id="lastName"
+                value={lastName}
+                label="Last Name"
+                onChange={handleLastNameChange}
+                variant="filled"
+              />
+            </Box>
+            <Box display="flex" gap="30px" flexDirection="row">
+              <TextField
+                fullWidth
+                id="email"
+                value={email}
+                label="Email"
+                onChange={handleEmailChange}
+                variant="filled"
+              />
+              <TextField
+                fullWidth
+                id="phone"
+                value={phone}
+                label="Phone"
+                onChange={handlePhoneChange}
+                variant="filled"
+              />
+            </Box>
+            <InputLabel htmlFor="Address 1">Address 1</InputLabel>
+            <TextField
+              fullWidth
+              id="address-1"
+              value={address1}
+              label="Address 1"
+              onChange={handleAddress1Change}
+              variant="filled"
+            />
+            <InputLabel htmlFor="Address 2">Address 2</InputLabel>
+            <TextField
+              fullWidth
+              id="address-2"
+              value={address2}
+              label="Address 2"
+              onChange={handleAddress2Change}
+              variant="filled"
+            />
+            <Button variant="contained" onClick={handleBackClick}>
+              Back
+            </Button>
+            <Button variant="contained" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </form>
+      </Box>
     </Box>
   );
 };
