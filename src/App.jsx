@@ -19,6 +19,7 @@ import MemberSettings from "./pages/membersettings";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";
 import HomePage from "./pages/HomePage/HomePage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -42,6 +43,7 @@ function App() {
               <Route path="/member" element={<ContractForm />} />
               <Route path="/" element={<ComingSoon />} />
               <Route path="/confirmationPage" element={<ConfirmationPage />} />
+              <Route path='/registerPage' element={<RegisterPage/>}/>
               <Route
                 path="/dashboard"
                 element={
