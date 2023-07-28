@@ -10,6 +10,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@mui/material/Alert';
 // reverted and updated code
 
+import { LOGIN_USER } from "../Login/graphql/LoginPage"; // Replace with the correct path to your GraphQL mutation for login
+import { signInWithEmailAndPassword } from "../../auth/services"; // Import the login function from services.js
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -20,16 +22,37 @@ const [successMessage, setSuccessMessage] = useState(null);
   const Logo = "https://via.placeholder.com/150";
   const { handleLoginWithGoogle, handleLogOut } = useContext(AuthContext);
 
+   const [loginUser, { loading }] = useMutation(LOGIN_USER);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(FirebaseAuth, email, password);
-      setSuccessMessage("Logged in successfully.");
+      const { data } = await loginUser({
+        variables: {
+          email,
+          password,
+        },
+      });
+
+      // Assuming your GraphQL mutation returns a success message when login is successful
+      if (data?.loginUser?.success) {
+        setSuccessMessage("Logged in successfully.");
+
+        // Optionally, you can handle the user authentication/token storage here
+        // For example, you can set a token in local storage or context
+
+        // If you want to redirect after successful login
+        // history.push("/dashboard"); // Change "/dashboard" to your desired redirect path
+      } else {
+        // Handle login failure (optional)
+        setError("Invalid credentials. Please check your email and password.");
+      }
     } catch (error) {
       const errorMessage = error.message;
       setError(errorMessage);
     }
   };
+
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
@@ -237,7 +260,7 @@ const [successMessage, setSuccessMessage] = useState(null);
         }}
         onClick={handleLogin}
       >
-        Login
+        {loading ? "Logging in..." : "Login"} {/* Show "Logging in..." while the login request is in progress */}
       </Button>
       <Typography
         sx={{ fontSize: 14, fontWeight: 600, lineHeight: '100%', color: 'white', mb: 2 }}
@@ -331,133 +354,3 @@ const [successMessage, setSuccessMessage] = useState(null);
 </Box>
 );
 }
-
-
-  //   <Grid container sx={{ height: '100vh', bgcolor: 'black' }}>
-  //     <Grid item xs={12} sm={6} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-  //       <Box pb={3} style={{ textAlign: 'center' }}>
-  //         <img
-  //           src={Logo}
-  //           alt="Logo"
-  //           sx={{
-  //             height: 'auto',
-  //             width: '100%',
-  //             maxWidth: { xs: '15rem', sm: '25rem' },
-  //             objectFit: 'contain',
-  //           }}
-  //         />
-  //       </Box>
-  //       <Stack spacing={3} pb={7}>
-  //         <InputBase
-  //           sx={{
-  //             border: 'solid white',
-  //             borderRadius: '0.2rem',
-  //             width: { xs: '80vw', sm: '30vh' },
-  //             height: '5vh',
-  //             fontSize: { xs: '1.5vh', sm: '2vh' },
-  //             background: 'white',
-  //           }}
-  //           placeholder="Enter your email address"
-  //           required
-  //           id="email"
-  //           type="email"
-  //           value={email}
-  //           onChange={(e) => setEmail(e.target.value)}
-  //         />
-  //         <InputBase
-  //           sx={{
-  //             border: 'solid white',
-  //             borderRadius: '0.2rem',
-  //             width: { xs: '80vw', sm: '30vh' },
-  //             height: '5vh',
-  //             fontSize: { xs: '1.5vh', sm: '2vh' },
-  //             background: 'white',
-  //           }}
-  //           placeholder="Enter your password"
-  //           required
-  //           id="password"
-  //           type="password"
-  //           value={password}
-  //           onChange={(e) => setPassword(e.target.value)}
-  //         />
-  //         <Stack direction="row" justifyContent="center">
-  //           <Button variant="contained" onClick={handleLogin}>
-  //             Login
-  //           </Button>
-  //         </Stack>
-  //         <Stack direction='row' justifyContent='center' spacing={2}>
-  //         <Link
-  //           to="/passwordReset"
-  //           style={{
-  //             textDecoration: 'none',
-  //             color: '#FFD700',
-  //             fontWeight: 'bold',
-  //             textAlign: 'center',
-  //             marginTop: '1rem',
-  //           }}
-  //         >
-  //           Forgot Password?
-  //         </Link>
-  //         <Link
-  //           to="/registerPage"
-  //           style={{
-  //             textDecoration: 'none',
-  //             color: '#FFD700',
-  //             fontWeight: 'bold',
-  //             textAlign: 'center',
-  //             marginTop: '1rem',
-  //           }}
-  //         >
-  //           Create an Account
-  //         </Link>
-  //         </Stack>
-  //         <Snackbar
-  //           open={error !== null || successMessage !== null}
-  //           autoHideDuration={3000}
-  //           onClose={handleCloseSnackbar}
-  //           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-  //           action={(key) => (
-  //             <Button color="secondary" size="small" onClick={handleCloseSnackbar}>
-  //               Close
-  //       </Button>
-  //     )}
-  //   >
-  //     {error ? (
-  //       <Alert onClose={handleCloseSnackbar} severity="error">
-  //         {error}
-  //       </Alert>
-  //     ) : (
-  //       <Alert onClose={handleCloseSnackbar} severity="success">
-  //         {successMessage}
-  //       </Alert>
-  //     )}
-  //   </Snackbar>
-  //   </Stack>
-  // </Grid>
-  //     <Grid
-  //       item
-  //       xs={12}
-  //       sm={6}
-  //       sx={{ bgcolor: 'white', display: { xs: 'none', sm: 'block' } }}
-  //     >
-  //       <Box
-  //         display="flex"
-  //         alignItems="center"
-  //         justifyContent="flex-end"
-  //         width="100%"
-  //         height="100%"
-  //       >
-  //         <Typography
-  //           style={{
-  //             height: '100%',
-  //             width: '100%',
-  //             maxWidth: '30rem',
-  //             maxHeight: '30rem',
-  //             objectFit: 'contain',
-  //           }}
-  //         >
-  //           Hello
-  //         </Typography>
-  //       </Box>
-  //   </Grid>
-  //   </Grid>
