@@ -4,6 +4,8 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../../../dashboard/SideBar";
+import { Link } from "react-router-dom";
 
 const ChangePasswordPage = () => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -44,6 +46,10 @@ const ChangePasswordPage = () => {
     setConfirmPassword(event.target.value);
   };
 
+  const handleBackClick = () => {
+    history.push("/MemberSettings");
+  };
+
   const schema = yup.object().shape({
     currentPassword: yup.string().required("Current password is required"),
     newPassword: yup
@@ -60,8 +66,13 @@ const ChangePasswordPage = () => {
 
   return (
     <Box display="flex">
+      <Sidebar />
       <Box m="20px">
-        <Typography variant="h3" marginBottom="20px">
+        <Typography
+          sx={{ fontWeight: "bold" }}
+          variant="h2"
+          marginBottom="20px"
+        >
           Set New Password
         </Typography>
 
@@ -122,6 +133,17 @@ const ChangePasswordPage = () => {
             >
               Back to log in
             </Button>
+            <Link to="/membersettings">
+              <Button
+                variant="contained"
+                sx={{
+                  Link: "/membersettings",
+                }}
+                onClick={handleBackClick}
+              >
+                Back
+              </Button>
+            </Link>
           </Box>
         </form>
       </Box>

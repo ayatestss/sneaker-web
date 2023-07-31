@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -8,6 +10,7 @@ import {
   Avatar,
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Sidebar from "../../../dashboard/SideBar";
 
 const MemberSettingsForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -21,6 +24,7 @@ const MemberSettingsForm = () => {
 
   const handleFileInputChange = () => {
     const file = event.target.files[0];
+    setProfileImage(file);
   };
 
   const handleSubmit = (event) => {
@@ -62,10 +66,12 @@ const MemberSettingsForm = () => {
 
   return (
     <Box display="flex">
+      <Sidebar />
       <Box m="20px">
         <Typography
+          sx={{ fontWeight: "bold" }}
           variant="h2"
-          sx={{ fontWeight: "bold", marginBottom: "20px" }}
+          marginBottom="20px"
         >
           Edit Profile
         </Typography>
@@ -157,9 +163,17 @@ const MemberSettingsForm = () => {
               onChange={handleAddress2Change}
               variant="filled"
             />
-            <Button variant="contained" onClick={handleBackClick}>
-              Back
-            </Button>
+            <Link to="/membersettings">
+              <Button
+                variant="contained"
+                sx={{
+                  Link: "/membersettings",
+                }}
+                onClick={handleBackClick}
+              >
+                Back
+              </Button>
+            </Link>
             <Button variant="contained" type="submit">
               Submit
             </Button>

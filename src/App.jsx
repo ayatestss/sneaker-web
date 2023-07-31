@@ -15,7 +15,7 @@ import Services from "./pages/services";
 import Invoices from "./pages/Invoices";
 import FAQ from "./pages/Faq";
 import Topbar from "./dashboard/TopBar";
-import Sidebar from "./dashboard/Sidebar";
+import Sidebar from "./dashboard/SideBar";
 import MemberSettings from "./pages/MemberSettingsPage";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";
@@ -42,17 +42,17 @@ function App() {
             {/* <Sidebar isSidebar={isSidebar} /> */}
             <Routes>
               <Route path="/loginpage" element={<LoginPage />} />
-              {/* <Route path="/member" element={<ContractForm />} /> */}
+              <Route path="/member" element={<ContractForm />} />
               <Route path="/" element={<ComingSoon />} />
               <Route path="/confirmationPage" element={<ConfirmationPage />} />
-              {/* <Route
-          path="/test"
-          element={
-            <ProtectedRoute status={status}>
-              <h1>Test Private</h1>
-            </ProtectedRoute>
-          }
-        /> */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute status={status}>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/MemberSettingsForm"
                 element={<MemberSettingsForm />}

@@ -1,121 +1,128 @@
-import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { Box, CardContent, Grid, Typography, Card } from "@mui/material";
+import Sidebar from "../../dashboard/SideBar";
 import KeyIcon from "@mui/icons-material/Key";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 
 const MemberSettings = () => {
-  const navigate = useNavigate();
-
   return (
-    <Box
-      m="20px"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      width="80%"
-      maxWidth="400px"
-      borderRadius="8px"
-      boxShadow="0 4px 10px rgba(0, 0, 0, 0.1"
-      p="20px"
-    >
-      <Typography variant="h4" sx={{ mb: "20px", fontWeight: "bold" }}>
-        Account Settings
-      </Typography>
+    <Box display="flex">
+      <Sidebar />
+      <Box m="20px" flexGrow={1} p={2}>
+        <Typography
+          sx={{ fontWeight: "bold" }}
+          variant="h2"
+          marginBottom="20px"
+        >
+          Account Settings
+        </Typography>
 
-      <Link
-        component={Box}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "#424242",
-          padding: "16px",
-          width: "250px",
-          height: "90px",
-          marginBottom: "20px",
-          marginTop: "20px",
-          cursor: "pointer",
-          textDecoration: "none",
-          color: "white",
-        }}
-        to="/MemberSettingsForm"
-      >
-        <AccountBoxIcon style={{ fontSize: "50px", marginRight: "8px" }} />
-        <Box>
-          <Typography sx={{ fontWeight: "bold" }}>General</Typography>
-          <Typography>Update Personal Data</Typography>
-        </Box>
-      </Link>
-      <Link
-        component={Box}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "#424242",
-          padding: "16px",
-          width: "250px",
-          height: "90px",
-          marginBottom: "20px",
-          cursor: "pointer",
-          textDecoration: "none",
-          color: "white",
-        }}
-        to="/update/billing"
-      >
-        <CreditCardIcon style={{ fontSize: "50px", marginRight: "8px" }} />
-        <Box>
-          <Typography sx={{ fontWeight: "bold" }}>Billing</Typography>
-          <Typography>Update Billing Information</Typography>
-        </Box>
-      </Link>
-      <Link
-        component={Box}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "#424242",
-          padding: "16px",
-          width: "250px",
-          height: "90px",
-          marginBottom: "20px",
-          cursor: "pointer",
-          textDecoration: "none",
-          color: "white",
-        }}
-        to="/MemberShipTier"
-      >
-        <CardMembershipIcon style={{ fontSize: "50px", marginRight: "8px" }} />
-        <Box>
-          <Typography sx={{ fontWeight: "bold" }}>Membership</Typography>
-          <Typography>Update Membership Plan</Typography>
-        </Box>
-      </Link>
-      <Link
-        component={Box}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "#424242",
-          padding: "16px",
-          width: "250px",
-          height: "90px",
-          marginBottom: "20px",
-          cursor: "pointer",
-          textDecoration: "none",
-          color: "white",
-        }}
-        to="/ChangePasswordPage"
-      >
-        <KeyIcon style={{ fontSize: "50px", marginRight: "8px" }} />
-        <Box>
-          <Typography sx={{ fontWeight: "bold" }}> Password</Typography>
-          <Typography>Update Password Information</Typography>
-        </Box>
-      </Link>
+        <Grid container spacing={2}>
+          {/* General and Billing Settings */}
+          <Grid item xs={12} md={6}>
+            <Grid container spacing={2}>
+              {/* General Settings */}
+              <Grid item xs={12}>
+                <Card sx={{ height: "100%" }}>
+                  <Link
+                    to="/MemberSettingsForm"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <CardContent>
+                      <AccountBoxIcon style={{ fontSize: "50px" }} />
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        General
+                      </Typography>
+                      <Typography>Update Personal Data</Typography>
+                    </CardContent>
+                  </Link>
+                </Card>
+              </Grid>
+
+              {/* Billing Settings */}
+              <Grid item xs={12}>
+                <Card sx={{ height: "100%" }}>
+                  <Link
+                    to="/billing"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <CardContent>
+                      <CreditCardIcon style={{ fontSize: "50px" }} />
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        Billing
+                      </Typography>
+                      <Typography>Update Billing Information</Typography>
+                    </CardContent>
+                  </Link>
+                </Card>
+              </Grid>
+
+              {/* Delete Account Settings */}
+              <Grid item xs={12}>
+                <Card>
+                  <Link
+                    to="/DeleteAccount"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <CardContent>
+                      <PersonRemoveIcon style={{ fontSize: "50px" }} />
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        Delete Account
+                      </Typography>
+                      <Typography>Delete Account Here</Typography>
+                    </CardContent>
+                  </Link>
+                </Card>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          {/* Membership and Password Settings */}
+          <Grid item xs={12} md={6}>
+            <Grid container spacing={2}>
+              {/* Membership Settings */}
+              <Grid item xs={12}>
+                <Card sx={{ height: "100%" }}>
+                  <Link
+                    to="/MemberShipTier"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <CardContent>
+                      <CardMembershipIcon style={{ fontSize: "50px" }} />
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        Membership
+                      </Typography>
+                      <Typography>Update Membership Plan</Typography>
+                    </CardContent>
+                  </Link>
+                </Card>
+              </Grid>
+
+              {/* Password Settings */}
+              <Grid item xs={12}>
+                <Card>
+                  <Link
+                    to="/ChangePasswordPage"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <CardContent>
+                      <KeyIcon style={{ fontSize: "50px" }} />
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        Password
+                      </Typography>
+                      <Typography>Update Password Information</Typography>
+                    </CardContent>
+                  </Link>
+                </Card>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Box>
     </Box>
   );
 };
