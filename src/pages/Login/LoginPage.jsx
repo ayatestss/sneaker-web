@@ -1,18 +1,28 @@
-import { Button, Container } from "@mui/material";
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
-import { useMutation } from "@apollo/client";
+import { Button, TextField, Stack, Box } from '@mui/material';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/authContext';
+import Logo from '../../assets/ss-logo.svg';
+import GoogleIcon from '@mui/icons-material/Google';
+
+import { Formik, Form, Field } from 'formik';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { handleLoginWithGoogle, handleLoginWithEmailAndPass } =
+    useContext(AuthContext);
 
-  const { handleLoginWithGoogle, handleLogOut } = useContext(AuthContext);
-
-  const handleLogin = async (e) => {
+  const handleLogin = async (e, type, values) => {
     try {
       e.preventDefault();
-      handleLoginWithGoogle();
+      switch (type) {
+        case 'google':
+          return handleLoginWithGoogle();
+        case 'email':
+          // Handle email and password login here
+          handleLoginWithEmailAndPass(values.email, values.password);
+          break;
+        default:
+          break;
+      }
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -20,16 +30,58 @@ export default function LoginPage() {
     }
   };
 
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
   return (
-    <div>
-      <Container>
-        <Button variant="contained" onClick={handleLogin}>
-          Login
-        </Button>
-        <Button variant="contained" onClick={handleLogOut}>
-          Logout
-        </Button>
-      </Container>
-    </div>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
+      <Stack alignItems="center" spacing={3} pb={7}>
+        <img src={Logo} style={{ height: '30vh', width: 'auto' }} alt="Logo" />
+        <Formik initialValues={initialValues}>
+          {({ values, isSubmitting }) => (
+            <Form>
+              <Field
+                as={TextField}
+                fullWidth
+                label="Email"
+                name="email"
+                style={{ paddingBottom: '1rem' }}
+              />
+              <Field
+                as={TextField}
+                fullWidth
+                label="Password"
+                name="password"
+                type="password"
+              />
+              <Stack pt={2} spacing={2}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={(e) => handleLogin(e, 'email', values)}
+                >
+                  Sign In
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={(e) => handleLogin(e, 'google', values)}
+                  startIcon={<GoogleIcon />}
+                >
+                  Sign In with Google
+                </Button>
+              </Stack>
+            </Form>
+          )}
+        </Formik>
+      </Stack>
+    </Box>
   );
 }

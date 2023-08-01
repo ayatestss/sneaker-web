@@ -2,8 +2,9 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-} from "firebase/auth";
-import { FirebaseAuth } from "./firebase";
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import { FirebaseAuth } from './firebase';
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -19,11 +20,27 @@ export const singInWithGoogle = async () => {
   }
 };
 
+export const signInWithEmailAndPass = async (email, password) => {
+  try {
+    console.log(email, password);
+    const result = await signInWithEmailAndPassword(
+      FirebaseAuth,
+      email,
+      password
+    );
+    const { uid } = result.user;
+    console.log('Signed in with email and password:', uid);
+    return uid;
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const onAuthStateHasChanged = (setSession) => {
   onAuthStateChanged(FirebaseAuth, (user) => {
-    if (!user) return setSession({ status: "no-authenticated", userId: null });
+    if (!user) return setSession({ status: 'no-authenticated', userId: null });
 
-    setSession({ status: "authenticated", userId: user.uid });
+    setSession({ status: 'authenticated', userId: user.uid });
   });
 };
 

@@ -1,30 +1,31 @@
-import { createContext, useEffect, useState } from "react";
-import { redirect } from "react-router-dom";
+import { createContext, useEffect, useState } from 'react';
+import { redirect } from 'react-router-dom';
 import {
   onAuthStateHasChanged,
   singInWithGoogle,
   logOut,
-} from "../auth/services";
+  signInWithEmailAndPass,
+} from '../auth/services';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [session, setSession] = useState({ userId: null, status: "checking" });
+  const [session, setSession] = useState({ userId: null, status: 'checking' });
 
   useEffect(() => {
     onAuthStateHasChanged(setSession);
   }, []);
 
   const checking = () =>
-    setSession((prev) => ({ ...prev, status: "checking" }));
+    setSession((prev) => ({ ...prev, status: 'checking' }));
 
   const handleLogOut = async () => {
     logOut();
-    setSession({ userId: null, status: "no-authenticated" });
+    setSession({ userId: null, status: 'no-authenticated' });
   };
 
   const validateAuth = (userId) => {
-    if (userId) return setSession({ userId, status: "authenticated" });
+    if (userId) return setSession({ userId, status: 'authenticated' });
     handleLogOut();
   };
 
@@ -32,10 +33,23 @@ export const AuthProvider = ({ children }) => {
     checking();
     const userId = await singInWithGoogle();
     validateAuth(userId);
+    return;
+  };
+
+  const handleLoginWithEmailAndPass = async (email, password) => {
+    checking();
+    const userId = await signInWithEmailAndPass(email, password);
+    validateAuth(userId);
+    return;
   };
   return (
     <AuthContext.Provider
-      value={{ ...session, handleLoginWithGoogle, handleLogOut }}
+      value={{
+        ...session,
+        handleLoginWithGoogle,
+        handleLoginWithEmailAndPass,
+        handleLogOut,
+      }}
     >
       {children}
     </AuthContext.Provider>
