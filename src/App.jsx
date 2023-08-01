@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import LoginPage from "./pages/Login/LoginPage";
-import ErrorPage from "./pages/ErrorPage";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "./context/authContext";
-import { ProtectedRoute } from "./components/PrivateRoute";
-import ContractForm from "./pages/ContractForm/ContractForm";
-import ComingSoon from "./pages/ComingSoon/ComingSoon";
-import ConfirmationPage from "./pages/ComingSoon/ConfirmationPage";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useMode, ColorModeContext } from "./theme/theme";
-import Services from "./pages/services";
-import Invoices from "./pages/invoices";
-import FAQ from "./pages/faq";
-import Topbar from "./dashboard/TopBar";
-import Sidebar from "./dashboard/Sidebar";
-import MemberSettings from "./pages/membersettings";
-import Dashboard from "./dashboard/Dashboard";
-import MemberChat from "./pages/MemberChat/MemberChat";
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import LoginPage from './pages/Login/LoginPage';
+import ErrorPage from './pages/ErrorPage';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from './context/authContext';
+import { ProtectedRoute } from './components/PrivateRoute';
+import ContractForm from './pages/ContractForm/ContractForm';
+import ComingSoon from './pages/ComingSoon/ComingSoon';
+import ConfirmationPage from './pages/ComingSoon/ConfirmationPage';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { useMode, ColorModeContext } from './theme/theme';
+import Services from './pages/services';
+import Invoices from './pages/invoices';
+import FAQ from './pages/faq';
+import Topbar from './dashboard/TopBar';
+import Sidebar from './dashboard/Sidebar';
+import MemberSettings from './pages/membersettings';
+import Dashboard from './dashboard/Dashboard';
+import MemberChat from './pages/MemberChat/MemberChat';
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -35,10 +35,10 @@ function App() {
         <CssBaseline />
         <div className="App">
           <div className="content-container">
-            <Topbar setIsSidebar={setIsSidebar} />{" "}
+            <Topbar setIsSidebar={setIsSidebar} />{' '}
             {/* <Sidebar isSidebar={isSidebar} /> */}
             <Routes>
-              {/* <Route path="/login" element={<LoginPage />} /> */}
+              <Route path="/login" element={<LoginPage />} />
               {/* <Route path="/member" element={<ContractForm />} /> */}
               <Route path="/" element={<ComingSoon />} />
               <Route path="/confirmationPage" element={<ConfirmationPage />} />
