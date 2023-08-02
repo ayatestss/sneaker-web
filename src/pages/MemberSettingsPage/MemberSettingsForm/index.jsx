@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import {
@@ -16,7 +16,7 @@ import Sidebar from "../../../dashboard/SideBar";
 
 const MemberSettingsForm = () => {
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const fileInputRef = useRef(null);
 
@@ -26,7 +26,7 @@ const MemberSettingsForm = () => {
   };
 
   const handleBackClick = () => {
-    history.push("/MemberSettings");
+    navigate.push("/MemberSettings");
   };
 
   const handleIconClick = () => {

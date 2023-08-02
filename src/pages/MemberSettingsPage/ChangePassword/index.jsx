@@ -53,7 +53,7 @@ const ChangePasswordPage = () => {
           <Box
             display="grid"
             gap="20px"
-            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+            gridTemplateColumns={isNonMobile ? "repeat(4, minmax(0, 1fr))" : "1fr"}
             sx={{
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }}
