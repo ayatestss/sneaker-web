@@ -1,11 +1,13 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import { useHistory } from "react-router-dom";
+import * as yup from "yup";
 
 import {
   Box,
   Button,
   TextField,
-  InputLabel,
   Typography,
   Avatar,
 } from "@mui/material";
@@ -13,45 +15,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Sidebar from "../../../dashboard/SideBar";
 
 const MemberSettingsForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [email, setEmail] = useState("");
+
+  const history = useHistory();
 
   const fileInputRef = useRef(null);
 
-  const handleFileInputChange = () => {
+  const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     setProfileImage(file);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handlePhoneChange = (event) => {
-    setPhone(event.target.value);
-  };
-
-  const handleAddress1Change = (event) => {
-    setAddress1(event.target.value);
-  };
-
-  const handleAddress2Change = (event) => {
-    setAddress2(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
   };
 
   const handleBackClick = () => {
@@ -61,6 +32,25 @@ const MemberSettingsForm = () => {
   const handleIconClick = () => {
     fileInputRef.current.click();
   };
+
+  const schema = yup.object().shape({
+    firstName: yup.string().required("First name is required"),
+    lastName: yup.string().required("Last name is required"),
+    phone: yup.string().required("phone number is required"),
+    address1: yup.string().required("address1 is required"),
+    address2: yup.string().required("address2 is required"),
+  })
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      phone: "",
+      address1: "",
+      address2: "",
+      email: "",
+    }
+  })
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -100,7 +90,7 @@ const MemberSettingsForm = () => {
             Add A Photo
           </Typography>
         </Box>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <Box
             display="grid"
             gap="20px"
@@ -113,56 +103,87 @@ const MemberSettingsForm = () => {
               <TextField
                 fullWidth
                 id="firstName"
-                value={firstName}
+                value={formik.values.firstName}
                 label="First Name"
-                onChange={handleFirstNameChange}
+                name="firstName"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 variant="filled"
+                error={formik.touched.firstName && !!formik.errors.firstName}
+                helperText={formik.touched.firstName && !!formik.errors.firstName}
+                sx={{ gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
                 id="lastName"
-                value={lastName}
+                value={formik.values.lastName}
                 label="Last Name"
-                onChange={handleLastNameChange}
+                name="lastName"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 variant="filled"
+                error={formik.touched.lastName && !!formik.errors.lastName}
+                helperText={formik.touched.lastName && !!formik.errors.lastName}
+                sx={{ gridColumn: "span 4" }}
               />
             </Box>
             <Box display="flex" gap="30px" flexDirection="row">
               <TextField
                 fullWidth
                 id="email"
-                value={email}
+                name="email"
+                value={formik.values.email}
                 label="Email"
-                onChange={handleEmailChange}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 variant="filled"
+                error={formik.touched.email && !!formik.errors.email}
+                helperText={formik.touched.email && formik.errors.email}
+                sx={{ gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
                 id="phone"
-                value={phone}
+                name="phone"
+                value={formik.values.phone}
                 label="Phone"
-                onChange={handlePhoneChange}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 variant="filled"
+                error={formik.touched.phone && !!formik.errors.phone}
+                helperText={formik.touched.phone && formik.errors.phone}
+                sx={{ gridColumn: "span 4" }}
               />
             </Box>
-            <InputLabel htmlFor="Address 1">Address 1</InputLabel>
-            <TextField
-              fullWidth
-              id="address-1"
-              value={address1}
-              label="Address 1"
-              onChange={handleAddress1Change}
-              variant="filled"
-            />
-            <InputLabel htmlFor="Address 2">Address 2</InputLabel>
-            <TextField
-              fullWidth
-              id="address-2"
-              value={address2}
-              label="Address 2"
-              onChange={handleAddress2Change}
-              variant="filled"
-            />
+            <Box display="flex" gap="30px" flexDirection="row">
+
+              <TextField
+                fullWidth
+                id="address-1"
+                name="address1"
+                value={formik.values.address1}
+                label="Address 1"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                variant="filled"
+                error={formik.touched.address1 && !!formik.errors.address1}
+                helperText={formik.touched.address1 && formik.errors.address1}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                id="address-2"
+                name="address2"
+                value={formik.values.address2}
+                label="Address 2"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                variant="filled"
+                error={formik.touched.address2 && !!formik.errors.address2}
+                helperText={formik.touched.address2 && formik.errors.address2}
+                sx={{ gridColumn: "span 4" }}
+              />
+            </Box>
             <Link to="/membersettings">
               <Button
                 variant="contained"
