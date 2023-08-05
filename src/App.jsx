@@ -42,21 +42,30 @@ function App() {
               {/* <Route path="/member" element={<ContractForm />} /> */}
               <Route path="/" element={<ComingSoon />} />
               <Route path="/confirmationPage" element={<ConfirmationPage />} />
-              {/* <Route
-          path="/test"
-          element={
-            <ProtectedRoute status={status}>
-              <h1>Test Private</h1>
-            </ProtectedRoute>
-          }
-        /> */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute status={status}>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/MemberSettingsForm"
+                element={<MemberSettingsForm />}
+              />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="*" element={<ErrorPage />} />
               <Route path="/services" element={<Services />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/membersettings" element={<MemberSettings />} />
+              <Route path="/MemberShipTier" element={<MemberShipTier />} />
               <Route path="/MemberChat" element={<MemberChat />} />
+              <Route
+                path="/ChangePasswordPage"
+                element={<ChangePasswordPage />}
+              />
             </Routes>
           </div>
         </div>
