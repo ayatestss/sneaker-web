@@ -1,12 +1,29 @@
-import { Button, TextField, Stack, Box } from '@mui/material';
-import React, { useContext } from 'react';
+import { Button, TextField, Stack, Box, Alert } from '@mui/material';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/authContext';
 import Logo from '../../assets/ss-logo.svg';
 import GoogleIcon from '@mui/icons-material/Google';
+import * as Yup from 'yup'; // Import Yup validation library
 
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, useField } from 'formik';
+
+const FormikTextField = ({ name, ...props }) => {
+  const [field, meta] = useField(name);
+
+  const isError = meta.touched && meta.error;
+
+  return (
+    <TextField
+      {...field}
+      {...props}
+      error={isError}
+      helperText={isError ? meta.error : props.helperText}
+    />
+  );
+};
 
 export default function LoginPage() {
+  const [error, setError] = useState('');
   const { handleLoginWithGoogle, handleLoginWithEmailAndPass } =
     useContext(AuthContext);
 
@@ -15,17 +32,15 @@ export default function LoginPage() {
       e.preventDefault();
       switch (type) {
         case 'google':
-          return handleLoginWithGoogle();
+          return await handleLoginWithGoogle();
         case 'email':
-          // Handle email and password login here
-          handleLoginWithEmailAndPass(values.email, values.password);
+          await handleLoginWithEmailAndPass(values.email, values.password);
           break;
         default:
           break;
       }
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      setError(error.message);
       console.log(errorCode, errorMessage);
     }
   };
@@ -34,6 +49,13 @@ export default function LoginPage() {
     email: '',
     password: '',
   };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    password: Yup.string().required('Password is required'),
+  });
 
   return (
     <Box
@@ -44,39 +66,48 @@ export default function LoginPage() {
     >
       <Stack alignItems="center" spacing={3} pb={7}>
         <img src={Logo} style={{ height: '30vh', width: 'auto' }} alt="Logo" />
-        <Formik initialValues={initialValues}>
-          {({ values, isSubmitting }) => (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          validateOnMount={false}
+          // onSubmit={}
+        >
+          {({ values, errors, isSubmitting }) => (
             <Form>
-              <Field
-                as={TextField}
-                fullWidth
-                label="Email"
+              <FormikTextField
                 name="email"
+                label="Email"
+                fullWidth
                 style={{ paddingBottom: '1rem' }}
               />
-              <Field
-                as={TextField}
-                fullWidth
-                label="Password"
+
+              <FormikTextField
                 name="password"
+                label="Password"
                 type="password"
+                fullWidth
               />
               <Stack pt={2} spacing={2}>
                 <Button
                   fullWidth
                   variant="contained"
-                  onClick={(e) => handleLogin(e, 'email', values)}
+                  type="submit"
+                  disabled={isSubmitting}
+                  onClick={() => handleLogin(e, 'email', values)}
                 >
                   Sign In
                 </Button>
                 <Button
                   fullWidth
                   variant="contained"
-                  onClick={(e) => handleLogin(e, 'google', values)}
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={() => handleLogin(e, 'google', values)}
                   startIcon={<GoogleIcon />}
                 >
                   Sign In with Google
                 </Button>
+                {error && <Alert severity="error"> {error}</Alert>}
               </Stack>
             </Form>
           )}

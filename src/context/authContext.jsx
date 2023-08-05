@@ -37,10 +37,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleLoginWithEmailAndPass = async (email, password) => {
-    checking();
-    const userId = await signInWithEmailAndPass(email, password);
-    validateAuth(userId);
-    return;
+    try {
+      checking();
+      const userId = await signInWithEmailAndPass(email, password);
+      validateAuth(userId);
+      return;
+    } catch (error) {
+      throw error;
+    }
   };
   return (
     <AuthContext.Provider
