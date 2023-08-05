@@ -28,7 +28,6 @@ export const signInWithEmailAndPass = async (email, password) => {
       password
     );
     const { uid } = result.user;
-    console.log('Signed in with email and password:', uid);
     return uid;
   } catch (e) {
     throw e;
