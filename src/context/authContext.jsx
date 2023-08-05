@@ -45,8 +45,8 @@ export const AuthProvider = ({ children }) => {
       checking();
       const userId = await signInWithEmailAndPass(email, password);
       validateAuth(userId);
+      return;
     } catch (error) {
-      console.error('Error occurred during email and password login:', error);
       throw error;
     }
   };
