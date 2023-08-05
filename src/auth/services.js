@@ -15,7 +15,7 @@ export const singInWithGoogle = async () => {
     const { uid } = result.user;
     return uid;
   } catch (e) {
-    alert(e.message);
+    throw e;
   }
 };
 

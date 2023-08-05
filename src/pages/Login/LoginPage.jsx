@@ -27,12 +27,12 @@ export default function LoginPage() {
   const { handleLoginWithGoogle, handleLoginWithEmailAndPass } =
     useContext(AuthContext);
 
-  const handleLogin = async (e, type, values) => {
+  const handleLogin = async (type, values) => {
     try {
-      e.preventDefault();
       switch (type) {
         case 'google':
-          return await handleLoginWithGoogle();
+          await handleLoginWithGoogle();
+          break;
         case 'email':
           await handleLoginWithEmailAndPass(values.email, values.password);
           break;
@@ -69,10 +69,8 @@ export default function LoginPage() {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          validateOnMount={false}
-          // onSubmit={}
         >
-          {({ values, errors, isSubmitting }) => (
+          {({ values, isSubmitting }) => (
             <Form>
               <FormikTextField
                 name="email"
@@ -93,7 +91,7 @@ export default function LoginPage() {
                   variant="contained"
                   type="submit"
                   disabled={isSubmitting}
-                  onClick={() => handleLogin(e, 'email', values)}
+                  onClick={() => handleLogin('email', values)}
                 >
                   Sign In
                 </Button>
@@ -101,8 +99,7 @@ export default function LoginPage() {
                   fullWidth
                   variant="contained"
                   type="button"
-                  disabled={isSubmitting}
-                  onClick={() => handleLogin(e, 'google', values)}
+                  onClick={() => handleLogin('google', values)}
                   startIcon={<GoogleIcon />}
                 >
                   Sign In with Google
