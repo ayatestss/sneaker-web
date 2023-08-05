@@ -1,4 +1,4 @@
-import { Button, TextField, Stack, Box } from '@mui/material';
+import { Button, TextField, Stack, Box, Alert } from '@mui/material';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/authContext';
 import Logo from '../../assets/ss-logo.svg';
@@ -7,6 +7,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { Formik, Form, Field } from 'formik';
 
 export default function LoginPage() {
+  const [error, setError] = useState('');
   const { handleLoginWithGoogle, handleLoginWithEmailAndPass } =
     useContext(AuthContext);
 
@@ -17,16 +18,14 @@ export default function LoginPage() {
         case 'google':
           return handleLoginWithGoogle();
         case 'email':
-          // Handle email and password login here
           handleLoginWithEmailAndPass(values.email, values.password);
           break;
         default:
           break;
       }
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      setError(error.message);
+      console.log(error.code, error.message);
     }
   };
 
@@ -77,6 +76,11 @@ export default function LoginPage() {
                 >
                   Sign In with Google
                 </Button>
+                {error && (
+                  <Alert severity="error">
+                    This is an error alert — check it out!
+                  </Alert>
+                )}
               </Stack>
             </Form>
           )}

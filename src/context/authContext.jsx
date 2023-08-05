@@ -30,18 +30,27 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleLoginWithGoogle = async () => {
-    checking();
-    const userId = await singInWithGoogle();
-    validateAuth(userId);
-    return;
+    try {
+      checking();
+      const userId = await singInWithGoogle();
+      validateAuth(userId);
+    } catch (error) {
+      console.error('Error occurred during Google login:', error);
+      throw error;
+    }
   };
 
   const handleLoginWithEmailAndPass = async (email, password) => {
-    checking();
-    const userId = await signInWithEmailAndPass(email, password);
-    validateAuth(userId);
-    return;
+    try {
+      checking();
+      const userId = await signInWithEmailAndPass(email, password);
+      validateAuth(userId);
+    } catch (error) {
+      console.error('Error occurred during email and password login:', error);
+      throw error;
+    }
   };
+
   return (
     <AuthContext.Provider
       value={{

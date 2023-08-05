@@ -12,8 +12,7 @@ export const singInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(FirebaseAuth, googleProvider);
 
-    const { displayName, email, photoURL, uid } = result.user;
-    console.log({ displayName, email, photoURL, uid });
+    const { uid } = result.user;
     return uid;
   } catch (e) {
     alert(e.message);
@@ -29,7 +28,6 @@ export const signInWithEmailAndPass = async (email, password) => {
       password
     );
     const { uid } = result.user;
-    console.log('Signed in with email and password:', uid);
     return uid;
   } catch (e) {
     throw e;
