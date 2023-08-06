@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     setSession((prev) => ({ ...prev, status: 'checking' }));
 
   const handleLogOut = async () => {
-    logOut();
+    await logOut();
     setSession({ userId: null, status: 'no-authenticated' });
   };
 

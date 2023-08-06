@@ -6,6 +6,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import * as Yup from 'yup'; // Import Yup validation library
 
 import { Formik, Form, Field, useField } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
@@ -23,8 +24,9 @@ const FormikTextField = ({ name, ...props }) => {
 };
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [error, setError] = useState('');
-  const { handleLoginWithGoogle, handleLoginWithEmailAndPass } =
+  const { handleLoginWithGoogle, handleLoginWithEmailAndPass, handleLogOut } =
     useContext(AuthContext);
 
   const handleLogin = async (type, values) => {
@@ -39,6 +41,7 @@ export default function LoginPage() {
         default:
           break;
       }
+      navigate('/dashboard');
     } catch (error) {
       setError(error.message);
       console.log(errorCode, errorMessage);
@@ -103,6 +106,14 @@ export default function LoginPage() {
                   startIcon={<GoogleIcon />}
                 >
                   Sign In with Google
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  type="button"
+                  onClick={handleLogOut}
+                >
+                  Logout
                 </Button>
                 {error && <Alert severity="error"> {error}</Alert>}
               </Stack>
