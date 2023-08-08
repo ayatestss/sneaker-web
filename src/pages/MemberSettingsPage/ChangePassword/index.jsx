@@ -7,9 +7,22 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../../dashboard/SideBar";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/react-hooks";
+import { gql } from "@apollo/client";
+
+const CHANGE_PASSWORD_MUTATION = gql`
+  mutation ChangePassword($currentPassword: String!, $newPassword: String!, $confirmPassword: String!) {
+    changePassword(currentPassword: $currentPassword, newPassword: $newPasswordm confirmPassword: $confirmPassword) {
+      success
+      message
+    }
+  }
+  `;
 
 const ChangePasswordPage = () => {
   const navigate = useNavigate();
+
+
 
   const handleBackClick = () => {
     history.push("/MemberSettings");
@@ -33,7 +46,25 @@ const ChangePasswordPage = () => {
       newPassword: "",
       confirmPassword: "",
     },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      changePassword: ({
+        variables: {
+          currentPassword: values.currentPassword,
+          newPassword: values.newPassword,
+          confirmPassword: values.confirmPassword
+        },
+      })
+        .then((data) => {
+          console.log("Password changed successfully!")
+        })
+        .catch((err) => {
+          console.error("Password change failed", err.message)
+        })
+    }
   });
+
+  const [changePassword, { loading, error }] = useMutation(CHANGE_PASSWORD_MUTATION);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -141,6 +172,8 @@ const ChangePasswordPage = () => {
             </Link>
           </Box>
         </form>
+        {loading && <p>Loading... </p>}
+        {error && <p>Error: {error.message}</p>}
       </Box>
     </Box>
   );
