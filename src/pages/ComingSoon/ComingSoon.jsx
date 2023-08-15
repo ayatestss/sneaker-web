@@ -81,16 +81,16 @@ export default function ComingSoon() {
         sx={{ width: "100%" }}
       >
         <Grid item xs={12} style={{ textAlign: "center" }}>
-            <img
-              src={Logo}
-              alt="Logo"
-              style={{
-                height: "auto",
-                width: "100%",
-                maxWidth: "25rem",
-                objectFit: "contain",
-              }}
-            />
+          <img
+            src={Logo}
+            alt="Logo"
+            style={{
+              height: "auto",
+              width: "100%",
+              maxWidth: "25rem",
+              objectFit: "contain",
+            }}
+          />
         </Grid>
         <Grid item xs={12}>
           <Typography
@@ -121,30 +121,30 @@ export default function ComingSoon() {
         </Grid>
         <Grid item xs={12} sm={10} md={8} lg={6}>
           <Stack spacing={2} sx={{ justifyContent: "center", alignItems: "center" }}>
-              <TextField
-                label="Enter your first name"
-                id="firstName"
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
-              />
-              <TextField
-                label="Enter your last name"
-                id="lastName"
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
-              />
-              <TextField
-                label="Enter your email address"
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
-              />
+            <TextField
+              label="Enter your first name"
+              id="firstName"
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
+            />
+            <TextField
+              label="Enter your last name"
+              id="lastName"
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
+            />
+            <TextField
+              label="Enter your email address"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              sx={{ width: { xs: "90%", sm: "20rem" }, mb: 1 }}
+            />
             <Button
               variant="contained"
               sx={{
@@ -161,22 +161,6 @@ export default function ComingSoon() {
               {loading ? "Signing Up..." : "Sign Up"}
             </Button>
           </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="body1" color="white" textAlign="center" sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}>
-            Already have an account?
-            <Button
-              variant="text"
-              sx={{
-                color: "#FFD700",
-                marginLeft: "0.5rem",
-                fontSize: { xs: "0.9rem", sm: "1rem" },
-              }}
-              onClick={() => navigate("/login")}
-            >
-              Log In
-            </Button>
-          </Typography>
         </Grid>
       </Grid>
       {errorMessage && (
