@@ -7,64 +7,36 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../../dashboard/SideBar";
 import { Link } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
-import { gql } from "@apollo/client";
-
-const CHANGE_PASSWORD_MUTATION = gql`
-  mutation ChangePassword($currentPassword: String!, $newPassword: String!, $confirmPassword: String!) {
-    changePassword(currentPassword: $currentPassword, newPassword: $newPasswordm confirmPassword: $confirmPassword) {
-      success
-      message
-    }
-  }
-  `;
+import firebase from "firebase/app";
 
 const ChangePasswordPage = () => {
   const navigate = useNavigate();
-
-
 
   const handleBackClick = () => {
     history.push("/MemberSettings");
   };
 
   const schema = yup.object().shape({
-    currentPassword: yup.string().required("Current password is required"),
-    newPassword: yup
-      .string()
-      .required("New password is required")
-      .min(8, "Password must be at least 8 characters"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm password is required")
-      .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
+    email: yup.string().email("Invalid email").required("Email is required"),
   });
 
   const formik = useFormik({
     initialValues: {
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
+      email: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      changePassword: ({
-        variables: {
-          currentPassword: values.currentPassword,
-          newPassword: values.newPassword,
-          confirmPassword: values.confirmPassword
-        },
-      })
-        .then((data) => {
-          console.log("Password changed successfully!")
+      firebase
+        .auth()
+        .sendPasswordResetEmail(values.email)
+        .then(() => {
+          console.log("Password changed successfully!");
         })
         .catch((err) => {
-          console.error("Password change failed", err.message)
-        })
-    }
+          console.error("Password change failed", err.message);
+        });
+    },
   });
-
-  const [changePassword, { loading, error }] = useMutation(CHANGE_PASSWORD_MUTATION);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -77,68 +49,35 @@ const ChangePasswordPage = () => {
           variant="h2"
           marginBottom="20px"
         >
-          Set New Password
+          Reset Password
         </Typography>
 
         <form onSubmit={formik.handleSubmit}>
           <Box
             display="grid"
             gap="20px"
-            gridTemplateColumns={isNonMobile ? "repeat(4, minmax(0, 1fr))" : "1fr"}
+            gridTemplateColumns={
+              isNonMobile ? "repeat(4, minmax(0, 1fr))" : "1fr"
+            }
             sx={{
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }}
           >
             <TextField
-              label="Current Password"
+              label="Email"
               variant="outlined"
-              type="password"
-              name="currentPassword"
-              value={formik.values.currentPassword}
+              type="email"
+              name="email"
+              value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={
-                formik.touched.currentPassword &&
-                !!formik.errors.currentPassword
-              }
-              helperText={
-                formik.touched.currentPassword && formik.errors.currentPassword
-              }
+              error={formik.touched.email && !!formik.errors.email}
+              helperText={formik.touched.email && formik.errors.email}
               sx={{
                 gridColumn: "span 4",
               }}
             />
-            <TextField
-              label="New Password"
-              variant="outlined"
-              type="password"
-              name="newPassword"
-              value={formik.values.newPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.newPassword && !!formik.errors.newPassword}
-              helperText={
-                formik.touched.newPassword && formik.errors.newPassword
-              }
-              sx={{ gridColumn: "span 4" }}
-            />
-            <TextField
-              label="Confirm Password"
-              variant="outlined"
-              type="password"
-              name="confirmPassword"
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={
-                formik.touched.confirmPassword &&
-                !!formik.errors.confirmPassword
-              }
-              helperText={
-                formik.touched.confirmPassword && formik.errors.newPassword
-              }
-              sx={{ gridColumn: "span 4" }}
-            />
+
             <Box display="flex" mt="20px" gap="30px" gridColumn="span 4">
               <Button
                 variant="contained"
@@ -172,8 +111,6 @@ const ChangePasswordPage = () => {
             </Link>
           </Box>
         </form>
-        {loading && <p>Loading... </p>}
-        {error && <p>Error: {error.message}</p>}
       </Box>
     </Box>
   );
