@@ -13,8 +13,6 @@ import { Link } from 'react-router-dom';
 
 const sections = [
   { id: 'HomePage', title: 'Home Page', path: '/HomePage' },
-  { id: 'FAQ', title: 'FAQ', path: '/FAQ' },
-  { id: 'AboutUs', title: 'About Us', path: '/AboutUs' },
   { id: 'Contact', title: 'Contact', path: '/contact' },
   { id: 'Member Chat', title: 'Chat', path: '/MemberChat' },
 ];

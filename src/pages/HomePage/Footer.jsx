@@ -1,79 +1,49 @@
-import React, { useEffect } from 'react';
-import { Typography, Box, Grid, Link, IconButton } from '@mui/material';
-import { Facebook, Twitter, Instagram, LinkedIn } from '@mui/icons-material';
-
-const TwitterFeed = () => {
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    document.getElementsByClassName("twitter-embed")[0].appendChild(script);
-  }, []);
-
-  return (
-    <div>
-      <div className="twitter-embed" style={{
-        height: '400px', // from data-height attribute
-        width: '100%', // use 100% width so it scales with screen size
-        overflow: 'auto',
-        borderRadius: '15px', // rounded borders
-        boxShadow: '0px 10px 18px -2px rgba(0,0,0,0.25)', // shadow effect
-        marginBottom: '15px', // space between Twitter embed and social media icons
-      }}>
-        <a className="twitter-timeline"
-           href="https://twitter.com/elonmusk?ref_src=twsrc%5Etfw"
-           data-theme="dark"
-           style={{ color: 'white' }}>
-          Tweets by elonmusk
-        </a>
-      </div>
-      <Box display="flex" justifyContent="center">
-        <IconButton color="inherit" component={Link} href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-          <Facebook />
-        </IconButton>
-        <IconButton color="inherit" component={Link} href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-          <Twitter />
-        </IconButton>
-        <IconButton color="inherit" component={Link} href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-          <Instagram />
-        </IconButton>
-        <IconButton color="inherit" component={Link} href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-          <LinkedIn />
-        </IconButton>
-      </Box>
-    </div>
-  );
-}
+import React from 'react';
+import { Typography, Box, Grid, Link, IconButton, useTheme } from '@mui/material';
+import { Facebook, Instagram } from '@mui/icons-material';
 
 function Footer() {
+  const theme = useTheme();
+
   return (
-    <Box sx={{ bgcolor: '#333', color: 'white', py: 2, px: 2 }}>
-      <Grid container justifyContent="space-between" alignItems="flex-start" spacing={3}>
-        <Grid item xs={12} sm={12} md={3}>
-          <TwitterFeed />
-        </Grid>
-        <Grid item xs={12} sm={2} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
-          <Typography variant="h6">Products</Typography>
-          <Link href="#" color="inherit" underline="none" sx={{ display: 'block' }}>Sneakers</Link>
-          <Link href="#" color="inherit" underline="none" sx={{ display: 'block' }}>Boots</Link>
-          <Link href="#" color="inherit" underline="none" sx={{ display: 'block' }}>Sandals</Link>
-        </Grid>
-        <Grid item xs={12} sm={2} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
-          <Typography variant="h6">Useful Links</Typography>
-          <Link href="#" color="inherit" underline="none" sx={{ display: 'block' }}>About Us</Link>
-          <Link href="#" color="inherit" underline="none" sx={{ display: 'block' }}>FAQs</Link>
-          <Link href="#" color="inherit" underline="none" sx={{ display: 'block' }}>Contact</Link>
-        </Grid>
-        <Grid item xs={12} sm={3} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+    <Box
+      sx={{
+        bgcolor: '#333',
+        color: 'white',
+        py: 2,
+        px: 2,
+        [theme.breakpoints.down('xs')]: {
+          py: 3,
+          px: 3,
+        }
+      }}
+    >
+      <Grid container justifyContent="space-between" alignItems="center" spacing={3}>
+        <Grid item xs={12} sm={4} sx={{ textAlign: { xs: 'center', sm: 'left' }, mt: { xs: 1, sm: 0 } }}>
           <Typography variant="h6">Contact</Typography>
-          <Typography sx={{ display: 'block' }}>Phone: (123) 456-7890</Typography>
-          <Typography sx={{ display: 'block' }}>Email: info@shoecompany.com</Typography>
+          <Typography sx={{ display: 'block', mt: 1 }}>Phone: (123) 456-7890</Typography>
+          <Typography sx={{ display: 'block', mt: 1 }}>Email: info@shoecompany.com</Typography>
+        </Grid>
+        <Grid item xs={12} sm={4} sx={{ textAlign: 'center', mt: { xs: 2, sm: 0 } }}>
+          <Typography variant="body2">
+            Copyright © 2023 Shoe Company
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={4} sx={{ textAlign: { xs: 'center', sm: 'right' }, mt: { xs: 2, sm: 0 } }}>
+          <Box display="flex" justifyContent="center" sm={{ justifyContent: 'flex-end' }}>
+            <IconButton color="inherit">
+              <Link href="https://www.facebook.com/TheSneakerSociety1" target="_blank" rel="noopener noreferrer" sx={{ color: 'white', fontSize: { xs: '1.5rem', sm: 'inherit' } }}>
+                <Facebook />
+              </Link>
+            </IconButton>
+            <IconButton color="inherit" sx={{ ml: 1 }}>
+              <Link href="https://www.instagram.com/thesneakersociety1/" target="_blank" rel="noopener noreferrer" sx={{ color: 'white', fontSize: { xs: '1.5rem', sm: 'inherit' } }}>
+                <Instagram />
+              </Link>
+            </IconButton>
+          </Box>
         </Grid>
       </Grid>
-      <Typography variant="body2" align="center" color="inherit" sx={{ mt: 2 }}>
-        Copyright © 2023 Shoe Company
-      </Typography>
     </Box>
   );
 }

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Drawer, IconButton, AppBar, Toolbar, Box, List, ListItem, ListItemText, Slide, useMediaQuery } from '@mui/material';
+import { Drawer, IconButton, AppBar, Toolbar, Box, List, ListItem, ListItemText, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useLocation } from 'react-router-dom';
 
 const sections = [
   { id: 'HomePage', title: 'Home Page', path: '/HomePage' },
-  { id: 'section2', title: 'Section 2', path: '/section2' },
-  { id: 'AboutUs', title: 'About Us', path: '../AboutUs/AboutUs' },
   { id: 'Contact', title: 'Contact', path: '/contact' },
-  { id: 'Member Chat', title: 'Chat', path: '/MemberChat' },
-];
+  { id: 'MemberChat', title: 'Chat', path: '/MemberChat' },
+]
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
   const location = useLocation();

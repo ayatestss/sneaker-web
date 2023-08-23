@@ -64,10 +64,25 @@ function FeaturesSection() {
     <Box sx={{ backgroundColor: '#000', color: 'white', pt: 2, pb: 8 }} ref={sectionRef}>
       <Container>
         <Box my={8} sx={{ textAlign: 'center', paddingBottom: '2rem' }}>
-          <Typography variant="h4" fontWeight="bold" gutterBottom>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            gutterBottom
+            sx={{
+              fontSize: { xs: '1.8rem', sm: '2.2rem' },
+              lineHeight: 1.4
+            }}
+          >
             Our Features
           </Typography>
-          <Typography variant="body1" gutterBottom>
+          <Typography
+            variant="body1"
+            gutterBottom
+            sx={{
+              fontSize: { xs: '1rem', sm: '1.2rem' },
+              lineHeight: 1.6
+            }}
+          >
             Discover the amazing features we offer.
           </Typography>
           <Grid container justifyContent="space-evenly" spacing={3} mt={4}>
@@ -92,41 +107,41 @@ function FeaturesSection() {
                     sx={{
                       width: '80px',
                       height: '80px',
-                     borderRadius: '50%',
-bgcolor: 'white',
-display: 'flex',
-alignItems: 'center',
-justifyContent: 'center',
-marginBottom: '1rem',
-}}
->
-<img
-src={feature.icon}
-alt={feature.title}
-style={{ width: '60%', height: '60%', objectFit: 'contain' }}
-/>
-</Box>
-<Box
-sx={{
-flex: '1 1 auto',
-textAlign: 'center',
-}}
->
-<Typography variant="h6" fontWeight="bold" gutterBottom>
-{feature.title}
-</Typography>
-<Typography variant="body2" color="text.secondary">
-{feature.description}
-</Typography>
-</Box>
-</Box>
-</Grid>
-))}
-</Grid>
-</Box>
-</Container>
-</Box>
-);
+                      borderRadius: '50%',
+                      bgcolor: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '1rem',
+                    }}
+                  >
+                    <img
+                      src={feature.icon}
+                      alt={feature.title}
+                      style={{ width: '60%', height: '60%', objectFit: 'contain' }}
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      flex: '1 1 auto',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <Typography variant="h6" fontWeight="bold" gutterBottom>
+                      {feature.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {feature.description}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
+  );
 }
 
 export default FeaturesSection;

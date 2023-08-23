@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Grid, Typography, Button } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, useTheme } from '@mui/material';
 
 const AboutSection = () => {
+  const theme = useTheme();
+
   const [animationActive, setAnimationActive] = useState(false);
   const [isScrollingUp, setIsScrollingUp] = useState(false);
 
@@ -44,10 +46,18 @@ const AboutSection = () => {
         <Container>
           <Grid container justifyContent="space-around" spacing={4}>
             <Grid item xs={12} sm={6}>
-              <Typography variant="h4" fontWeight="bold" gutterBottom>
+              <Typography
+                variant="h4"
+                fontWeight="bold"
+                gutterBottom
+                sx={{ fontSize: { xs: '1.8rem', sm: '2.2rem' }, lineHeight: 1.4 }}
+              >
                 About Us
               </Typography>
-              <Typography variant="body1">
+              <Typography
+                variant="body1"
+                sx={{ fontSize: { xs: '1rem', sm: '1.2rem' }, lineHeight: 1.6 }}
+              >
                 We are a leading shoe company providing the best footwear for all occasions. Our mission is to deliver exceptional quality and comfort to our customers.
               </Typography>
               <Box mt={2}>

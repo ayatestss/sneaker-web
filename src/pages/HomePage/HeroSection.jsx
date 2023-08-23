@@ -1,10 +1,29 @@
 import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Card, CardContent } from '@mui/material';
 import ConnectSection from './ConnectSection';
 import AboutSection from './AboutSection';
 import FeaturesSection from './FeaturesSection';
 
 function HeroSection() {
+
+  const getTypographyStyles = (isHeader) => {
+    return {
+      fontSize: {
+        xs: isHeader ? '1.2rem' : '1rem',
+        sm: isHeader ? '1.5rem' : '1.1rem',
+        md: isHeader ? '1.8rem' : '1.2rem',
+      },
+      fontWeight: isHeader ? 'bold' : 'normal',
+    };
+  };
+
+  const listItemStyles = {
+    fontSize: '0.9rem', // or whatever size you want
+    fontWeight: 'normal',
+    lineHeight: '1.5',
+    color: 'white', // or any other color that suits your design
+  };
+
   return (
     <Box
       sx={{
@@ -15,33 +34,124 @@ function HeroSection() {
         pt: { xs: '0px', sm: '0px' },
       }}
     >
-    <Box
-      sx={{
-        width: '100%',
-        height: { xs: '300px', sm: '600px' },
-        position: 'relative',
-        background: 'url(https://via.placeholder.com/1200x800) center/cover no-repeat',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <Box sx={{ textAlign: 'center', px: 4 }}>
-        <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#fff' }}>
-          Step into Style and Comfort
-        </Typography>
-        <Typography variant="h6" gutterBottom sx={{ color: '#fff' }}>
-          Discover a wide range of trendy and comfortable shoes that make a statement.
-        </Typography>
-        <Button variant="contained" color="secondary" size="large">
-          Shop Now
-        </Button>
-      </Box>
-    </Box>
-      <Box mt={{ xs: 2, sm: 4, md: 0 }}>
+      <Box mt={{ xs: 2, sm: 4 }}>
         <FeaturesSection />
       </Box>
-      <Box sx={{ bgcolor: 'black', pb: 1 }}>
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: { xs: 2, sm: 3 }, // Add space between cards, more for larger screens.
+          width: '100%',
+          maxWidth: '1200px',
+          mx: 'auto', // Centers the container if it's below the maximum width.
+          mt: 5, // Add space on top for better visual separation.
+          mb: 5, // Add space at the bottom as well for symmetry.
+        }}
+      >
+        {/* Basic Plan (Left) */}
+        <Card sx={{
+          width: { xs: '90%', sm: '28%' },  // Reduced width for mobile for breathing space.
+          mx: 'auto',  // Centers the card on mobile since width is less than 100%.
+          bgcolor: '#333',
+          transition: 'transform 0.3s',
+          '&:hover': {
+            transform: { xs: 'scale(1.02)', sm: 'scale(1.05)' } // Less aggressive scaling on mobile.
+          }
+        }}>
+          <CardContent sx={{ textAlign: 'center', py: 3 }}>
+            <Typography variant="h5" fontWeight="bold" gutterBottom sx={getTypographyStyles('h5')}>
+              Basic Plan
+            </Typography>
+            <Typography variant="h4" gutterBottom>
+              price/mo
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Great for individuals.
+            </Typography>
+            <ul sx={{ textAlign: 'left', listStyleType: 'none', pl: 0 }}>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+            </ul>
+            <Button variant="contained" color="secondary" size="large" mt={3}>
+              Get Started
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Premium Plan (Center) */}
+        <Card sx={{
+          width: { xs: '94%', sm: '34%' },  // Reduced width for mobile for breathing space.
+          mx: 'auto',  // Centers the card on mobile since width is less than 100%.
+          bgcolor: '#333',
+          transition: 'transform 0.3s',
+          '&:hover': {
+            transform: { xs: 'scale(1.02)', sm: 'scale(1.05)' } // Less aggressive scaling on mobile.
+          }
+        }}>
+          <CardContent sx={{ textAlign: 'center', py: 3 }}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom sx={{ color: '#ffcc00', ...getTypographyStyles('h4') }}>
+              Premium Plan
+            </Typography>
+            <Typography variant="h3" gutterBottom sx={{ color: '#ffcc00' }}>
+              price/mo
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Perfect for professionals.
+            </Typography>
+            <ul sx={{ textAlign: 'left', listStyleType: 'none', pl: 0 }}>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+            </ul>
+            <Button variant="contained" color="secondary" size="large" mt={2}>
+              Get Premium
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Advanced Plan (Right) */}
+        <Card sx={{
+          width: { xs: '90%', sm: '28%' },  // Reduced width for mobile for breathing space.
+          mx: 'auto',  // Centers the card on mobile since width is less than 100%.
+          bgcolor: '#333',
+          transition: 'transform 0.3s',
+          '&:hover': {
+            transform: { xs: 'scale(1.02)', sm: 'scale(1.05)' } // Less aggressive scaling on mobile.
+          }
+        }}>
+          <CardContent sx={{ textAlign: 'center', py: 3 }}>
+            <Typography variant="h5" fontWeight="bold" gutterBottom sx={getTypographyStyles('h5')}>
+              Advanced Plan
+            </Typography>
+            <Typography variant="h4" gutterBottom>
+              price/mo
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Suited for small businesses.
+            </Typography>
+            <ul sx={{ textAlign: 'left', listStyleType: 'none', pl: 0 }}>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+              <li><Typography sx={listItemStyles} fontWeight="bold">- info</Typography></li>
+            </ul>
+            <Button variant="contained" color="secondary" size="large" mt={2}>
+              Choose Advanced
+            </Button>
+          </CardContent>
+        </Card>
+      </Box>
+
+      <Box sx={{ bgcolor: 'black', pb: 1, mt: 20 }}>
         <AboutSection />
         <ConnectSection />
       </Box>

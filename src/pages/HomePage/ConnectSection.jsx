@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Grid, Typography, Button, TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, TextField, useTheme } from '@mui/material';
 
 const ConnectSection = () => {
+  const theme = useTheme();
+
   const [animationActive, setAnimationActive] = useState(false);
   const [isScrollingUp, setIsScrollingUp] = useState(false);
 
@@ -43,10 +45,18 @@ const ConnectSection = () => {
       <Container>
         <Grid container justifyContent="space-around" spacing={4}>
           <Grid item xs={12} sm={6}>
-            <Typography variant="h4" fontWeight="bold" gutterBottom>
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              gutterBottom
+              sx={{ fontSize: { xs: '1.8rem', sm: '2.2rem' }, lineHeight: 1.4 }}
+            >
               Connect With Us
             </Typography>
-            <Typography variant="body1">
+            <Typography
+              variant="body1"
+              sx={{ fontSize: { xs: '1rem', sm: '1.2rem' }, lineHeight: 1.6 }}
+            >
               Subscribe to our newsletter for the latest news, promotions, and exclusive offers.
             </Typography>
             <Box mt={2}>
