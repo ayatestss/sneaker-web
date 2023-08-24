@@ -6,7 +6,6 @@ import { Link, useLocation } from 'react-router-dom';
 const sections = [
   { id: 'HomePage', title: 'Home Page', path: '/HomePage' },
   { id: 'Contact', title: 'Contact', path: '/contact' },
-  { id: 'MemberChat', title: 'Chat', path: '/MemberChat' },
 ]
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
