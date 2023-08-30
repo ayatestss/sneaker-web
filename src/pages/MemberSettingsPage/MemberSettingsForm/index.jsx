@@ -4,38 +4,40 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useMutation, gql } from "@apollo/client";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Avatar,
-} from "@mui/material";
+import { Box, Button, TextField, Typography, Avatar } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Sidebar from "../../../dashboard/SideBar";
 
+const schema = yup.object().shape({
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup.string().required("email is required"),
+  phone: yup.string().required("phone number is required"),
+  address1: yup.string().required("address1 is required"),
+  address2: yup.string().required("address2 is required"),
+});
+
 const UPDATE_PROFILE_MUTATION = gql`
-mutation UpdateProfile(
-  $firstName: String
-  $lastName: String
-  $email: String
-  $phone: String
-  $address1: String
-  $address2: String
-) {
-  updateProfile(
-    firstName: $firstName
-    lastName: $lastName
-    email: $email
-    phone: $phone
-    address1: $address1
-    address2: $address2
-  )
-}
+  mutation UpdateProfile(
+    $firstName: String
+    $lastName: String
+    $email: String
+    $phone: String
+    $address1: String
+    $address2: String
+  ) {
+    updateProfile(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      phone: $phone
+      address1: $address1
+      address2: $address2
+    )
+  }
 `;
 
 const MemberSettingsForm = () => {
-
   const navigate = useNavigate();
 
   const fileInputRef = useRef(null);
@@ -52,16 +54,6 @@ const MemberSettingsForm = () => {
   const handleIconClick = () => {
     fileInputRef.current.click();
   };
-
-  const schema = yup.object().shape({
-    firstName: yup.string().required("First name is required"),
-    lastName: yup.string().required("Last name is required"),
-    email: yup.string().required("email is required"),
-    phone: yup.string().required("phone number is required"),
-    address1: yup.string().required("address1 is required"),
-    address2: yup.string().required("address2 is required"),
-
-  })
 
   const formik = useFormik({
     initialValues: {
@@ -81,12 +73,14 @@ const MemberSettingsForm = () => {
         if (data.updateProfile) {
           console.log("Profile updated successfully!");
         } else {
-          console.log("Failed to update profile.")
+          console.log("Failed to update profile.");
         }
       } catch (error) {
-        console.error("An error occured:", error)
+        {
+          error && <div>Error: {error.message}</div>;
+        }
       }
-    }
+    },
   });
 
   const [updateProfileMutation] = useMutation(UPDATE_PROFILE_MUTATION);
@@ -149,7 +143,9 @@ const MemberSettingsForm = () => {
                 onBlur={formik.handleBlur}
                 variant="filled"
                 error={formik.touched.firstName && !!formik.errors.firstName}
-                helperText={formik.touched.firstName && !!formik.errors.firstName}
+                helperText={
+                  formik.touched.firstName && !!formik.errors.firstName
+                }
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
@@ -195,7 +191,6 @@ const MemberSettingsForm = () => {
               />
             </Box>
             <Box display="flex" gap="30px" flexDirection="row">
-
               <TextField
                 fullWidth
                 id="address-1"
@@ -223,19 +218,14 @@ const MemberSettingsForm = () => {
                 sx={{ gridColumn: "span 4" }}
               />
             </Box>
-            <Link to="/membersettings">
-              <Button
-                variant="contained"
-                sx={{
-                  Link: "/membersettings",
-                }}
-                onClick={handleBackClick}
-              >
-                Back
-              </Button>
-            </Link>
-            <Button variant="contained" type="submit">
-              Submit
+            <Button
+              variant="contained"
+              onClick={() => navigate("/membersettings")}
+            >
+              Back
+            </Button>
+            <Button variant="contained" type="submit" disabled={loading}>
+              {loading ? "Submitting..." : "Submit"}
             </Button>
           </Box>
         </form>

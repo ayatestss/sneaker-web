@@ -4,17 +4,12 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Sidebar from "../../../dashboard/SideBar";
-import { Link } from "react-router-dom";
 import firebase from "firebase/app";
 
 const ChangePasswordPage = () => {
   const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    history.push("/MemberSettings");
-  };
 
   const schema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Email is required"),
@@ -99,13 +94,7 @@ const ChangePasswordPage = () => {
               Back to log in
             </Button>
             <Link to="/membersettings">
-              <Button
-                variant="contained"
-                onClick={handleBackClick}
-                sx={{
-                  Link: "/membersettings",
-                }}
-              >
+              <Button variant="contained" onClick={navigate}>
                 Back
               </Button>
             </Link>
