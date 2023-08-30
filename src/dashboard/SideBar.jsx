@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-//import "react-pro-sidebar/dist/css/styles.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
@@ -13,7 +11,6 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import MessageIcon from "@mui/icons-material/Message";
 import ExploreIcon from "@mui/icons-material/Explore";
-import GroupsIcon from "@mui/icons-material/Groups";
 import { ColorModeContext } from "../theme/theme";
 import { useContext } from "react";
 import { tokens } from "../theme/theme";
@@ -192,8 +189,85 @@ const OldSidebar = () => {
               setSelected={setSelected}
             />
           </Box>
+<<<<<<< Updated upstream
         </Menu>
       </ProSidebar>
+=======
+        </Box>
+      )}
+
+      <Typography
+        variant="h6"
+        color={colors.grey[100]}
+        sx={{ m: "15px 0 5px 20px" }}
+      >
+        Main Menu
+      </Typography>
+      <Item
+        title="Dashboard"
+        to="/"
+        icon={<HomeOutlinedIcon />}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <Item
+        title="Explore"
+        to="/"
+        icon={<ExploreIcon />}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <Item
+        title="Banking"
+        to="/invoices"
+        icon={<ReceiptOutlinedIcon />}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <Item
+        title="Services"
+        to="/services"
+        icon={<PersonOutlinedIcon />}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <Item
+        title="Messages"
+        to="/"
+        icon={<MessageIcon />}
+        selected={selected}
+        setSelected={setSelected}
+      />
+
+      <IconButton onClick={colorMode.toggleColorMode}>
+        {theme.palette.mode === "dark" ? (
+          <DarkModeOutlinedIcon />
+        ) : (
+          <LightModeOutlinedIcon />
+        )}
+      </IconButton>
+      <Typography
+        variant="h6"
+        color={colors.grey[100]}
+        sx={{ m: "15px 0 5px 20px" }}
+      >
+        Account
+      </Typography>
+      <Item
+        title="Help"
+        to="/faq"
+        icon={<HelpOutlineOutlinedIcon />}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <Item
+        title="Member Settings"
+        to="/membersettings"
+        icon={<SettingsOutlinedIcon />}
+        selected={selected}
+        setSelected={setSelected}
+      />
+>>>>>>> Stashed changes
     </Box>
   );
 };
