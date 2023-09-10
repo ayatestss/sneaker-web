@@ -15,6 +15,8 @@ const schema = yup.object().shape({
   phone: yup.string().required("phone number is required"),
   address1: yup.string().required("address1 is required"),
   address2: yup.string().required("address2 is required"),
+  zipcode: yup.string().required("zipcode is required"),
+  state: yup.string().required("state is required"),
 });
 
 const UPDATE_PROFILE_MUTATION = gql`
@@ -25,6 +27,8 @@ const UPDATE_PROFILE_MUTATION = gql`
     $phone: String
     $address1: String
     $address2: String
+    $zipcode: String
+    $state: String
   ) {
     updateProfile(
       firstName: $firstName
@@ -33,6 +37,8 @@ const UPDATE_PROFILE_MUTATION = gql`
       phone: $phone
       address1: $address1
       address2: $address2
+      zipcode: $zipcode
+      state: $state
     )
   }
 `;
@@ -63,6 +69,8 @@ const MemberSettingsForm = () => {
       phone: "",
       address1: "",
       address2: "",
+      zipcode: "",
+      state: "",
     },
     validationSchema: schema,
     onSubmit: async (values) => {
@@ -218,6 +226,35 @@ const MemberSettingsForm = () => {
                 sx={{ gridColumn: "span 4" }}
               />
             </Box>
+            <Box display="flex" gap="38px" flexDirection="row">
+              <TextField
+                fullWidth
+                id="zipcode"
+                name="zipcode"
+                value={formik.values.zipcode}
+                label="zipcode"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                variant="filled"
+                error={formik.touched.zipcode && !!formik.errors.zipcode}
+                helperText={formik.touched.zipcode && formik.errors.zipcode}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                id="state"
+                name="state"
+                value={formik.values.zipcode}
+                label="state"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                variant="filled"
+                error={formik.touched.state && !!formik.errors.state}
+                helperText={formik.touched.state && formik.errors.state}
+                sx={{ gridColumn: "span 4" }}
+              />
+            </Box>
+
             <Button
               variant="contained"
               onClick={() => navigate("/membersettings")}
