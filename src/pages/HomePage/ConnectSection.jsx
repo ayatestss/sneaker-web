@@ -96,3 +96,4 @@ const ConnectSection = () => {
 };
 
 export default ConnectSection;
+
