@@ -1,12 +1,11 @@
 import React from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import ConnectSection from './ConnectSection';
 import AboutSection from './AboutSection';
 import FeaturesSection from './FeaturesSection';
 import PricingCard from './PricingCard';
 
 function HeroSection() {
-
   return (
     <Box
       sx={{
@@ -21,33 +20,36 @@ function HeroSection() {
         <FeaturesSection />
       </Box>
 
+      <Box mt={5} textAlign="center" fontWeight="bold">
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          gutterBottom
+          sx={{
+            fontSize: { xs: '1.8rem', sm: '2.2rem' },
+            lineHeight: 1.4
+          }}
+        >
+          Pricing Plans
+        </Typography>
+      </Box>
+
       <Grid container spacing={4} justifyContent="center" alignItems="center" sx={{ mt: 5, mb: 5, px: 2 }}>
         <Grid item xs={12} sm={4}>
           <PricingCard
             title="Basic Plan"
             price="price/mo"
             description="Great for individuals."
-            benefits={['info', 'info', 'info', 'info']}
+            benefits={[
+              'Seamless Communication',
+              'Detailed Intake Form',
+              'Restoration Analytics',
+              'Business Insights',
+              'Direct Stripe Payments',
+              'Brand Trust Building',
+              'Direct connection with the dev team'
+            ]}
             buttonText="Get Started"
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <PricingCard
-            title="Premium Plan"
-            price="price/mo"
-            description="Perfect for professionals."
-            benefits={['info', 'info', 'info', 'info', 'info']}
-            buttonText="Get Premium"
-            highlight={true}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <PricingCard
-            title="Advanced Plan"
-            price="price/mo"
-            description="Suited for small businesses."
-            benefits={['info', 'info', 'info', 'info', 'info']}
-            buttonText="Choose Advanced"
           />
         </Grid>
       </Grid>

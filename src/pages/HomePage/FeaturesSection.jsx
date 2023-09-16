@@ -1,39 +1,46 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Typography, Box, Grid, Button, Container } from '@mui/material';
+import { Typography, Box, Grid, Container } from '@mui/material';
+
+// Import the required icons
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import PaidIcon from '@mui/icons-material/Paid';
+import HandymanIcon from '@mui/icons-material/Handyman';
 
 function FeaturesSection() {
   const features = [
     {
-      title: 'Feature 1',
-      description: 'Feature 1 description.',
-      icon: 'https://via.placeholder.com/64', // Replace with your icon URL
+      title: 'Seamless Communication',
+      description: 'Connect effortlessly with sellers and buyers in real-time. Our platform ensures you never miss a beat in your sneaker needs. Say goodbye to endless email threads, Instagram DMs and missed opportunities!',
+      icon: <ConnectWithoutContactIcon style={{ fontSize: 48, color: 'grey' }} />,
     },
     {
-      title: 'Feature 2',
-      description: 'Feature 2 description.',
-      icon: 'https://via.placeholder.com/64', // Replace with your icon URL
+      title: 'Detailed Shoe Intake Form',
+      description: 'Revamp your sneaker restoration process with our comprehensive intake form. Document every aspect of your beloved kicks, from wear and tear to your restoration goals, ensuring a personalized and meticulous restoration journey.',
+      icon: <ReceiptLongIcon style={{ fontSize: 48, color: 'grey' }} />,
     },
     {
-      title: 'Feature 3',
-      description: 'Feature 3 description.',
-      icon: 'https://via.placeholder.com/64', // Replace with your icon URL
+      title: 'Restoration Analytics Tailored to You',
+      description: "Dive deep into your restoration projects with Sneaker Connect's member-centric analytics. Gain insights into your restoration journey, track your progress, and fine-tune your skills as a restoration artist. Your passion deserves precision!",
+      icon: <HandymanIcon style={{ fontSize: 48, color: 'grey' }} />,
     },
     {
-      title: 'Feature 4',
-      description: 'Feature 4 description.',
-      icon: 'https://via.placeholder.com/64', // Replace with your icon URL
+      title: 'Business Analytics',
+      description: 'Get ahead of the game with in-depth business analytics. Monitor your performance, track trends, and make data-driven decisions to boost your sneaker game.',
+      icon: <AnalyticsIcon style={{ fontSize: 48, color: 'grey' }} />,
     },
     {
-      title: 'Feature 5',
-      description: 'Feature 5 description.',
-      icon: 'https://via.placeholder.com/64', // Replace with your icon URL
+      title: 'Direct Payments with Stripe',
+      description: 'Secure and seamless transactions at your fingertips. Our integration with Stripe ensures that payments are quick, safe, and hassle-free. Buy and sell with confidence!',
+      icon: <PaidIcon style={{ fontSize: 48, color: 'grey' }} />,
     },
     {
-      title: 'Feature 6',
-      description: 'Feature 6 description.',
-      icon: 'https://via.placeholder.com/64', // Replace with your icon URL
-    },
-    // Add more features as needed
+      title: 'Brand Building and Trust',
+      description: 'Establish your brand and gain trust within the sneaker community. Build a reputation that sets you apart as a trusted seller or buyer.',
+      icon: <VolunteerActivismIcon style={{ fontSize: 48, color: 'grey' }} />,
+    }
   ];
 
   const [animationStarted, setAnimationStarted] = useState(false);
@@ -91,8 +98,10 @@ function FeaturesSection() {
                 <Box
                   sx={{
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexDirection: 'column', // Ensures the children of the box align in a column
                     alignItems: 'center',
+                    justifyContent: 'space-between', // This will ensure equal spacing between items
+                    height: '100%', // Takes full height
                     backgroundColor: 'grey',
                     borderRadius: '4px',
                     p: 2,
@@ -115,25 +124,21 @@ function FeaturesSection() {
                       marginBottom: '1rem',
                     }}
                   >
-                    <img
-                      src={feature.icon}
-                      alt={feature.title}
-                      style={{ width: '60%', height: '60%', objectFit: 'contain' }}
-                    />
+                    {feature.icon}
                   </Box>
-                  <Box
+                  <Typography variant="h6" fontWeight="bold" mb={1}>
+                    {feature.title}
+                  </Typography>
+                  <Typography
+                    variant="body2"
                     sx={{
-                      flex: '1 1 auto',
+                      flex: 1, // Makes the description occupy the available space
+                      display: { xs: 'none', sm: 'block' },
                       textAlign: 'center',
                     }}
                   >
-                    <Typography variant="h6" fontWeight="bold" gutterBottom>
-                      {feature.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {feature.description}
-                    </Typography>
-                  </Box>
+                    {feature.description}
+                  </Typography>
                 </Box>
               </Grid>
             ))}

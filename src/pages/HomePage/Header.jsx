@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 const sections = [
   { id: 'HomePage', title: 'Home Page', path: '/HomePage' },
   { id: 'Contact', title: 'Contact', path: '/contact' },
-  { id: 'Member Chat', title: 'Chat', path: '/MemberChat' },
 ];
 
 function Header({ toggleSidebar }) {

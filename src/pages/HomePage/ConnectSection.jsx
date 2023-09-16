@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Grid, Typography, Button, TextField, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const ConnectSection = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const [animationActive, setAnimationActive] = useState(false);
   const [isScrollingUp, setIsScrollingUp] = useState(false);
@@ -57,21 +59,16 @@ const ConnectSection = () => {
               variant="body1"
               sx={{ fontSize: { xs: '1rem', sm: '1.2rem' }, lineHeight: 1.6 }}
             >
-              Subscribe to our newsletter for the latest news, promotions, and exclusive offers.
+              Discover our platform and get the latest news and promotions.
             </Typography>
             <Box mt={2}>
-              <TextField
-                type="email"
-                placeholder="Your Email Address"
-                variant="outlined"
-                size="small"
-                fullWidth
-                sx={{ maxWidth: '300px', m: 'auto' }}
-              />
-            </Box>
-            <Box mt={2}>
-              <Button variant="contained" color="secondary" size="large">
-                Subscribe
+              <Button
+                variant="contained"
+                color="secondary"
+                size="large"
+                onClick={() => navigate('/')}
+              >
+                Explore Now
               </Button>
             </Box>
           </Grid>
