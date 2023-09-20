@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useMutation, gql } from "@apollo/client";
 import { Box, Button, TextField, Typography, Avatar } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -79,13 +81,13 @@ const MemberSettingsForm = () => {
           variables: values,
         });
         if (data.updateProfile) {
-          console.log("Profile updated successfully!");
+          toast.success("Profile updated successfully!");
         } else {
-          console.log("Failed to update profile.");
+          toast.error("Failed to update profile.");
         }
       } catch (error) {
         {
-          error && <div>Error: {error.message}</div>;
+          error && toast.error(error.message);
         }
       }
     },
