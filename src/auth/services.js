@@ -21,12 +21,12 @@ export const singInWithGoogle = async () => {
 
 export const signInWithEmailAndPass = async (email, password) => {
   try {
-    console.log(email, password);
     const result = await signInWithEmailAndPassword(
       FirebaseAuth,
       email,
       password
     );
+    // console.log({ result });
     const { uid } = result.user;
     return uid;
   } catch (e) {
@@ -38,6 +38,7 @@ export const onAuthStateHasChanged = (setSession) => {
   onAuthStateChanged(FirebaseAuth, (user) => {
     if (!user) return setSession({ status: 'no-authenticated', userId: null });
 
+    console.log(user);
     setSession({ status: 'authenticated', userId: user.uid });
   });
 };
