@@ -19,15 +19,13 @@ import Sidebar from './dashboard/Sidebar';
 // import MemberSettings from './pages/membersettings';
 import Dashboard from './dashboard/Dashboard';
 import MemberChat from './pages/MemberChat/MemberChat';
+import SignupPage from './pages/SignupPage/SignupPage';
+import { LogoutPage } from './pages/Logout/LogoutPage';
 
 function App() {
-  const { status, userId } = useContext(AuthContext);
+  const { status } = useContext(AuthContext);
   const [theme, colorMode] = useMode();
   // const [isSidebar, setIsSidebar] = useState(true);
-
-  useEffect(() => {
-    console.log({ status, userId });
-  }, [status]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -35,8 +33,6 @@ function App() {
         <CssBaseline />
         <div className="App">
           <div className="content-container">
-            {/* <Topbar setIsSidebar={setIsSidebar} />{' '} */}
-            {/* <Sidebar isSidebar={isSidebar} /> */}
             <Routes>
               <Route path="/login" element={<LoginPage />} />
               {/* <Route path="/member" element={<ContractForm />} /> */}
@@ -50,6 +46,15 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/signup"
+                element={
+                  <ProtectedRoute status={status}>
+                    <SignupPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="logout" element={<LogoutPage />} />
               {/* <Route
                 path="/MemberSettingsForm"
                 element={<MemberSettingsForm />}
