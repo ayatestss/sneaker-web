@@ -8,12 +8,12 @@ import { FirebaseAuth } from './firebase';
 
 const googleProvider = new GoogleAuthProvider();
 
-export const singInWithGoogle = async () => {
+export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(FirebaseAuth, googleProvider);
 
-    const { uid } = result.user;
-    return uid;
+    const user = result.user;
+    return user;
   } catch (e) {
     throw e;
   }
@@ -26,9 +26,9 @@ export const signInWithEmailAndPass = async (email, password) => {
       email,
       password
     );
-    // console.log({ result });
-    const { uid } = result.user;
-    return uid;
+
+    const user = result.user;
+    return user;
   } catch (e) {
     throw e;
   }
@@ -38,7 +38,6 @@ export const onAuthStateHasChanged = (setSession) => {
   onAuthStateChanged(FirebaseAuth, (user) => {
     if (!user) return setSession({ status: 'no-authenticated', userId: null });
 
-    console.log(user);
     setSession({ status: 'authenticated', userId: user.uid });
   });
 };

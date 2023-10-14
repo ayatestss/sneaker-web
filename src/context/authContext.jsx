@@ -1,16 +1,21 @@
 import { createContext, useEffect, useState } from 'react';
-import { redirect } from 'react-router-dom';
 import {
   onAuthStateHasChanged,
-  singInWithGoogle,
+  signInWithGoogle,
   logOut,
   signInWithEmailAndPass,
 } from '../auth/services';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [session, setSession] = useState({ userId: null, status: 'checking' });
+  const navigate = useNavigate();
+  const [session, setSession] = useState({
+    userId: null,
+    status: 'checking',
+    authToken: localStorage.getItem('authToken') || '', // Retrieve the token from local storage
+  });
 
   useEffect(() => {
     onAuthStateHasChanged(setSession);
@@ -19,21 +24,30 @@ export const AuthProvider = ({ children }) => {
   const checking = () =>
     setSession((prev) => ({ ...prev, status: 'checking' }));
 
-  const handleLogOut = async () => {
-    await logOut();
-    setSession({ userId: null, status: 'no-authenticated' });
-  };
-
-  const validateAuth = (userId) => {
-    if (userId) return setSession({ userId, status: 'authenticated' });
-    handleLogOut();
+  const validateAuth = async (user) => {
+    if (user) {
+      const token = await user.getIdTokenResult();
+      setSession({
+        userId: user.uid,
+        status: 'authenticated',
+        authToken: token.token,
+      });
+    } else {
+      handleLogOut();
+    }
   };
 
   const handleLoginWithGoogle = async () => {
     try {
       checking();
-      const userId = await singInWithGoogle();
-      validateAuth(userId);
+      const user = await signInWithGoogle();
+
+      // Store the auth token in localStorage
+      if (user && user.getIdToken) {
+        localStorage.setItem('authToken', user.getIdToken());
+      }
+
+      validateAuth(user);
     } catch (error) {
       console.error('Error occurred during Google login:', error);
       throw error;
@@ -43,18 +57,36 @@ export const AuthProvider = ({ children }) => {
   const handleLoginWithEmailAndPass = async (email, password) => {
     try {
       checking();
-      const userId = await signInWithEmailAndPass(email, password);
-      validateAuth(userId);
-      return;
+      const user = await signInWithEmailAndPass(email, password);
+      const token = await user.getIdTokenResult();
+
+      // Store the auth token in localStorage
+      if (user && token) {
+        localStorage.setItem('authToken', token.token);
+      }
+
+      validateAuth(user);
     } catch (error) {
       throw error;
     }
+  };
+
+  const handleLogOut = async () => {
+    await logOut();
+    localStorage.removeItem('authToken');
+    setSession({ userId: null, status: 'no-authenticated' });
+    return navigate('/login');
+  };
+
+  const currentUser = () => {
+    return { ...session };
   };
 
   return (
     <AuthContext.Provider
       value={{
         ...session,
+        currentUser,
         handleLoginWithGoogle,
         handleLoginWithEmailAndPass,
         handleLogOut,
