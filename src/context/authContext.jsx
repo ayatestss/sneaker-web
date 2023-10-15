@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPass,
 } from '../auth/services';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_MEMBER_BY_ID } from './graphql/getMemberById';
 
 export const AuthContext = createContext();
 
@@ -79,7 +81,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const currentUser = () => {
-    return { ...session };
+    const { data, loading } = useQuery(GET_MEMBER_BY_ID, {
+      variables: {
+        memberByIdId: session.userId,
+      },
+    });
+    if (!loading) {
+      return { ...session, ...data.memberById };
+    }
   };
 
   return (

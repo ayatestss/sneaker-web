@@ -1,13 +1,15 @@
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../theme/theme";
-import { mockTransactions } from "../data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PaidIcon from "@mui/icons-material/Paid";
-import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
-import Header from "../components/Header";
-import StatBox from "../components/StatBox";
+import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { tokens } from '../theme/theme';
+import { mockTransactions } from '../data/mockData';
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
+import EmailIcon from '@mui/icons-material/Email';
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import PaidIcon from '@mui/icons-material/Paid';
+import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+import Header from '../components/Header';
+import StatBox from '../components/StatBox';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -45,7 +47,7 @@ const Dashboard = () => {
                 sx={{
                   color: colors.yellowAccent[500],
                   light: colors.grey[100],
-                  fontSize: "26px",
+                  fontSize: '26px',
                 }}
               />
             }
@@ -69,7 +71,7 @@ const Dashboard = () => {
                 sx={{
                   color: colors.yellowAccent[500],
                   light: colors.grey[100],
-                  fontSize: "26px",
+                  fontSize: '26px',
                 }}
               />
             }
@@ -92,7 +94,7 @@ const Dashboard = () => {
                 sx={{
                   color: colors.yellowAccent[500],
                   light: colors.grey[100],
-                  fontSize: "26px",
+                  fontSize: '26px',
                 }}
               />
             }
@@ -116,7 +118,7 @@ const Dashboard = () => {
                 sx={{
                   color: colors.yellowAccent[500],
                   light: colors.grey[100],
-                  fontSize: "26px",
+                  fontSize: '26px',
                 }}
               />
             }
@@ -155,7 +157,7 @@ const Dashboard = () => {
             <Box>
               <IconButton>
                 <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.grey[100] }}
+                  sx={{ fontSize: '26px', color: colors.grey[100] }}
                 />
               </IconButton>
             </Box>
