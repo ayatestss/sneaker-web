@@ -8,6 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_MEMBER_BY_ID } from './graphql/getMemberById';
+import { redirectToSignupIfNecessary } from './authUtils';
 
 export const AuthContext = createContext();
 
@@ -16,8 +17,9 @@ export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState({
     userId: null,
     status: 'checking',
-    authToken: localStorage.getItem('authToken') || '', // Retrieve the token from local storage
+    authToken: localStorage.getItem('authToken') || '',
   });
+  const [redirectedToSignup, setRedirectedToSignup] = useState(false);
 
   useEffect(() => {
     onAuthStateHasChanged(setSession);
@@ -86,7 +88,26 @@ export const AuthProvider = ({ children }) => {
         memberByIdId: session.userId,
       },
     });
+
     if (!loading) {
+      if (!data) {
+        redirectToSignupIfNecessary(
+          redirectedToSignup,
+          setRedirectedToSignup,
+          navigate
+        );
+        return session;
+      }
+
+      if (!data.memberById) {
+        redirectToSignupIfNecessary(
+          redirectedToSignup,
+          setRedirectedToSignup,
+          navigate
+        );
+        return session;
+      }
+
       return { ...session, ...data.memberById };
     }
   };

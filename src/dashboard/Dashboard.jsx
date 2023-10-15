@@ -12,6 +12,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 
 const Dashboard = () => {
+  const { currentUser } = useContext(AuthContext);
+  const user = currentUser();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
