@@ -2,8 +2,6 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-  sendPasswordResetEmail,
-  confirmPasswordReset,
 } from "firebase/auth";
 import { FirebaseAuth } from "./firebase";
 
@@ -30,19 +28,3 @@ export const onAuthStateHasChanged = (setSession) => {
 };
 
 export const logOut = async () => await FirebaseAuth.signOut();
-
-export const sendPasswordResetEmailToUser = async (email) => {
-  try {
-    await sendPasswordResetEmail(FirebaseAuth, email);
-  } catch (e) {
-    alert(e.message);
-  }
-};
-
-export const confirmPasswordResetWithCode = async (resetCode, newPassword) => {
-  try {
-    await confirmPasswordReset(FirebaseAuth, resetCode, newPassword);
-  } catch (e) {
-    alert(e.message);
-  }
-};

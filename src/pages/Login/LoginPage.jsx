@@ -2,8 +2,6 @@ import { Button, Container } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation } from "@apollo/client";
-import PasswordResetConfirmation from "../../auth/passwordResetConfirmation";
-import PasswordResetForm from "../../auth/passwordResetForm";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -31,8 +29,6 @@ export default function LoginPage() {
         <Button variant="contained" onClick={handleLogOut}>
           Logout
         </Button>
-        <PasswordResetConfirmation />
-        <PasswordResetForm />
       </Container>
     </div>
   );
