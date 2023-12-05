@@ -1,12 +1,12 @@
-import { Button, TextField, Stack, Box, Alert } from '@mui/material';
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../context/authContext';
-import Logo from '../../assets/ss-logo.svg';
-import GoogleIcon from '@mui/icons-material/Google';
-import * as Yup from 'yup'; // Import Yup validation library
+import { Button, TextField, Stack, Box, Alert } from "@mui/material";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../context/authContext";
+import Logo from "../../assets/ss-logo.svg";
+import GoogleIcon from "@mui/icons-material/Google";
+import * as Yup from "yup"; // Import Yup validation library
 
-import { Formik, Form, Field, useField } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { Formik, Form, Field, useField } from "formik";
+import { useNavigate } from "react-router-dom";
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
@@ -25,39 +25,53 @@ const FormikTextField = ({ name, ...props }) => {
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [error, setError] = useState('');
-  const { handleLoginWithGoogle, handleLoginWithEmailAndPass, handleLogOut } =
-    useContext(AuthContext);
+  const [error, setError] = useState("");
+  const {
+    handleLoginWithGoogle,
+    handleLoginWithEmailAndPass,
+    handleLogOut,
+    resetPassword,
+  } = useContext(AuthContext);
 
   const handleLogin = async (type, values) => {
     try {
       switch (type) {
-        case 'google':
+        case "google":
           await handleLoginWithGoogle();
           break;
-        case 'email':
+        case "email":
           await handleLoginWithEmailAndPass(values.email, values.password);
           break;
         default:
           break;
       }
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
       console.log(errorCode, errorMessage);
     }
   };
 
+  const handleForgotPassword = async (values) => {
+    try {
+      await resetPassword(values.email);
+
+      setError("Password reset email sent. Check your inbox.");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   const initialValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
-    password: Yup.string().required('Password is required'),
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string().required("Password is required"),
   });
 
   return (
@@ -68,7 +82,7 @@ export default function LoginPage() {
       height="100vh"
     >
       <Stack alignItems="center" spacing={3} pb={7}>
-        <img src={Logo} style={{ height: '30vh', width: 'auto' }} alt="Logo" />
+        <img src={Logo} style={{ height: "30vh", width: "auto" }} alt="Logo" />
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -79,7 +93,7 @@ export default function LoginPage() {
                 name="email"
                 label="Email"
                 fullWidth
-                style={{ paddingBottom: '1rem' }}
+                style={{ paddingBottom: "1rem" }}
               />
 
               <FormikTextField
@@ -94,7 +108,7 @@ export default function LoginPage() {
                   variant="contained"
                   type="submit"
                   disabled={isSubmitting}
-                  onClick={() => handleLogin('email', values)}
+                  onClick={() => handleLogin("email", values)}
                 >
                   Sign In
                 </Button>
@@ -102,10 +116,19 @@ export default function LoginPage() {
                   fullWidth
                   variant="contained"
                   type="button"
-                  onClick={() => handleLogin('google', values)}
+                  onClick={() => handleLogin("google", values)}
                   startIcon={<GoogleIcon />}
                 >
                   Sign In with Google
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  type="button"
+                  onClick={() => handleForgotPassword(values)}
+                  startIcon={<GoogleIcon />}
+                >
+                  Forgot Password?
                 </Button>
                 <Button
                   fullWidth
