@@ -1,14 +1,15 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from "react";
 import {
   onAuthStateHasChanged,
   signInWithGoogle,
   logOut,
   signInWithEmailAndPass,
-} from '../auth/services';
-import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { GET_MEMBER_BY_ID } from './graphql/getMemberById';
-import { redirectToSignupIfNecessary } from './authUtils';
+  resetPassword,
+} from "../auth/services";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { GET_MEMBER_BY_ID } from "./graphql/getMemberById";
+import { redirectToSignupIfNecessary } from "./authUtils";
 
 export const AuthContext = createContext();
 
@@ -16,8 +17,8 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [session, setSession] = useState({
     userId: null,
-    status: 'checking',
-    authToken: localStorage.getItem('authToken') || '',
+    status: "checking",
+    authToken: localStorage.getItem("authToken") || "",
   });
   const [redirectedToSignup, setRedirectedToSignup] = useState(false);
 
@@ -26,14 +27,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checking = () =>
-    setSession((prev) => ({ ...prev, status: 'checking' }));
+    setSession((prev) => ({ ...prev, status: "checking" }));
 
   const validateAuth = async (user) => {
     if (user) {
       const token = await user.getIdTokenResult();
       setSession({
         userId: user.uid,
-        status: 'authenticated',
+        status: "authenticated",
         authToken: token.token,
       });
     } else {
@@ -48,12 +49,12 @@ export const AuthProvider = ({ children }) => {
 
       // Store the auth token in localStorage
       if (user && user.getIdToken) {
-        localStorage.setItem('authToken', user.getIdToken());
+        localStorage.setItem("authToken", user.getIdToken());
       }
 
       validateAuth(user);
     } catch (error) {
-      console.error('Error occurred during Google login:', error);
+      console.error("Error occurred during Google login:", error);
       throw error;
     }
   };
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 
       // Store the auth token in localStorage
       if (user && token) {
-        localStorage.setItem('authToken', token.token);
+        localStorage.setItem("authToken", token.token);
       }
 
       validateAuth(user);
@@ -77,9 +78,9 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogOut = async () => {
     await logOut();
-    localStorage.removeItem('authToken');
-    setSession({ userId: null, status: 'no-authenticated' });
-    return navigate('/login');
+    localStorage.removeItem("authToken");
+    setSession({ userId: null, status: "no-authenticated" });
+    return navigate("/login");
   };
 
   const currentUser = () => {
@@ -120,6 +121,7 @@ export const AuthProvider = ({ children }) => {
         handleLoginWithGoogle,
         handleLoginWithEmailAndPass,
         handleLogOut,
+        resetPassword,
       }}
     >
       {children}
