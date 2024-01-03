@@ -19,6 +19,8 @@ import Sidebar from "./dashboard/Sidebar";
 import MemberSettings from "./pages/membersettings";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";
+import TermsOfService from "./pages/TermsOfService/TermsOfService";
+import AcceptedTermsOfService from "./pages/TermsOfService/AcceptedTermsOfService";
 
 function App() {
   const { status, userId } = useContext(AuthContext);
@@ -35,13 +37,15 @@ function App() {
         <CssBaseline />
         <div className="App">
           <div className="content-container">
-            <Topbar setIsSidebar={setIsSidebar} />{" "}
+            {/* <Topbar setIsSidebar={setIsSidebar} />{" "} */}
             {/* <Sidebar isSidebar={isSidebar} /> */}
             <Routes>
               {/* <Route path="/login" element={<LoginPage />} /> */}
               {/* <Route path="/member" element={<ContractForm />} /> */}
               <Route path="/" element={<ComingSoon />} />
               <Route path="/confirmationPage" element={<ConfirmationPage />} />
+              <Route path="/TermsOfService" element={<TermsOfService />} />
+              <Route path="/AcceptedTermsOfService" element={<AcceptedTermsOfService />} />
               {/* <Route
           path="/test"
           element={
