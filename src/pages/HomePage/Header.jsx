@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import Sneakers from '../../../assets/sneakers-header.png';
 
 const sections = [
-  { id: 'HomePage', title: 'Home Page', path: '/homePage' },
+  { id: 'Features', title: 'Features', path: '/features' },
   { id: 'Pricing', title: 'Pricing', path: '/pricing' },
   { id: 'Contact', title: 'Contact', path: '/contact' },
   { id: 'Support', title: 'Support', path: '/support' },
@@ -22,12 +22,35 @@ function Header({ toggleSidebar }) {
   const isMobile = useMediaQuery('(max-width: 959px)');
 
   return (
-    <AppBar position="sticky" color="primary" elevation={1} sx={{ zIndex: 2000, backgroundColor: '#000', padding: '0 50px' }}>
-      <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center', height: '100px' }}>
+    <AppBar
+      position="sticky"
+      color="primary"
+      elevation={1}
+      sx={{
+        zIndex: 2000,
+        backgroundColor: '#000000',
+        padding: '0 50px',
+        backgroundImage: 'none',
+        marginTop: isMobile ? 0 : '20px',
+      }}
+    >
+      <Toolbar sx={{
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: isMobile ? '120px' : '100px',
+        padding: isMobile ? '10px 20px' : '0 50px',
+      }}>
 
         {/* Logo */}
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <img src={Sneakers} alt="sneaker-society" style={{ width: '134px', height: '104.09px' }} />
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: isMobile ? 'center' : 'flex-start',
+          width: '100%',
+        }}>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center' }}> 
+            <img src={Sneakers} alt="sneaker-society" style={{ width: '134px', height: '104.09px' }} />
+          </Link>
         </Box>
 
         {/* Spacer */}
@@ -87,7 +110,7 @@ function Header({ toggleSidebar }) {
         )}
 
         {/* Menu icon for mobile */}
-        {isMobile && (
+        {/* {isMobile && (
           <IconButton
             edge="end"
             color="inherit"
@@ -97,7 +120,7 @@ function Header({ toggleSidebar }) {
           >
             <MenuIcon />
           </IconButton>
-        )}
+        )} */}
 
       </Toolbar>
     </AppBar>

@@ -27,11 +27,11 @@ function HeroSection() {
       }}
     >
 
-      <Box mt={{ xs: 2, sm: 4 }}>
+      <Box>
         <MainSection scrollToNext={() => scrollToRef(featuresSectionRef)} />
       </Box>
 
-      <Box mt={{ xs: 2, sm: 4 }} ref={featuresSectionRef}>
+      <Box ref={featuresSectionRef}>
         <FeaturesSection />
       </Box>
 

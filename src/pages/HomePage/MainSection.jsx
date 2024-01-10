@@ -11,41 +11,44 @@ function MainSection({ scrollToNext }) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: 'calc(100vh - 100px)', // Height adjusted for header
-                backgroundColor: '#000', // Black background
+                height: 'calc(100vh - 100px)',
+                backgroundColor: '#000',
                 color: 'white',
                 textAlign: 'center',
-                padding: '0 20px', // Horizontal padding
+                padding: '0 20px',
+                pt: { xs: '100px', md: 0 }, 
             }}
         >
             <Typography
                 variant="h2"
                 component="h1"
                 sx={{
-                    fontWeight: '700', // Bold font weight
-                    fontSize: { lg: '96px', xs: '2.5rem', md: '4rem' }, // Responsive font size
-                    marginBottom: '32px', // Space below the title
+                    fontWeight: '700',
+                    fontSize: { lg: '96px', md: '4rem', sm: '3rem', xs: '3rem' },
+                    marginTop: { xs: '20px', md: '0' },
+                    marginBottom: '32px',
+                    wordWrap: 'break-word',
+                    lineHeight: { xs: 1.2, sm: 1.3 }, 
                 }}
             >
-
                 <TypeAnimation
                     sequence={[
-                        'Elevate your Collection', 1000, // Display "Elevate your Collection" for 1 second
-                        'Streamline your Process', 1000,  // Display "Streamline your Process" for 1 second
-                        'Build your Brand', 1000,         // Display "Build your Brand" for 1 second
+                        'Elevate your Collection', 1000,
+                        'Streamline your Process', 1000,
+                        'Build your Brand', 1000,
                     ]}
-                    speed={50}    // Speed of typing
-                    repeat={Infinity} // Repeat the animation indefinitely
+                    speed={50}
+                    wrapper="div" 
+                    repeat={Infinity}
                 />
             </Typography>
             <Typography
                 variant="h6"
                 sx={{
-                    fontWeight: '400', // Regular font weight
-                    fontSize: { xs: '1rem', md: '1.25rem' }, // Responsive font size
-                    maxWidth: '800px', // Max width for readability
-                    marginBottom: '48px', // Space below the subtitle
-                    fontSize: '24px',
+                    fontWeight: '400',
+                    fontSize: { xs: '16px', md: '1.25rem' }, 
+                    maxWidth: '800px',
+                    marginBottom: '48px',
                 }}
             >
                 Your all-in-one solution: Where restoration experts elevate their brand
@@ -54,23 +57,89 @@ function MainSection({ scrollToNext }) {
             <Box
                 sx={{
                     display: 'flex',
-                    gap: '70px',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    gap: { xs: '20px', md: '70px' }, 
                     alignItems: 'center',
-                    marginBottom: '60px', // Space below the buttons
+                    justifyContent: 'center', 
+                    marginBottom: '60px',
                 }}
             >
-                <Button variant="outlined" sx={{ borderColor: 'white', color: 'white', padding: '10px 24px', fontSize: '24px' }}>
+                <Button
+                    variant="outlined"
+                    sx={{
+                        color: 'white',
+                        fontSize: '24px',
+                        borderColor: 'white',
+                        borderWidth: 1,
+                        borderRadius: '5px',
+                        padding: '5px 30px',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        width: { xs: '100%', sm: 'auto' },
+                        '&:before, &:after': {
+                            content: '""',
+                            position: 'absolute',
+                            backgroundColor: 'yellow',
+                            zIndex: 0,
+                        },
+                        '&:before': {
+                            width: '100%',
+                            height: '2px',
+                            bottom: 0,
+                            left: 0,
+                        },
+                        '&:after': {
+                            width: '2px',
+                            height: '100%',
+                            top: 0,
+                            right: 0,
+                        },
+                        mb: { xs: 1, md: 0 }, 
+                    }}
+                >
                     Business
                 </Button>
                 <Box
                     sx={{
-                        height: '90px', // Increased height of the vertical line
-                        width: '1px', // Width of the vertical line
-                        bgcolor: 'white', // Color of the vertical line
-                        alignSelf: 'center' // Aligns the line vertically with the buttons
+                        height: { xs: '2px', md: '90px' }, 
+                        width: { xs: '80%', md: '1px' },
+                        bgcolor: 'white',
+                        alignSelf: 'center',
+                        my: { xs: 1, md: 0 },
                     }}
                 />
-                <Button variant="outlined" sx={{ borderColor: 'white', color: 'white', padding: '10px 24px', fontSize: '24px' }}>
+                <Button
+                    variant="outlined"
+                    sx={{
+                        color: 'white',
+                        fontSize: '24px',
+                        borderColor: 'white',
+                        borderWidth: 1,
+                        borderRadius: '5px',
+                        padding: '5px 30px',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        width: { xs: '100%', sm: 'auto' },
+                        '&:before, &:after': {
+                            content: '""',
+                            position: 'absolute',
+                            backgroundColor: 'yellow',
+                            zIndex: 0,
+                        },
+                        '&:before': {
+                            width: '100%',
+                            height: '2px',
+                            bottom: 0,
+                            left: 0,
+                        },
+                        '&:after': {
+                            width: '2px',
+                            height: '100%',
+                            top: 0,
+                            right: 0,
+                        },
+                    }}
+                >
                     Customer
                 </Button>
             </Box>
@@ -79,13 +148,13 @@ function MainSection({ scrollToNext }) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 'fit-content', // Set width to fit the content
-                    height: 'fit-content', // Set height to fit the content
+                    width: 'fit-content',
+                    height: 'fit-content',
                     cursor: 'pointer',
                 }}
-                onClick={scrollToNext} // Add onClick handler
+                onClick={scrollToNext}
             >
-                <ExpandMoreIcon sx={{ fontSize: '4rem' }} /> {/* Adjust the icon size as needed */}
+                <ExpandMoreIcon sx={{ fontSize: '4rem', paddingRight:'15px' }} />
             </Box>
         </Box>
     );
