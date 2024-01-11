@@ -1,18 +1,18 @@
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 
 export const ProtectedRoute = ({
   status,
-  redirectPath = "/login",
+  redirectPath = '/login',
   children,
 }) => {
-  if (status === "checking")
+  if (status === 'checking')
     return (
       <p className="loading">
         <span>Checking credentials, wait a moment...</span>
       </p>
     );
 
-  if (status === "no-authenticated") {
+  if (status === 'no-authenticated') {
     return <Navigate to={redirectPath} replace />;
   }
 
