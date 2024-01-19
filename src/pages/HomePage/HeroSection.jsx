@@ -34,20 +34,18 @@ function HeroSection() {
         </Typography>
       </Box>
 
-      <Grid container spacing={4} justifyContent="center" alignItems="center" sx={{ mt: 5, mb: 5, px: 2 }}>
-        <Grid item xs={12} sm={4}>
+      <Grid container justifyContent="center" alignItems="center" sx={{ mt: 5, mb: 5, px: 2 }}>
+        <Grid item xs={12} sm={6} md={4}>
           <PricingCard
-            title="Basic Plan"
-            price="price/mo"
-            description="Great for individuals."
+            title="Monthly"
+            price="$7.99/mo"
             benefits={[
-              'Seamless Communication',
-              'Detailed Intake Form',
+              'Unlimited Intakes',
+              'Direct Messaging',
+              'Direct Stripe Payments',
               'Restoration Analytics',
               'Business Insights',
-              'Direct Stripe Payments',
               'Brand Trust Building',
-              'Direct connection with the dev team'
             ]}
             buttonText="Get Started"
           />
