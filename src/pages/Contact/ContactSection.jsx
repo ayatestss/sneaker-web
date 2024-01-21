@@ -8,6 +8,7 @@ import {
   Divider,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
+import { FaInstagram } from "react-icons/fa";
 
 const ContactSection = () => {
   return (
@@ -44,7 +45,9 @@ const ContactSection = () => {
             help@thesneakersociety.com
           </Link>
         </Typography>
-        <IconButton aria-label="instagram"></IconButton>
+        <IconButton aria-label="instagram">
+          <FaInstagram />
+        </IconButton>
         <Typography variant="body1">
           DM us on Instagram
           <br />
