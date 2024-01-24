@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 
-function PricingCard({ title, price, description, benefits, buttonText }) {
+function PricingCard({ benefits, buttonText }) {
     return (
         <Box
             sx={{
