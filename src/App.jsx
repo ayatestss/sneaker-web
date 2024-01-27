@@ -33,9 +33,9 @@ function App() {
         <div className="App">
           <div className="content-container">
             <Routes>
-              <Route path="/login" element={<LoginPage />} />
+              {/* <Route path="/login" element={<LoginPage />} /> */}
               {/* <Route path="/member" element={<ContractForm />} /> */}
-              <Route path="/" element={<ComingSoon />} />
+              {/* <Route path="/" element={<ComingSoon />} />
               <Route path="/confirmationPage" element={<ConfirmationPage />} />
               <Route
                 path="/dashboard"
@@ -52,8 +52,9 @@ function App() {
                     <SignupPage />
                   </ProtectedRoute>
                 }
-              />
-              <Route path="logout" element={<LogoutPage />} />
+              />{' '} */}
+
+              {/* <Route path="logout" element={<LogoutPage />} /> */}
               {/* <Route
                 path="/MemberSettingsForm"
                 element={<MemberSettingsForm />}
@@ -70,7 +71,7 @@ function App() {
                 path="/ChangePasswordPage"
                 element={<ChangePasswordPage />}
               /> */}
-              <Route path="/MemberChat" element={<MemberChat />} />
+              {/* <Route path="/MemberChat" element={<MemberChat />} /> */}
               <Route path="/HomePage" element={<HomePage />} />
             </Routes>
           </div>
