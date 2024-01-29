@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import ConnectSection from './ConnectSection';
 import AboutSection from './AboutSection';
 import FeaturesSection from './FeaturesSection';
 import PricingCard from './PricingCard';
+import MainSection from './MainSection';
 
 function HeroSection() {
+  const featuresSectionRef = useRef(null); // Create a ref for the FeaturesSection
+
+  const scrollToRef = (ref) => {
+    window.scrollTo({
+      top: ref.current.offsetTop,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <Box
       sx={{
@@ -16,7 +26,12 @@ function HeroSection() {
         pt: { xs: '0px', sm: '0px' },
       }}
     >
-      <Box mt={{ xs: 2, sm: 4 }}>
+
+      <Box>
+        <MainSection scrollToNext={() => scrollToRef(featuresSectionRef)} />
+      </Box>
+
+      <Box ref={featuresSectionRef}>
         <FeaturesSection />
       </Box>
 
