@@ -20,6 +20,7 @@ import MemberSettings from "./pages/membersettings";
 import Dashboard from "./dashboard/Dashboard";
 import MemberChat from "./pages/MemberChat/MemberChat";
 import HomePage from "./pages/HomePage/HomePage";
+import ContactSection from "./pages/HomePage/ContactSection";
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -33,6 +34,7 @@ function App() {
         <div className="App">
           <div className="content-container">
             <Routes>
+              <Route path="/contact" element={<ContactSection />} />
               <Route path="/login" element={<LoginPage />} />
               {/* <Route path="/member" element={<ContractForm />} /> */}
               <Route path="/" element={<ComingSoon />} />

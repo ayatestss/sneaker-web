@@ -8,68 +8,22 @@ import {
   Container,
   Grid,
   useTheme,
+  Stack,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { FaInstagram } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 const ContactSection = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
-
-  const [animationActive, setAnimationActive] = useState(false);
-  const [isScrollingUp, setIsScrollingUp] = useState(false);
-
-  useEffect(() => {
-    let prevScrollY = window.pageYOffset;
-
-    const handleScroll = () => {
-      const currenetScrollY = window.pageYOffset;
-      setIsScrollingUp(currenetScrollY < prevScrollY);
-      prevScrollY = currenetScrollY;
-
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const elemenetOffset =
-        document.getElementById("connectSection").offsetTop;
-      const activationPoint = elemenetOffset - windowHeight * 0.9;
-      const deactivationPoint = elemenetOffset + windowHeight * 0.5;
-
-      if (
-        scrollPosition > activationPoint &&
-        scrollPosition < deactivationPoint
-      ) {
-        setAnimationActive(true);
-      } else if (scrollPosition >= deactivationPoint) {
-        setAnimationActive(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const connectSectionStyle = {
-    transform: animationActive
-      ? "translateX(0)"
-      : isScrollingUp
-      ? "translateX(100%)"
-      : "translateX(-100%)",
-    transition: "transform 0.5s ease-in-out",
-    opacity: animationActive ? 1 : 0,
-  };
+  const SPACING = 2;
 
   return (
     <Box
-      id="connectSection"
       sx={{
         backgroundColor: "black",
         color: "white",
         padding: theme.spacing(8, 0),
         textAlign: "center",
-        ...connectSectionStyle,
       }}
     >
       <Container>
@@ -90,15 +44,17 @@ const ContactSection = () => {
                 flexDirection: "row",
                 alignItems: "center",
                 textAlign: "left",
+                border: "1px solid white",
+                padding: "8px",
+                marginY: "28px",
               }}
             >
               <IconButton aria-label="email" sx={{ color: "white" }}>
                 <EmailIcon />
               </IconButton>
               <Typography
-                variant="body1"
+                variant="h3"
                 sx={{
-                  fontSize: { xs: "1rem", sm: "1.2rem" },
                   lineHeight: 1.6,
                   marginLeft: "0.5rem",
                 }}
@@ -119,15 +75,17 @@ const ContactSection = () => {
                 flexDirection: "row",
                 alignItems: "center",
                 textAlign: "left",
+                border: "1px solid white",
+                padding: "8px",
+                marginY: "8px",
               }}
             >
               <IconButton aria-label="instagram" sx={{ color: "white" }}>
                 <FaInstagram />
               </IconButton>
               <Typography
-                variant="body1"
+                variant="h3"
                 sx={{
-                  fontSize: { xs: "1rem", sm: "1.2rem" },
                   lineHeight: 1.6,
                   marginLeft: "0.5rem",
                 }}
@@ -158,7 +116,7 @@ const ContactSection = () => {
                 alt="Sneaker Society Logo"
                 style={{
                   position: "absolute",
-                  top: 0,
+                  top: 15,
                   left: 0,
                   width: "100%",
                   height: "100%",
@@ -169,13 +127,20 @@ const ContactSection = () => {
             </Box>
           </Grid>
         </Grid>
-        <Divider sx={{ backgroundColor: "grey", marginY: "1rem" }} />
-        <Typography variant="body2" sx={{ marginBottom: "0.5rem" }}>
-          © 2023 The Sneaker Society - All rights reserved
-        </Typography>
-        <Link href="/TOS" sx={{ textDecoration: "none", color: "white" }}>
-          Terms & conditions
-        </Link>
+        <Stack
+          direction="row"
+          spacing={SPACING}
+          sx={{
+            justifyContent: "space-between",
+          }}
+        >
+          <Link href="/TOS" sx={{ textDecoration: "none", color: "white" }}>
+            Terms & Conditions
+          </Link>
+          <Typography variant="body2">
+            © 2023 The Sneaker Society - All rights reserved
+          </Typography>
+        </Stack>
       </Container>
     </Box>
   );
