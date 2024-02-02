@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from "react";
 import {
   Typography,
   Box,
   Link,
   IconButton,
-  Divider,
   Container,
   Grid,
-  useTheme,
   Stack,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { FaInstagram } from "react-icons/fa";
 
 const ContactSection = () => {
-  const theme = useTheme();
-  const SPACING = 2;
-
   return (
     <Box
       sx={{
         backgroundColor: "black",
-        color: "white",
-        padding: theme.spacing(8, 0),
-        textAlign: "center",
+        height: "150vh",
       }}
     >
       <Container>
@@ -53,7 +45,7 @@ const ContactSection = () => {
                 <EmailIcon />
               </IconButton>
               <Typography
-                variant="h3"
+                variant="h4"
                 sx={{
                   lineHeight: 1.6,
                   marginLeft: "0.5rem",
@@ -106,9 +98,10 @@ const ContactSection = () => {
               sx={{
                 width: "100%",
                 overflow: "hidden",
-                paddingTop: "50%",
+                paddingTop: "80%",
                 position: "relative",
                 borderRadius: "4px",
+                textAlign: "center",
               }}
             >
               <img
@@ -116,12 +109,12 @@ const ContactSection = () => {
                 alt="Sneaker Society Logo"
                 style={{
                   position: "absolute",
-                  top: 15,
+                  top: 10,
                   left: 0,
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
-                  borderRadius: "4px",
+                  borderRadius: "2px",
                 }}
               />
             </Box>
@@ -129,7 +122,6 @@ const ContactSection = () => {
         </Grid>
         <Stack
           direction="row"
-          spacing={SPACING}
           sx={{
             justifyContent: "space-between",
           }}
