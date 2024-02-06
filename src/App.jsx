@@ -6,8 +6,6 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useMode, ColorModeContext } from './theme/theme';
 import HomePage from './pages/HomePage/HomePage';
 
-// this is a test
-
 function App() {
   const { status } = useContext(AuthContext);
   const [theme, colorMode] = useMode();
