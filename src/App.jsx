@@ -6,7 +6,7 @@ import ErrorPage from './pages/ErrorPage';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from './context/authContext';
 import { ProtectedRoute } from './components/PrivateRoute';
-import ContractForm from './pages/ContractForm/ContractForm';
+// import ContractForm from './pages/ContractForm/ContractForm';
 import ComingSoon from './pages/ComingSoon/ComingSoon';
 import ConfirmationPage from './pages/ComingSoon/ConfirmationPage';
 import { CssBaseline, ThemeProvider } from '@mui/material';
