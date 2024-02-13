@@ -20,7 +20,8 @@ const sections = [
 
 const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
     const isMobile = useMediaQuery('(max-width:600px)');
-    const iconColor = isMobile ? 'black' : 'white'; // Set icon and text color based on device type
+    const iconColor = isMobile ? 'black' : 'black'; // Ensures icons are black on desktop
+    const backgroundColor = isMobile ? 'white' : 'white'; // Ensures background is white on desktop
 
     return (
         <>
@@ -54,9 +55,8 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                         flexDirection: 'column',
                         position: 'fixed',
                         zIndex: 1200,
-                        backgroundColor: isMobile ? 'white' : 'black', // Background color changes based on device type
+                        backgroundColor: backgroundColor, // Apply dynamic background color
                         color: iconColor, // Text color inherited by children
-
                     },
                 }}
             >
@@ -66,11 +66,11 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                     alignItems="center"
                     p={2}
                     sx={{
-                        background: 'black',
+                        background: 'black', // Adjust if you want the circle background to be different
                         borderRadius: '50%',
-                        width: 200, // Set width to match the image
+                        width: 200,
                         height: 200,
-                        marginTop: '96px', // Increased value to push the logo further down
+                        marginTop: '96px',
                         alignSelf: 'center',
                     }}
                 >
@@ -102,7 +102,7 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                                 }}
                             >
                                 <ListItemIcon sx={{ minWidth: 'auto', marginRight: '8px', color: iconColor }}>
-                                    {React.createElement(section.Icon, { style: { color: iconColor } })} 
+                                    {React.createElement(section.Icon, { style: { color: iconColor } })}
                                 </ListItemIcon>
                                 <ListItemText primary={section.title} sx={{ textAlign: 'center', flex: 'none', color: iconColor }} />
                             </ListItem>
