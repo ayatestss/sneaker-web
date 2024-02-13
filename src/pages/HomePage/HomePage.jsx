@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import Header from './Header';
 import HeroSection from './HeroSection';
 import Footer from './Footer';
-import Sidebar from './Sidebar';
+import NewSidebar from '../../dashboard/NewSideBar';
 
 function HomePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -16,7 +16,7 @@ function HomePage() {
   return (
     <>
       {(!isSmallScreen || !sidebarOpen) && <Header toggleSidebar={toggleSidebar} />}
-      <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      <NewSidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <HeroSection />
       <Footer />
     </>
