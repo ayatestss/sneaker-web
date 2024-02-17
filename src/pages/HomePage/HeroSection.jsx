@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import ConnectSection from './ConnectSection';
 import AboutSection from './AboutSection';
 import FeaturesSection from './FeaturesSection';
 import PricingCard from './PricingCard';
+import MainSection from './MainSection';
 
 function HeroSection() {
+  const featuresSectionRef = useRef(null); // Create a ref for the FeaturesSection
+
+  const scrollToRef = (ref) => {
+    window.scrollTo({
+      top: ref.current.offsetTop,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <Box
       sx={{
@@ -16,7 +26,12 @@ function HeroSection() {
         pt: { xs: '0px', sm: '0px' },
       }}
     >
-      <Box mt={{ xs: 2, sm: 4 }}>
+
+      <Box>
+        <MainSection scrollToNext={() => scrollToRef(featuresSectionRef)} />
+      </Box>
+
+      <Box ref={featuresSectionRef}>
         <FeaturesSection />
       </Box>
 
@@ -34,20 +49,18 @@ function HeroSection() {
         </Typography>
       </Box>
 
-      <Grid container spacing={4} justifyContent="center" alignItems="center" sx={{ mt: 5, mb: 5, px: 2 }}>
-        <Grid item xs={12} sm={4}>
+      <Grid container justifyContent="center" alignItems="center" sx={{ mt: 5, mb: 5, px: 2 }}>
+        <Grid item xs={12} sm={6} md={4}>
           <PricingCard
-            title="Basic Plan"
-            price="price/mo"
-            description="Great for individuals."
+            title="Monthly"
+            price="$7.99/mo"
             benefits={[
-              'Seamless Communication',
-              'Detailed Intake Form',
+              'Unlimited Intakes',
+              'Direct Messaging',
+              'Direct Stripe Payments',
               'Restoration Analytics',
               'Business Insights',
-              'Direct Stripe Payments',
               'Brand Trust Building',
-              'Direct connection with the dev team'
             ]}
             buttonText="Get Started"
           />
