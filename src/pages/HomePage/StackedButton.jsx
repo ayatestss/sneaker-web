@@ -53,8 +53,13 @@ const CustomButton = styled('button')({
   },
 });
 
-function StyledButton({ children }) {
-  return <CustomButton>{children}</CustomButton>;
+function StyledButton({ children, onClick, ...props }) {
+  // Destructure onClick from props
+  return (
+    <CustomButton onClick={onClick} {...props}>
+      {children}
+    </CustomButton>
+  ); // Pass onClick to CustomButton
 }
 
 export default StyledButton;

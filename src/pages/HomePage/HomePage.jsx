@@ -8,6 +8,7 @@ import FeaturesSection from './FeaturesSection';
 import ScrollToNextIcon from './ScrollToNextIcon';
 import PricingCard from './PricingCard';
 import PricingTable from './PricingTable';
+import { useNavigate } from 'react-router-dom';
 import ContactSection from './ContactSection';
 
 function HomePage() {
@@ -24,12 +25,19 @@ function HomePage() {
     });
   };
 
+  const navigate = useNavigate();
+
+  const handleSignupClick = () => {
+    navigate('/signup');
+  };
+
   return (
     <Box>
       <Header
         pricingRef={() => scrollToRef(pricingSectionRef)}
         featureRef={() => scrollToRef(featuresSectionRef)}
         contactRef={() => scrollToRef(contactSectionRef)}
+        onButtonClick={handleSignupClick}
       />
 
       <Box
@@ -95,8 +103,8 @@ function HomePage() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={2}
           >
-            <StyledButton>Buisness</StyledButton>
-            <StyledButton>Customer</StyledButton>
+            <StyledButton onClick={handleSignupClick}>Buisness</StyledButton>
+            <StyledButton onClick={handleSignupClick}>Customer</StyledButton>
           </Stack>
 
           <ScrollToNextIcon
@@ -148,6 +156,7 @@ function HomePage() {
                 'Direct Stripe Payments',
                 'Business Insights',
               ]}
+              onButtonClick={handleSignupClick}
             />
           </Box>
           <ScrollToNextIcon

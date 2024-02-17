@@ -5,6 +5,8 @@ import { AuthContext } from './context/authContext';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useMode, ColorModeContext } from './theme/theme';
 import HomePage from './pages/HomePage/HomePage';
+import SignupPage from './pages/SignupPage/SignupPage';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -18,6 +20,10 @@ function App() {
           <div className="content-container">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/signup" element={<SignupPage />} />
+
+              {/* Error Page Route */}
+              <Route path="*" element={<ErrorPage />} />
             </Routes>
           </div>
         </div>

@@ -7,7 +7,7 @@ import { Tab } from '@mui/material';
 import Sneakers from '../../../assets/sneakers-header.png';
 import StyledButton from './StackedButton';
 
-const Header = ({ pricingRef, contactRef, featureRef }) => {
+const Header = ({ pricingRef, contactRef, featureRef, onButtonClick }) => {
   return (
     <>
       <AppBar position="sticky" style={{ zIndex: 9999, background: 'black' }}>
@@ -34,7 +34,7 @@ const Header = ({ pricingRef, contactRef, featureRef }) => {
                 <Tab label="Contact" onClick={contactRef} />
               </Tabs>
 
-              <StyledButton>Sign Up</StyledButton>
+              <StyledButton onClick={onButtonClick}>Sign Up</StyledButton>
             </div>
           </Hidden>
         </Toolbar>

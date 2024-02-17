@@ -3,7 +3,7 @@ import { Typography, Button, Box } from '@mui/material';
 import { Check } from '@mui/icons-material';
 import StyledButton from './StackedButton';
 
-const PricingTable = ({ features }) => {
+const PricingTable = ({ features, onButtonClick }) => {
   return (
     <Box
       sx={{
@@ -56,7 +56,7 @@ const PricingTable = ({ features }) => {
           ))}
 
           <Box pt={4}>
-            <StyledButton>Choose Plan</StyledButton>
+            <StyledButton onClick={onButtonClick}>Choose Plan</StyledButton>
           </Box>
         </Box>
       </Box>
