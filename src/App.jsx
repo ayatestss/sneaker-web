@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from './context/authContext';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useMode, ColorModeContext } from './theme/theme';
