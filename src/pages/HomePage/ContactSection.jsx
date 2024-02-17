@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import { FaInstagram } from 'react-icons/fa';
+import Sneakers from '../../../assets/sneakers-header.png';
 
 const ContactSection = () => {
   return (
@@ -105,41 +106,18 @@ const ContactSection = () => {
             sx={{
               width: '100%',
               overflow: 'hidden',
-              paddingTop: '80%',
-              position: 'relative',
               borderRadius: '4px',
               textAlign: 'center',
             }}
           >
             <img
-              src="assets/SNEAKER SOCIETY (Transparency).png"
+              src={Sneakers}
               alt="Sneaker Society Logo"
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '2px',
-              }}
+              style={{ width: '50%' }}
             />
           </Box>
         </Grid>
       </Grid>
-      {/* <Stack
-        direction="row"
-        sx={{
-          justifyContent: 'space-between',
-        }}
-      >
-        <Link href="/TOS" sx={{ textDecoration: 'none', color: 'white' }}>
-          Terms & Conditions
-        </Link>
-        <Typography variant="body2">
-          © 2023 The Sneaker Society - All rights reserved
-        </Typography>
-      </Stack> */}
     </Box>
   );
 };
