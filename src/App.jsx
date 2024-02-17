@@ -17,7 +17,7 @@ function App() {
         <div className="App">
           <div className="content-container">
             <Routes>
-              <Route path="/HomePage" element={<HomePage />} />
+              <Route path="/" element={<HomePage />} />
             </Routes>
           </div>
         </div>

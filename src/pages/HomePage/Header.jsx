@@ -1,130 +1,46 @@
 import React from 'react';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Box,
-  Button,
-  useMediaQuery,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Hidden from '@mui/material/Hidden';
+import Tabs from '@mui/material/Tabs';
+import { Tab } from '@mui/material';
 import Sneakers from '../../../assets/sneakers-header.png';
+import StyledButton from './StackedButton';
 
-const sections = [
-  { id: 'Features', title: 'Features', path: '/features' },
-  { id: 'Pricing', title: 'Pricing', path: '/pricing' },
-  { id: 'Contact', title: 'Contact', path: '/contact' },
-  { id: 'Support', title: 'Support', path: '/support' },
-];
-
-function Header({ toggleSidebar }) {
-  const isMobile = useMediaQuery('(max-width: 959px)');
-
+const Header = ({ pricingRef, contactRef, featureRef }) => {
   return (
-    <AppBar
-      position="sticky"
-      color="primary"
-      elevation={1}
-      sx={{
-        zIndex: 2000,
-        backgroundColor: '#000000',
-        padding: '0 50px',
-        backgroundImage: 'none',
-        marginTop: isMobile ? 0 : '20px',
-      }}
-    >
-      <Toolbar sx={{
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: isMobile ? '120px' : '100px',
-        padding: isMobile ? '10px 20px' : '0 50px',
-      }}>
+    <>
+      <AppBar position="sticky" style={{ zIndex: 9999, background: 'black' }}>
+        <Toolbar
+          style={{
+            minHeight: '120px',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Hidden smdown>
+            <img
+              src={Sneakers}
+              alt="Logo"
+              style={{ height: 50 }}
+              sx={{ flexGrow: 1 }}
+            />
+          </Hidden>
+          <Hidden mdDown>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Tabs textColor="inherit">
+                <Tab label="Features" onClick={featureRef} />
+                <Tab label="Pricing" onClick={pricingRef} />
+                <Tab label="Contact" onClick={contactRef} />
+              </Tabs>
 
-        {/* Logo */}
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: isMobile ? 'center' : 'flex-start',
-          width: '100%',
-        }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center' }}> 
-            <img src={Sneakers} alt="sneaker-society" style={{ width: '134px', height: '104.09px' }} />
-          </Link>
-        </Box>
-
-        {/* Spacer */}
-        <Box sx={{ flexGrow: 1 }} />
-
-        {/* Navigation links and Login button for non-mobile */}
-        {!isMobile && (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {sections.map((section) => (
-              <Button
-                key={section.id}
-                component={Link}
-                to={section.path}
-                sx={{ color: 'white', textDecoration: 'none', mx: 2, fontWeight: '700', fontSize: '24px' }}
-              >
-                {section.title}
-              </Button>
-            ))}
-
-            {/* Login button styled like the design */}
-            <Button
-              variant="outlined"
-              sx={{
-                color: 'white',
-                fontSize: '24px',
-                borderColor: 'white',
-                borderWidth: 1,
-                borderRadius: '5px',
-                padding: '5px 30px',
-                position: 'relative',
-                overflow: 'hidden',
-                '&:before, &:after': {
-                  content: '""',
-                  position: 'absolute',
-                  backgroundColor: 'yellow',
-                  zIndex: 0,
-                },
-                '&:before': {
-                  width: '100%',
-                  height: '2px',
-                  bottom: 0,
-                  left: 0,
-                },
-                '&:after': {
-                  width: '2px',
-                  height: '100%',
-                  top: 0,
-                  right: 0,
-                },
-              }}
-              component={Link}
-              to="/login"
-            >
-              Login
-            </Button>
-          </Box>
-        )}
-
-        {/* Menu icon for mobile */}
-        {/* {isMobile && (
-          <IconButton
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleSidebar}
-            sx={{ ml: 'auto' }}
-          >
-            <MenuIcon />
-          </IconButton>
-        )} */}
-
-      </Toolbar>
-    </AppBar>
+              <StyledButton>Sign Up</StyledButton>
+            </div>
+          </Hidden>
+        </Toolbar>
+      </AppBar>
+    </>
   );
-}
+};
 
 export default Header;

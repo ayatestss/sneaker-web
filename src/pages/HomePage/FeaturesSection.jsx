@@ -1,13 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Typography, Box, Grid, Container } from '@mui/material';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import ScrollToNextIcon from './ScrollToNextIcon';
 
-function FeaturesSection() {
-  const sectionRef = useRef(null);
-
+function FeaturesSection({ refFnc }) {
   const features = [
     {
       title: 'Seamless Communication',
@@ -39,7 +38,12 @@ function FeaturesSection() {
 
   const FeatureBox = ({ icon, header, subHeading }) => {
     return (
-      <Box display="flex" flexDirection="column" textAlign="left" padding={3}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        textAlign="left"
+        sx={{ paddingBottom: 3 }}
+      >
         <Box
           sx={{
             width: '80px',
@@ -64,40 +68,39 @@ function FeaturesSection() {
 
   return (
     <Box
-      sx={{ backgroundColor: '#000', color: 'white', pt: 2, pb: 8 }}
-      ref={sectionRef}
+      sx={{
+        height: '100%',
+        color: 'white',
+      }}
     >
-      <Container>
-        <Box my={8} sx={{ textAlign: 'left', paddingBottom: '2rem' }}>
-          <Typography
-            fontWeight="bold"
-            gutterBottom
-            sx={{
-              fontSize: { xs: '1.8rem', sm: '5.2rem' },
-              lineHeight: 1.4,
-            }}
-          >
-            Features
-          </Typography>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            {features.map((feature) => {
-              return (
-                <Grid item xs={12} md={6}>
-                  <FeatureBox
-                    icon={feature.icon}
-                    header={feature.title}
-                    subHeading={feature.description}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Box>
-      </Container>
+      <Typography
+        fontWeight="bold"
+        gutterBottom
+        sx={{
+          fontSize: { xs: '3rem', sm: '5.2rem' },
+          lineHeight: 1.4,
+        }}
+      >
+        Features
+      </Typography>
+      <Box sx={{ textAlign: 'left', paddingX: '20px' }}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          {features.map((feature) => {
+            return (
+              <Grid item xs={12} md={6}>
+                <FeatureBox
+                  icon={feature.icon}
+                  header={feature.title}
+                  subHeading={feature.description}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Box>
+      <Box>
+        <ScrollToNextIcon scrollToNext={refFnc} />
+      </Box>
     </Box>
   );
 }

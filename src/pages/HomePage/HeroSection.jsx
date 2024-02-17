@@ -12,7 +12,7 @@ function HeroSection() {
   const scrollToRef = (ref) => {
     window.scrollTo({
       top: ref.current.offsetTop,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
@@ -23,15 +23,11 @@ function HeroSection() {
         bgcolor: '#000',
         color: 'white',
         flexGrow: 1,
-        pt: { xs: '0px', sm: '0px' },
       }}
     >
+      <MainSection scrollToNext={() => scrollToRef(featuresSectionRef)} />
 
-      <Box>
-        <MainSection scrollToNext={() => scrollToRef(featuresSectionRef)} />
-      </Box>
-
-      <Box ref={featuresSectionRef}>
+      <Box ref={featuresSectionRef} sx={{ paddingTop: '50px' }}>
         <FeaturesSection />
       </Box>
 
@@ -42,14 +38,19 @@ function HeroSection() {
           gutterBottom
           sx={{
             fontSize: { xs: '1.8rem', sm: '2.2rem' },
-            lineHeight: 1.4
+            lineHeight: 1.4,
           }}
         >
           Pricing Plans
         </Typography>
       </Box>
 
-      <Grid container justifyContent="center" alignItems="center" sx={{ mt: 5, mb: 5, px: 2 }}>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{ mt: 5, mb: 5, px: 2 }}
+      >
         <Grid item xs={12} sm={6} md={4}>
           <PricingCard
             title="Monthly"
