@@ -1,12 +1,4 @@
-import {
-  Typography,
-  Box,
-  Link,
-  IconButton,
-  Container,
-  Grid,
-  Stack,
-} from '@mui/material';
+import { Typography, Box, Link, IconButton, Grid } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import { FaInstagram } from 'react-icons/fa';
 import Sneakers from '../../../assets/sneakers-header.png';
@@ -62,7 +54,7 @@ const ContactSection = () => {
                   fontSize: { xs: '1.1rem' },
                 }}
               >
-                help@thesneakersociety.com
+                help@thesneakerssociety.com
               </Link>
             </Typography>
           </Box>
