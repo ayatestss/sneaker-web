@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Box, Divider, useMediaQuery } from '@mui/material';
+import { Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Box, Divider, useMediaQuery, ListItemButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import MessageIcon from '@mui/icons-material/Message';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
@@ -8,20 +8,19 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import { TbShoe } from "react-icons/tb";
 import { CiVault } from "react-icons/ci";
 import { Link } from 'react-router-dom';
+import { Badge } from '@mui/material';
+import Logo from '../../assets/SNEAKER SOCIETY (Transparency).png';
 
 const sections = [
     { title: 'My Society', path: '/my-society', Icon: TbShoe },
     { title: 'Discover', path: '/discover', Icon: ExploreIcon },
     { title: 'Groups', path: '/groups', Icon: GroupsIcon },
     { title: 'The Vault', path: '/vault', Icon: CiVault },
-    { title: 'Messages', path: '/messages', Icon: MessageIcon },
-    // Additional sections can be added here...
+    { title: 'Messages', path: '/messages', Icon: MessageIcon, notificationCount: 5 },
 ];
 
 const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
     const isMobile = useMediaQuery('(max-width:600px)');
-    const iconColor = isMobile ? 'black' : 'black'; // Ensures icons are black on desktop
-    const backgroundColor = isMobile ? 'white' : 'white'; // Ensures background is white on desktop
 
     return (
         <>
@@ -35,7 +34,7 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                         right: 8,
                         zIndex: 1300,
                         display: 'block',
-                        color: sidebarOpen ? 'black' : 'white', // Adjust menu button color based on sidebar state
+                        color: sidebarOpen ? 'black' : 'white',
                     }}
                 >
                     <MenuIcon />
@@ -55,8 +54,8 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                         flexDirection: 'column',
                         position: 'fixed',
                         zIndex: 1200,
-                        backgroundColor: backgroundColor, // Apply dynamic background color
-                        color: iconColor, // Text color inherited by children
+                        backgroundColor: 'white',
+                        color: 'black'
                     },
                 }}
             >
@@ -76,7 +75,7 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                 >
                     <img
                         alt="Sneaker Society Logo"
-                        src={`../../assets/SNEAKER SOCIETY (Transparency).png`}
+                        src={Logo}
                         style={{ width: 200, height: 200 }}
                     />
                 </Box>
@@ -91,8 +90,7 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                 >
                     <List>
                         {sections.map((section, index) => (
-                            <ListItem
-                                button
+                            <ListItemButton
                                 key={index}
                                 component={Link}
                                 to={section.path}
@@ -101,11 +99,17 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                                     py: 1,
                                 }}
                             >
-                                <ListItemIcon sx={{ minWidth: 'auto', marginRight: '8px', color: iconColor }}>
-                                    {React.createElement(section.Icon, { style: { color: iconColor } })}
+                                <ListItemIcon sx={{ minWidth: 'auto', marginRight: '8px', color: 'black' }}>
+                                    {section.notificationCount && section.notificationCount > 0 ? (
+                                        <Badge badgeContent={section.notificationCount} color="error" sx={{ "& .MuiBadge-badge": { backgroundColor: '#ff0000' } }}>
+                                            {React.createElement(section.Icon, { style: { color: 'black' } })}
+                                        </Badge>
+                                    ) : (
+                                        React.createElement(section.Icon, { style: { color: 'black' } })
+                                    )}
                                 </ListItemIcon>
-                                <ListItemText primary={section.title} sx={{ textAlign: 'center', flex: 'none', color: iconColor }} />
-                            </ListItem>
+                                <ListItemText primary={section.title} sx={{ textAlign: 'center', flex: 'none', color: 'black' }} />
+                            </ListItemButton>
                         ))}
                     </List>
                 </Box>
@@ -116,8 +120,7 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                     }}
                 >
                     <List>
-                        <ListItem
-                            button
+                        <ListItemButton
                             component={Link}
                             to="/settings"
                             sx={{
@@ -125,11 +128,11 @@ const NewSidebar = ({ sidebarOpen, toggleSidebar }) => {
                                 py: 1,
                             }}
                         >
-                            <ListItemIcon sx={{ minWidth: 'auto', marginRight: '8px', color: iconColor }}>
+                            <ListItemIcon sx={{ minWidth: 'auto', marginRight: '8px', color: 'black' }}>
                                 <SettingsOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Settings" sx={{ textAlign: 'center', flex: 'none', color: iconColor }} />
-                        </ListItem>
+                            <ListItemText primary="Settings" sx={{ textAlign: 'center', flex: 'none', color: 'black' }} />
+                        </ListItemButton>
                     </List>
                 </Box>
             </Drawer>
