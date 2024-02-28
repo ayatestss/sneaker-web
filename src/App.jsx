@@ -25,10 +25,32 @@ import { ApolloProvider } from '@apollo/client';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78daf92 (add new route for stripe onboarding (#45))
 =======
 import { Dashboard } from './pages/Dashboard/Dashboard';
 >>>>>>> ad6dd25 (add layout (#48))
+=======
+import { Dashboard } from './pages/Dashboard/Dashboard';
+=======
+=======
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { useMode, ColorModeContext } from "./theme/theme";
+import HomePage from "./pages/HomePage/HomePage";
+import SignupPage from "./pages/SignupPage/SignupPage";
+import ErrorPage from "./pages/ErrorPage";
+<<<<<<< HEAD
+import ContractStatusWidget from "./components/Contract-Status-Widget";
+>>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
+=======
+import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
+>>>>>>> b86d59f ("made ui updates & seperated backend code")
+>>>>>>> 8df64ec ("made ui updates & seperated backend code")
+>>>>>>> 06bfe7a ("made ui updates & seperated backend code")
 
 function App() {
   const { status } = useContext(AuthContext);
