@@ -45,9 +45,16 @@ import { useMode, ColorModeContext } from "./theme/theme";
 import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import ErrorPage from "./pages/ErrorPage";
+<<<<<<< HEAD
 import ContractStatusWidget from "./components/Contract-Status-Widget";
 >>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
+<<<<<<< HEAD
 >>>>>>> 73636de ("Frontend UI for contract status widget")
+=======
+=======
+import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
+>>>>>>> b86d59f ("made ui updates & seperated backend code")
+>>>>>>> 8cd7a45 ("made ui updates & seperated backend code")
 
 function App() {
   const { status } = useContext(AuthContext);
