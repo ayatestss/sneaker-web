@@ -7,7 +7,7 @@ import { useMode, ColorModeContext } from "./theme/theme";
 import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import ErrorPage from "./pages/ErrorPage";
-import ContractStatusWidget from "./components/Contract-Status-Widget";
+import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
 
 function App() {
   const { status } = useContext(AuthContext);
