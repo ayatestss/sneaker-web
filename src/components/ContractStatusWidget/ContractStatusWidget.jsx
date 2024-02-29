@@ -14,30 +14,46 @@ export default function ContractStatusWidget() {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        height: "40vh",
-        width: "40vh",
+        height: "150px",
+        width: "100%",
+        maxWidth: "300px",
         margin: "auto",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+
         fontWeight: "bold",
-        bgcolor: "red",
+        bgcolor: "black",
+        color: "white",
+        borderRadius: "16px",
+        boxShadow: "0px 0px 10px #000",
+        border: "2px solid white",
       }}
     >
-      <Typography variant="h1" component="div" gutterBottom>
-        {dummyData.contractStatusCounts.notStarted}
-      </Typography>
-      <Typography>Not Started</Typography>
+      <Box sx={{ textAlign: "center", mx: 2 }}>
+        <Typography variant="h1" component="div" gutterBottom>
+          {dummyData.contractStatusCounts.notStarted}
+        </Typography>
+        <Typography>Not Started</Typography>
+      </Box>
 
-      <Typography variant="h1" component="div" gutterBottom>
-        {dummyData.contractStatusCounts.done}
-      </Typography>
-      <Typography>Done</Typography>
+      <Box sx={{ textAlign: "center", mx: 2 }}>
+        <Typography variant="h1" component="div" gutterBottom>
+          {dummyData.contractStatusCounts.done}
+        </Typography>
+        <Typography>Done</Typography>
+      </Box>
 
-      <Typography variant="h1" component="div" gutterBottom>
-        {dummyData.contractStatusCounts.inProgress}
-      </Typography>
-      <Typography>In Progress</Typography>
+      <Box sx={{ textAlign: "center", mx: 2 }}>
+        <Typography variant="h1" component="div" gutterBottom>
+          {dummyData.contractStatusCounts.inProgress}
+        </Typography>
+        <Typography>In Progress</Typography>
+      </Box>
     </Box>
   );
 }
