@@ -48,14 +48,67 @@ import ContractStatusWidget from "./components/Contract-Status-Widget";
 >>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
 =======
 import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
+<<<<<<< HEAD
 >>>>>>> b86d59f ("made ui updates & seperated backend code")
+<<<<<<< HEAD
 >>>>>>> 8df64ec ("made ui updates & seperated backend code")
+<<<<<<< HEAD
 >>>>>>> 06bfe7a ("made ui updates & seperated backend code")
+=======
+=======
+=======
+import StripeWidget from "./components/StripeWidget/StripeWidget";
+>>>>>>> e620c52 ("Stripe Widget Component")
+>>>>>>> 9f9bc6c ("Stripe Widget Component")
+>>>>>>> ee37dc1 ("Stripe Widget Component")
 
 function App() {
   const { status } = useContext(AuthContext);
   const [theme, colorMode] = useMode();
 
+<<<<<<< HEAD
+=======
+  const httpLink = createHttpLink({
+    uri: 'http://localhost:4000/graphql',
+  });
+<<<<<<< HEAD
+=======
+=======
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
+          <div className="content-container">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route
+                path="/contract-status"
+                element={<ContractStatusWidget />}
+              />
+<<<<<<< HEAD
+>>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
+>>>>>>> 9f9bc6c ("Stripe Widget Component")
+
+  const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem('authToken');
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  });
+
+  const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
+
+>>>>>>> ee37dc1 ("Stripe Widget Component")
   return (
 <<<<<<< HEAD
     <ColorModeContext.Provider value={colorMode}>
@@ -96,7 +149,16 @@ function App() {
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </div>
+<<<<<<< HEAD
 >>>>>>> 78daf92 (add new route for stripe onboarding (#45))
+=======
+=======
+              <Route path="/stripewidget" element={<StripeWidget />} />
+              {/* Error Page Route */}
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+>>>>>>> e620c52 ("Stripe Widget Component")
+>>>>>>> ee37dc1 ("Stripe Widget Component")
           </div>
         </div>
       </ThemeProvider>
