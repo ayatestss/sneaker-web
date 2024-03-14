@@ -28,7 +28,11 @@ import ContractStatusWidget from "./components/Contract-Status-Widget";
 >>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
 =======
 import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
+<<<<<<< HEAD
 >>>>>>> b86d59f ("made ui updates & seperated backend code")
+=======
+import StripeWidget from "./components/StripeWidget/StripeWidget";
+>>>>>>> e620c52 ("Stripe Widget Component")
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -52,6 +56,7 @@ function App() {
                 path="/contract-status"
                 element={<ContractStatusWidget />}
               />
+<<<<<<< HEAD
 >>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
 
   const authLink = setContext((_, { headers }) => {
@@ -96,6 +101,12 @@ function App() {
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </div>
+=======
+              <Route path="/stripewidget" element={<StripeWidget />} />
+              {/* Error Page Route */}
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+>>>>>>> e620c52 ("Stripe Widget Component")
           </div>
         </ThemeProvider>
       </ColorModeContext.Provider>
