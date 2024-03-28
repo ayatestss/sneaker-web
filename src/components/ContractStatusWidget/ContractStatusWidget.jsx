@@ -38,21 +38,21 @@ export default function ContractStatusWidget() {
         <Typography variant="h1" component="div" gutterBottom>
           {dummyData.contractStatusCounts.notStarted}
         </Typography>
-        <Typography>Not Started</Typography>
+        <Typography fontWeight="bold">Not Started</Typography>
       </Box>
 
       <Box sx={{ textAlign: "center", mx: 2 }}>
         <Typography variant="h1" component="div" gutterBottom>
           {dummyData.contractStatusCounts.done}
         </Typography>
-        <Typography>Done</Typography>
+        <Typography fontWeight="bold">Done</Typography>
       </Box>
 
       <Box sx={{ textAlign: "center", mx: 2 }}>
         <Typography variant="h1" component="div" gutterBottom>
           {dummyData.contractStatusCounts.inProgress}
         </Typography>
-        <Typography>In Progress</Typography>
+        <Typography fontWeight="bold">In Progress</Typography>
       </Box>
     </Box>
   );
