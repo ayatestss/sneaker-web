@@ -4,6 +4,8 @@ import { AuthContext } from '../../context/authContext';
 import Logo from '../../assets/ss-logo.svg';
 import GoogleIcon from '@mui/icons-material/Google';
 import * as Yup from 'yup'; // Import Yup validation library
+import { sendPasswordResetEmail } from "firebase/auth";
+import { FirebaseAuth } from '../../auth/firebase';
 
 import { Formik, Form, Field, useField } from 'formik';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +27,7 @@ const FormikTextField = ({ name, ...props }) => {
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const { handleLoginWithGoogle, handleLoginWithEmailAndPass, handleLogOut } =
     useContext(AuthContext);
@@ -45,6 +48,21 @@ export default function LoginPage() {
     } catch (error) {
       setError(error.message);
       console.log(errorCode, errorMessage);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setError("Please enter your email address for password reset.");
+      return;
+    }
+    try {
+      // Now `auth` is defined, so this should work
+      await sendPasswordResetEmail(FirebaseAuth, email);
+      alert("Password reset email sent. Please check your inbox.");
+      setError(""); // Clear the error state if successful
+    } catch (error) {
+      setError("Failed to send password reset email. " + error.message);
     }
   };
 
@@ -99,6 +117,8 @@ export default function LoginPage() {
                 InputProps={{
                   style: { color: 'white', borderColor: 'white' },
                 }}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 name="password"
@@ -120,7 +140,7 @@ export default function LoginPage() {
                   cursor: 'pointer',
                   '&:hover': { color: 'white' },
                 }}
-                onClick={() => console.log('Navigate to forgot password')}
+                onClick={handleForgotPassword}
               >
                 Forgot password?
               </Typography>
@@ -129,6 +149,7 @@ export default function LoginPage() {
                 variant="contained"
                 type="submit"
                 disabled={isSubmitting}
+                onClick={() => navigate('/dashboard')}
                 sx={{
                   mt: 2,
                   color: 'white',

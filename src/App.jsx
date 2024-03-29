@@ -7,6 +7,7 @@ import { useMode, ColorModeContext } from './theme/theme';
 import HomePage from './pages/HomePage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import ErrorPage from './pages/ErrorPage';
+import LoginPage from './pages/Login/LoginPage';
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -21,7 +22,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/signup" element={<SignupPage />} />
-
+              <Route path="/login" element={<LoginPage/>} />
               {/* Error Page Route */}
               <Route path="*" element={<ErrorPage />} />
             </Routes>
