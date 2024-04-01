@@ -7,6 +7,7 @@ import { useMode, ColorModeContext } from './theme/theme';
 import HomePage from './pages/HomePage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import ErrorPage from './pages/ErrorPage';
+import StripeSignupPage from './pages/StripeSignUpPage/StripeSignupPage';
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -21,6 +22,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/signup" element={<SignupPage />} />
+              <Route path="stripeOnboarding" element={<StripeSignupPage />} />
 
               {/* Error Page Route */}
               <Route path="*" element={<ErrorPage />} />
