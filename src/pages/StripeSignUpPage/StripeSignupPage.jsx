@@ -42,16 +42,17 @@ export default function StripeSignupPage() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          textAlign: 'center',
         }}
       >
         <Typography pb={4} variant="h1">
           Sign up with Stripe
         </Typography>
-        <Typography>
+        <Typography variant="h6">
           Here at the Sneaker Society we use stripe for all transactions and
           payouts.
         </Typography>
-        <Typography>Click the link below to onboard with stripe!</Typography>
+
         <Box sx={{ paddingTop: 3 }}>
           <Button
             variant="contained"
