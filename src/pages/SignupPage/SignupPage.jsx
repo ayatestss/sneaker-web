@@ -32,7 +32,6 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const user = currentUser();
-  console.log({ user });
   const handleSubmit = async (values) => {
     try {
       await createMember({
