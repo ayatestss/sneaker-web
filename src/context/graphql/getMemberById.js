@@ -1,11 +1,12 @@
 import { gql } from '@apollo/client';
 
-export const GET_MEMBER_BY_ID = gql`
-  query MemberById($memberByIdId: ID!) {
-    memberById(id: $memberByIdId) {
+export const CURRENT_MEMBER = gql`
+  query CurrentMember {
+    currentMember {
       id
       firstName
       lastName
+      email
     }
   }
 `;
