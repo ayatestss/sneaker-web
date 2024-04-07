@@ -22,12 +22,16 @@ import { useMode, ColorModeContext } from './theme/theme';
 import HomePage from './pages/HomePage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import ErrorPage from './pages/ErrorPage';
+<<<<<<< HEAD
 import StripeSignupPage from './pages/StripeSignUpPage/StripeSignupPage';
+=======
+>>>>>>> c23c81e (Update auth (#46))
 import LoginPage from './pages/Login/LoginPage';
 import { ProtectedRoute } from './components/PrivateRoute';
 import { ApolloProvider } from '@apollo/client';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> c23c81e (Update auth (#46))
 =======
@@ -62,11 +66,14 @@ import ContractStatusWidget from "./components/ContractStatusWidget/ContractStat
 import StripeWidget from "./components/StripeWidget/StripeWidget";
 >>>>>>> 49b42f4 ("removed contract status route")
 >>>>>>> 94bc842 ("removed contract status route")
+=======
+>>>>>>> c23c81e (Update auth (#46))
 
 function App() {
   const { status } = useContext(AuthContext);
   const [theme, colorMode] = useMode();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   const httpLink = createHttpLink({
     uri: 'http://localhost:4000/graphql',
@@ -94,6 +101,12 @@ function App() {
               <Route path="*" element={<ErrorPage />} />
             </Routes>
 =======
+=======
+  const httpLink = createHttpLink({
+    uri: 'http://localhost:4000/graphql',
+  });
+
+>>>>>>> c23c81e (Update auth (#46))
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     const token = localStorage.getItem('authToken');
@@ -121,8 +134,12 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+<<<<<<< HEAD
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+=======
+
+>>>>>>> c23c81e (Update auth (#46))
                 {/* Protected Routes */}
                 <Route
                   path="/signup"
@@ -138,6 +155,7 @@ function App() {
               </Routes>
             </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> c23c81e (Update auth (#46))
 =======
 =======
@@ -148,6 +166,8 @@ function App() {
             </Routes>
 >>>>>>> 49b42f4 ("removed contract status route")
 >>>>>>> 94bc842 ("removed contract status route")
+=======
+>>>>>>> c23c81e (Update auth (#46))
           </div>
         </ThemeProvider>
       </ColorModeContext.Provider>
