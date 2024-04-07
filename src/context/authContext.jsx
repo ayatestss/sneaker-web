@@ -32,7 +32,11 @@ export const AuthProvider = ({ children }) => {
       setSession({ userId: null, status: 'no-authenticated' });
       return navigate('/login');
     }
+<<<<<<< HEAD
 >>>>>>> c23c81e (Update auth (#46))
+=======
+>>>>>>> a5359c2 (Update auth (#46))
+>>>>>>> 59681ca (Update auth (#46))
     onAuthStateHasChanged(setSession);
   }, []);
 
