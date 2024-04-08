@@ -120,7 +120,7 @@ function ContractWidget() {
                             />
                             <Typography variant="body2" noWrap>{contract.client}</Typography>
                         </Grid>
-                        <Grid item xs={isSmallScreen ? 4 : 3}>
+                        <Grid item xs={isSmallScreen ? 4 : 3} sx={{marginTop: '10px'}}>
                             <Chip
                                 label={contract.status}
                                 {...getStatusChipProps(contract.status)}
