@@ -22,10 +22,10 @@ export const AuthProvider = ({ children }) => {
   const [redirectedToSignup, setRedirectedToSignup] = useState(false);
 
   useEffect(() => {
-    if (!session.authToken) {
-      setSession({ userId: null, status: 'no-authenticated' });
-      return navigate('/login');
-    }
+    // if (!session.authToken) {
+    //   setSession({ userId: null, status: 'no-authenticated' });
+    //   return navigate('/login');
+    // }
     onAuthStateHasChanged(setSession);
   }, []);
 
