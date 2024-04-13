@@ -24,7 +24,11 @@ import { ProtectedRoute } from './components/PrivateRoute';
 import { ApolloProvider } from '@apollo/client';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+<<<<<<< HEAD
 >>>>>>> 78daf92 (add new route for stripe onboarding (#45))
+=======
+import { Dashboard } from './pages/Dashboard/Dashboard';
+>>>>>>> ad6dd25 (add layout (#48))
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -55,6 +59,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 {/* Protected Routes */}
                 <Route
                   path="/signup"
