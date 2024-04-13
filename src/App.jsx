@@ -33,6 +33,7 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> c23c81e (Update auth (#46))
 =======
 import { Dashboard } from './pages/Dashboard/Dashboard';
@@ -68,6 +69,9 @@ import StripeWidget from "./components/StripeWidget/StripeWidget";
 >>>>>>> 94bc842 ("removed contract status route")
 =======
 >>>>>>> c23c81e (Update auth (#46))
+=======
+import { Dashboard } from './pages/Dashboard/Dashboard';
+>>>>>>> ad6dd25 (add layout (#48))
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -137,9 +141,12 @@ function App() {
 <<<<<<< HEAD
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+<<<<<<< HEAD
 =======
 
 >>>>>>> c23c81e (Update auth (#46))
+=======
+>>>>>>> ad6dd25 (add layout (#48))
                 {/* Protected Routes */}
                 <Route
                   path="/signup"
