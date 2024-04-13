@@ -7,6 +7,7 @@ import { useMode, ColorModeContext } from './theme/theme';
 import HomePage from './pages/HomePage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import ErrorPage from './pages/ErrorPage';
+import StripeSignupPage from './pages/StripeSignUpPage/StripeSignupPage';
 import LoginPage from './pages/Login/LoginPage';
 import { ProtectedRoute } from './components/PrivateRoute';
 import { ApolloProvider } from '@apollo/client';
@@ -48,7 +49,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
-
+                <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 {/* Protected Routes */}
                 <Route
                   path="/signup"
