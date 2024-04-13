@@ -7,7 +7,7 @@ import {
 } from '../auth/services';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_MEMBER_BY_ID } from './graphql/getMemberById';
+import { CURRENT_MEMBER } from './graphql/getMemberById';
 import { redirectToSignupIfNecessary } from './authUtils';
 
 export const AuthContext = createContext();
@@ -22,11 +22,16 @@ export const AuthProvider = ({ children }) => {
   const [redirectedToSignup, setRedirectedToSignup] = useState(false);
 
   useEffect(() => {
+    // if (!session.authToken) {
+    //   setSession({ userId: null, status: 'no-authenticated' });
+    //   return navigate('/login');
+    // }
     onAuthStateHasChanged(setSession);
   }, []);
 
-  const checking = () =>
+  const checking = () => {
     setSession((prev) => ({ ...prev, status: 'checking' }));
+  };
 
   const validateAuth = async (user) => {
     if (user) {
@@ -45,10 +50,10 @@ export const AuthProvider = ({ children }) => {
     try {
       checking();
       const user = await signInWithGoogle();
-
       // Store the auth token in localStorage
       if (user && user.getIdToken) {
-        localStorage.setItem('authToken', user.getIdToken());
+        const token = await user.getIdToken();
+        localStorage.setItem('authToken', token);
       }
 
       validateAuth(user);
@@ -83,11 +88,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const currentUser = () => {
-    const { data, loading } = useQuery(GET_MEMBER_BY_ID, {
-      variables: {
-        memberByIdId: session.userId,
-      },
-    });
+    const { data, loading } = useQuery(CURRENT_MEMBER);
 
     if (!loading) {
       if (!data) {
