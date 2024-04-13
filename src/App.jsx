@@ -37,8 +37,11 @@ import { setContext } from '@apollo/client/link/context';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> c23c81e (Update auth (#46))
 =======
+=======
+>>>>>>> cd1c44f (add layout (#48))
 import { Dashboard } from './pages/Dashboard/Dashboard';
 <<<<<<< HEAD
 >>>>>>> ad6dd25 (add layout (#48))
@@ -107,7 +110,17 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 >>>>>>> c23c81e (Update auth (#46))
 >>>>>>> a5359c2 (Update auth (#46))
+<<<<<<< HEAD
 >>>>>>> 59681ca (Update auth (#46))
+=======
+=======
+<<<<<<< HEAD
+>>>>>>> c23c81e (Update auth (#46))
+=======
+import { Dashboard } from './pages/Dashboard/Dashboard';
+>>>>>>> ad6dd25 (add layout (#48))
+>>>>>>> eff1e24 (add layout (#48))
+>>>>>>> cd1c44f (add layout (#48))
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -179,11 +192,14 @@ function App() {
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> c23c81e (Update auth (#46))
 =======
 >>>>>>> ad6dd25 (add layout (#48))
+=======
+>>>>>>> cd1c44f (add layout (#48))
                 {/* Protected Routes */}
                 <Route
                   path="/signup"
@@ -262,6 +278,8 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
 
+=======
+>>>>>>> eff1e24 (add layout (#48))
                 {/* Protected Routes */}
                 <Route
                   path="/signup"
