@@ -7,6 +7,7 @@ import {
   TextField,
   Container,
   Alert,
+  Box,
 } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { CREATE_MEMBER } from './signup';
@@ -31,6 +32,7 @@ const FormikTextField = ({ name, ...props }) => {
 const SignupPage = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
+
   const user = currentUser();
   const handleSubmit = async (values) => {
     try {
@@ -58,12 +60,17 @@ const SignupPage = () => {
 
   const [createMember, { data, loading }] = useMutation(CREATE_MEMBER);
 
+  if (loading) {
+    return <>loading</>;
+  }
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ height: '100vh' }}>
       <div
         style={{
+          height: '100%',
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'center',
           alignItems: 'center',
         }}
       >
@@ -163,9 +170,11 @@ const SignupPage = () => {
                   />
                 </Grid>
               </Grid>
-              <Button type="submit" variant="contained" color="primary">
-                Sign Up
-              </Button>
+              <Box sx={{ paddingTop: 2 }}>
+                <Button type="submit" variant="contained" color="primary">
+                  Sign Up
+                </Button>
+              </Box>
             </Form>
           )}
         </Formik>
