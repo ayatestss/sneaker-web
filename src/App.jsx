@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { useContext } from "react";
@@ -9,6 +10,8 @@ import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import ErrorPage from "./pages/ErrorPage";
 =======
+=======
+>>>>>>> a172c5f ("Signup member page first commit")
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { useContext } from 'react';
@@ -34,6 +37,8 @@ import { Dashboard } from './pages/Dashboard/Dashboard';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 =======
 =======
+=======
+>>>>>>> b89ea4a ("Signup member page first commit")
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { useContext } from "react";
@@ -42,12 +47,10 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode, ColorModeContext } from "./theme/theme";
 import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
+import LoginPage from "./pages/LoginPage/LoginPage"; // Import LoginPage
 import ErrorPage from "./pages/ErrorPage";
-<<<<<<< HEAD
-import ContractStatusWidget from "./components/Contract-Status-Widget";
->>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
-=======
 import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> b86d59f ("made ui updates & seperated backend code")
 <<<<<<< HEAD
@@ -60,7 +63,20 @@ import ContractStatusWidget from "./components/ContractStatusWidget/ContractStat
 import StripeWidget from "./components/StripeWidget/StripeWidget";
 >>>>>>> e620c52 ("Stripe Widget Component")
 >>>>>>> 9f9bc6c ("Stripe Widget Component")
+<<<<<<< HEAD
 >>>>>>> ee37dc1 ("Stripe Widget Component")
+=======
+=======
+import StripeWidget from "./components/StripeWidget/StripeWidget";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+  setContext,
+} from "@apollo/client";
+>>>>>>> b89ea4a ("Signup member page first commit")
+>>>>>>> a172c5f ("Signup member page first commit")
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -69,8 +85,9 @@ function App() {
 <<<<<<< HEAD
 =======
   const httpLink = createHttpLink({
-    uri: 'http://localhost:4000/graphql',
+    uri: "http://localhost:4000/graphql",
   });
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -90,15 +107,17 @@ function App() {
 <<<<<<< HEAD
 >>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
 >>>>>>> 9f9bc6c ("Stripe Widget Component")
+=======
+>>>>>>> b89ea4a ("Signup member page first commit")
 
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     // return the headers to the context so httpLink can read them
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : '',
+        authorization: token ? `Bearer ${token}` : "",
       },
     };
   });
@@ -133,9 +152,12 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+<<<<<<< HEAD
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 {/* Protected Routes */}
+=======
+>>>>>>> b89ea4a ("Signup member page first commit")
                 <Route
                   path="/signup"
                   element={
@@ -144,11 +166,15 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-
-                {/* Error Page Route */}
+                <Route
+                  path="/contract-status"
+                  element={<ContractStatusWidget />}
+                />
+                <Route path="/stripewidget" element={<StripeWidget />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 78daf92 (add new route for stripe onboarding (#45))
 =======
@@ -159,6 +185,8 @@ function App() {
             </Routes>
 >>>>>>> e620c52 ("Stripe Widget Component")
 >>>>>>> ee37dc1 ("Stripe Widget Component")
+=======
+>>>>>>> a172c5f ("Signup member page first commit")
           </div>
         </div>
       </ThemeProvider>
