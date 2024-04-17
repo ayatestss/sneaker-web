@@ -46,6 +46,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import ErrorPage from "./pages/ErrorPage";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ContractStatusWidget from "./components/Contract-Status-Widget";
 >>>>>>> 93fbbd1 ("Frontend UI for contract status widget")
 <<<<<<< HEAD
@@ -54,7 +55,13 @@ import ContractStatusWidget from "./components/Contract-Status-Widget";
 =======
 import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
 >>>>>>> b86d59f ("made ui updates & seperated backend code")
+<<<<<<< HEAD
 >>>>>>> 8cd7a45 ("made ui updates & seperated backend code")
+=======
+=======
+import StripeWidget from "./components/StripeWidget/StripeWidget";
+>>>>>>> 49b42f4 ("removed contract status route")
+>>>>>>> 94bc842 ("removed contract status route")
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -74,6 +81,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/signup" element={<SignupPage />} />
+<<<<<<< HEAD
               <Route
                 path="/contract-status"
                 element={<ContractStatusWidget />}
@@ -129,7 +137,17 @@ function App() {
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </div>
+<<<<<<< HEAD
 >>>>>>> c23c81e (Update auth (#46))
+=======
+=======
+
+              <Route path="/stripewidget" element={<StripeWidget />} />
+              {/* Error Page Route */}
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+>>>>>>> 49b42f4 ("removed contract status route")
+>>>>>>> 94bc842 ("removed contract status route")
           </div>
         </ThemeProvider>
       </ColorModeContext.Provider>
