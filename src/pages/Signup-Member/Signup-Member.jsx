@@ -34,6 +34,7 @@ const SignupMember = () => {
         <Formik
           initialValues={{
             email: "",
+            password: "",
           }}
           onSubmit={handleSubmit}
           validate={(values) => {
