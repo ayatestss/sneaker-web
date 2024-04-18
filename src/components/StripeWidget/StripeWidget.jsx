@@ -4,7 +4,7 @@ import { Box, Typography, Button, Stack } from "@mui/material";
 function StripeWidget() {
   const dummyData = {
     nextPayout: {
-      date: "2 days",
+      date: "3 days",
       amount: 1500,
     },
     growthPercentage: 20,
