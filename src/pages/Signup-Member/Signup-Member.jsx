@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, useField } from "formik";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Alert } from "@mui/material";
 
@@ -55,6 +55,11 @@ const SignupMember = () => {
             if (!values.email) {
               errors.email = "Email is required";
             }
+
+            if (!values.password) {
+              errors.password = "Password is required";
+            }
+
             return errors;
           }}
         >
@@ -71,10 +76,19 @@ const SignupMember = () => {
                 </Grid>
               </Grid>
 
-              <Button type="submit" variant="contained" color="primary">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primar"
+                aria-label="Sign Up"
+              >
                 SIGN UP
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                aria-label="Sign Up With Google"
+              >
                 SIGN UP WITH GOOGLE
               </Button>
             </Form>
