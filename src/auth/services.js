@@ -3,8 +3,10 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-} from 'firebase/auth';
-import { FirebaseAuth } from './firebase';
+} from "firebase/auth";
+import { FirebaseAuth } from "./firebase";
+
+const auth = FirebaseAuth;
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -34,11 +36,23 @@ export const signInWithEmailAndPass = async (email, password) => {
   }
 };
 
+export const signUpWithEmailPassword = async (email, password) => {
+  try {
+    const userCredential = await auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+    return userCredential.user.id;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const onAuthStateHasChanged = (setSession) => {
   onAuthStateChanged(FirebaseAuth, (user) => {
-    if (!user) return setSession({ status: 'no-authenticated', userId: null });
+    if (!user) return setSession({ status: "no-authenticated", userId: null });
 
-    setSession({ status: 'authenticated', userId: user.uid });
+    setSession({ status: "authenticated", userId: user.uid });
   });
 };
 

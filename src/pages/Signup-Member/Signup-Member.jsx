@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Container, Alert } from "@mui/material";
-import FormikTextField from "./FormikTextField";
-import { signUpWithEmailPassword } from "../services/authService";
+
+const FormikTextField = ({ name, ...props }) => {
+  const [field, meta] = useField(name);
+
+  const isError = meta.touched && meta.error;
+
+  return (
+    <TextField
+      {...field}
+      {...props}
+      error={isError}
+      helperText={isError ? meta.error : props.helperText}
+    />
+  );
+};
 
 const SignupMember = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const handleSubmit = async (values) => {
@@ -15,7 +28,7 @@ const SignupMember = () => {
         values.email,
         values.password
       );
-      history.push("/signup-info");
+      navigate("/signup-info");
     } catch (error) {
       setError(error.message);
     }
