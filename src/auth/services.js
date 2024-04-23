@@ -38,8 +38,12 @@ export const signInWithEmailAndPass = async (email, password) => {
 
 export const signUpWithEmailPassword = async (email, password) => {
   try {
+<<<<<<< HEAD
     const userCredential = await createUserWithEmailAndPassword(
       FirebaseAuth,
+=======
+    const userCredential = await auth.createUserWithEmailAndPassword(
+>>>>>>> 2937025 ("signup-member page")
       email,
       password
     );
@@ -52,6 +56,10 @@ export const signUpWithEmailPassword = async (email, password) => {
 export const onAuthStateHasChanged = (setSession) => {
   onAuthStateChanged(FirebaseAuth, (user) => {
     if (!user) return setSession({ status: "no-authenticated", userId: null });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2937025 ("signup-member page")
     setSession({ status: "authenticated", userId: user.uid });
   });
 };

@@ -47,8 +47,9 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode, ColorModeContext } from "./theme/theme";
 import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
-import LoginPage from "./pages/LoginPage/LoginPage"; // Import LoginPage
+//import LoginPage from "./pages/LoginPage/LoginPage"; // Import LoginPage
 import ErrorPage from "./pages/ErrorPage";
+<<<<<<< HEAD
 import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -67,7 +68,11 @@ import StripeWidget from "./components/StripeWidget/StripeWidget";
 >>>>>>> ee37dc1 ("Stripe Widget Component")
 =======
 =======
+=======
+//import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
+>>>>>>> a83c9e7 ("signup-member page")
 import StripeWidget from "./components/StripeWidget/StripeWidget";
+import SignupMember from "./pages/Signup-Member/Signup-Member";
 import {
   ApolloClient,
   InMemoryCache,
@@ -151,6 +156,7 @@ function App() {
             <div className="content-container">
               <Routes>
                 <Route path="/" element={<HomePage />} />
+<<<<<<< HEAD
                 <Route path="/login" element={<LoginPage />} />
 <<<<<<< HEAD
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
@@ -158,6 +164,9 @@ function App() {
                 {/* Protected Routes */}
 =======
 >>>>>>> b89ea4a ("Signup member page first commit")
+=======
+                {/* <Route path="/login" element={<LoginPage />} /> */}
+>>>>>>> a83c9e7 ("signup-member page")
                 <Route
                   path="/signup"
                   element={
@@ -166,12 +175,13 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-                <Route
+                {/* <Route
                   path="/contract-status"
                   element={<ContractStatusWidget />}
-                />
+                /> */}
                 <Route path="/stripewidget" element={<StripeWidget />} />
                 <Route path="*" element={<ErrorPage />} />
+                <Route path="/SignupMember" element={<SignupMember />} />
               </Routes>
             </div>
 <<<<<<< HEAD

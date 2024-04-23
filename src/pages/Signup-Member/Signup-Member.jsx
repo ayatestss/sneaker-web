@@ -27,14 +27,31 @@ const SignupMember = () => {
   const navigate = useNavigate();
 =======
 import { Formik, Form } from "formik";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Container, Alert } from "@mui/material";
-import FormikTextField from "./FormikTextField";
-import { signUpWithEmailPassword } from "../services/authService";
+
+const FormikTextField = ({ name, ...props }) => {
+  const [field, meta] = useField(name);
+
+  const isError = meta.touched && meta.error;
+
+  return (
+    <TextField
+      {...field}
+      {...props}
+      error={isError}
+      helperText={isError ? meta.error : props.helperText}
+    />
+  );
+};
 
 const SignupMember = () => {
+<<<<<<< HEAD
   const history = useHistory();
 >>>>>>> a172c5f ("Signup member page first commit")
+=======
+  const navigate = useNavigate();
+>>>>>>> 2937025 ("signup-member page")
   const [error, setError] = useState("");
 
   const handleSubmit = async (values) => {
@@ -44,10 +61,14 @@ const SignupMember = () => {
         values.password
       );
 <<<<<<< HEAD
+<<<<<<< HEAD
       navigate("/signup-info");
 =======
       history.push("/signup-info");
 >>>>>>> a172c5f ("Signup member page first commit")
+=======
+      navigate("/signup-info");
+>>>>>>> 2937025 ("signup-member page")
     } catch (error) {
       setError(error.message);
     }
