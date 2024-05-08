@@ -6,9 +6,9 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode, ColorModeContext } from "./theme/theme";
 import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
-//import LoginPage from "./pages/LoginPage/LoginPage"; // Import LoginPage
+// import LoginPage from "./pages/LoginPage/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
-//import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
+// import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
 import StripeWidget from "./components/StripeWidget/StripeWidget";
 import SignupMember from "./pages/Signup-Member/Signup-Member";
 import {
@@ -16,8 +16,9 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-  setContext,
 } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { ProtectedRoute } from "./components/PrivateRoute";
 
 function App() {
   const { status } = useContext(AuthContext);
