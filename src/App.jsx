@@ -47,8 +47,9 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode, ColorModeContext } from "./theme/theme";
 import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
-//import LoginPage from "./pages/LoginPage/LoginPage"; // Import LoginPage
+// import LoginPage from "./pages/LoginPage/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
+<<<<<<< HEAD
 <<<<<<< HEAD
 import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
 <<<<<<< HEAD
@@ -71,6 +72,9 @@ import StripeWidget from "./components/StripeWidget/StripeWidget";
 =======
 //import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
 >>>>>>> a83c9e7 ("signup-member page")
+=======
+// import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
+>>>>>>> ba8abd6 ("UI Updates, Signup form correctly displayed")
 import StripeWidget from "./components/StripeWidget/StripeWidget";
 import SignupMember from "./pages/Signup-Member/Signup-Member";
 import {
@@ -78,10 +82,17 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-  setContext,
 } from "@apollo/client";
+<<<<<<< HEAD
 >>>>>>> b89ea4a ("Signup member page first commit")
+<<<<<<< HEAD
 >>>>>>> a172c5f ("Signup member page first commit")
+=======
+=======
+import { setContext } from "@apollo/client/link/context";
+import { ProtectedRoute } from "./components/PrivateRoute";
+>>>>>>> ba8abd6 ("UI Updates, Signup form correctly displayed")
+>>>>>>> e9cc1a1 ("UI Updates, Signup form correctly displayed")
 
 function App() {
   const { status } = useContext(AuthContext);
