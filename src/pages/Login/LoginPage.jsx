@@ -71,14 +71,10 @@ export default function LoginPage() {
 
   return (
     <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        bgcolor: 'black',
-        padding: '20px',
-      }}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
     >
       <Stack
         alignItems="center"
