@@ -47,7 +47,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode, ColorModeContext } from "./theme/theme";
 import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
-// import LoginPage from "./pages/LoginPage/LoginPage";
+// import LoginPage from "./pages/Login/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 <<<<<<< HEAD
 <<<<<<< HEAD

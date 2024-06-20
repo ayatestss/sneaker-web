@@ -146,6 +146,7 @@ const SignupMember = () => {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting, values }) => (
+<<<<<<< HEAD
 =======
   return (
     <Container maxWidth="md">
@@ -173,6 +174,8 @@ const SignupMember = () => {
         >
           {() => (
 >>>>>>> a172c5f ("Signup member page first commit")
+=======
+>>>>>>> 82efb7f (updated auth in service file)
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -183,6 +186,9 @@ const SignupMember = () => {
                     fullWidth
                   />
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 82efb7f (updated auth in service file)
                   <FormikTextField
                     name="password"
                     label="Password"
