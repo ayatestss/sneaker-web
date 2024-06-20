@@ -47,8 +47,8 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode, ColorModeContext } from "./theme/theme";
 import HomePage from "./pages/HomePage/HomePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
-// import LoginPage from "./pages/Login/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import ContractStatusWidget from "./components/ContractStatusWidget/ContractStatusWidget";
@@ -92,14 +92,22 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { ProtectedRoute } from "./components/PrivateRoute";
 >>>>>>> ba8abd6 ("UI Updates, Signup form correctly displayed")
+<<<<<<< HEAD
 >>>>>>> e9cc1a1 ("UI Updates, Signup form correctly displayed")
+=======
+=======
+>>>>>>> 3f6d4b3 ("removed widget files")
+>>>>>>> a5b1b03 ("removed widget files")
 
 function App() {
   const { status } = useContext(AuthContext);
   const [theme, colorMode] = useMode();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> a5b1b03 ("removed widget files")
   const httpLink = createHttpLink({
     uri: "http://localhost:4000/graphql",
   });
@@ -197,6 +205,7 @@ function App() {
             </div>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78daf92 (add new route for stripe onboarding (#45))
 =======
 =======
@@ -208,6 +217,23 @@ function App() {
 >>>>>>> ee37dc1 ("Stripe Widget Component")
 =======
 >>>>>>> a172c5f ("Signup member page first commit")
+=======
+=======
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
+          <div className="content-container">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/signup" element={<SignupPage />} />
+
+              {/* Error Page Route */}
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+>>>>>>> 3f6d4b3 ("removed widget files")
+>>>>>>> a5b1b03 ("removed widget files")
           </div>
         </div>
       </ThemeProvider>
