@@ -5,6 +5,7 @@ import { Formik, Form, useField } from "formik";
 import { useNavigate } from "react-router-dom";
 import { Button, Alert, Grid, TextField, Stack, Box } from "@mui/material";
 import * as Yup from "yup";
+import { signUpWithGoogle, signUpWithEmailPassword } from "../../auth/firebase";
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
@@ -90,58 +91,57 @@ const SignupMember = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
+          onSubmit={handleSubmit}
         >
-          {({ isSubmitting, values }) => {
-            return (
-              <Form>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <FormikTextField
-                      name="email"
-                      label="Email"
-                      variant="outlined"
-                      fullWidth
-                    />
-                    <FormikTextField
-                      name="password"
-                      label="Password"
-                      variant="outlined"
-                      fullWidth
-                      sx={{
-                        mt: 2,
-                        py: 1,
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <Stack>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    aria-label="Sign Up"
+          {({ isSubmitting, values }) => (
+            <Form>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <FormikTextField
+                    name="email"
+                    label="Email"
+                    variant="outlined"
+                    fullWidth
+                  />
+                  <FormikTextField
+                    name="password"
+                    label="Password"
+                    variant="outlined"
+                    fullWidth
                     sx={{
                       mt: 2,
                       py: 1,
                     }}
-                    onClick={handleSubmit}
-                  >
-                    SIGN UP
-                  </Button>
-                  <Button
-                    variant="contained"
-                    aria-label="Sign Up With Google"
-                    startIcon={<GoogleIcon />}
-                    sx={{
-                      mt: 2,
-                    }}
-                  >
-                    onClick={handleGoogleSignUp}
-                    SIGN UP WITH GOOGLE
-                  </Button>
-                </Stack>
-              </Form>
-            );
-          }}
+                  />
+                </Grid>
+              </Grid>
+              <Stack>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  aria-label="Sign Up"
+                  sx={{
+                    mt: 2,
+                    py: 1,
+                  }}
+                  onClick={handleSubmit}
+                >
+                  SIGN UP
+                </Button>
+                <Button
+                  variant="contained"
+                  aria-label="Sign Up With Google"
+                  startIcon={<GoogleIcon />}
+                  sx={{
+                    mt: 2,
+                  }}
+                  onClick={handleGoogleSignUp}
+                >
+                  SIGN UP WITH GOOGLE
+                </Button>
+              </Stack>
+            </Form>
+          )}
         </Formik>
 
         {error && (

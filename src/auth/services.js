@@ -38,7 +38,8 @@ export const signInWithEmailAndPass = async (email, password) => {
 
 export const signUpWithEmailPassword = async (email, password) => {
   try {
-    const userCredential = await auth.createUserWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
+      FirebaseAuth,
       email,
       password
     );
@@ -51,7 +52,6 @@ export const signUpWithEmailPassword = async (email, password) => {
 export const onAuthStateHasChanged = (setSession) => {
   onAuthStateChanged(FirebaseAuth, (user) => {
     if (!user) return setSession({ status: "no-authenticated", userId: null });
-
     setSession({ status: "authenticated", userId: user.uid });
   });
 };
