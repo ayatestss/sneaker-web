@@ -5,11 +5,17 @@ import { Formik, Form, useField } from "formik";
 import { useNavigate } from "react-router-dom";
 import { Button, Alert, Grid, TextField, Stack, Box } from "@mui/material";
 import * as Yup from "yup";
+<<<<<<< HEAD
 import { signUpWithEmailPassword, signUpWithGoogle } from "../../auth/services";
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
 
+=======
+
+const FormikTextField = ({ name, ...props }) => {
+  const [field, meta] = useField(name);
+>>>>>>> f2791af ("first commit of new signupmember branch")
   const isError = meta.touched && meta.error;
   return (
     <TextField
@@ -24,11 +30,16 @@ const FormikTextField = ({ name, ...props }) => {
 const SignupMember = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
+<<<<<<< HEAD
   //const [submitting, setSubmitting] = useState("");
 
   const handleSubmit = async (values, { setSubmitting }) => {
     setSubmitting(true);
     setError("");
+=======
+
+  const handleSubmit = async (values) => {
+>>>>>>> f2791af ("first commit of new signupmember branch")
     try {
       const firebaseId = await signUpWithEmailPassword(
         values.email,
@@ -37,13 +48,19 @@ const SignupMember = () => {
       navigate("/signup-info");
     } catch (error) {
       setError(error.message);
+<<<<<<< HEAD
     } finally {
       setSubmitting(false);
+=======
+>>>>>>> f2791af ("first commit of new signupmember branch")
     }
   };
 
   const handleGoogleSignUp = async () => {
+<<<<<<< HEAD
     setError("");
+=======
+>>>>>>> f2791af ("first commit of new signupmember branch")
     try {
       const firebaseId = await signUpWithGoogle();
       navigate("/signup-info");
@@ -54,7 +71,11 @@ const SignupMember = () => {
 
   const initialValues = { email: "", password: "" };
 
+<<<<<<< HEAD
   const validationSchema = Yup.object({
+=======
+  const validationSchema = Yup.object().shape({
+>>>>>>> f2791af ("first commit of new signupmember branch")
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
@@ -87,7 +108,11 @@ const SignupMember = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
+<<<<<<< HEAD
           {({ isSubmitting }) => (
+=======
+          {({ isSubmitting, values }) => (
+>>>>>>> f2791af ("first commit of new signupmember branch")
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -102,7 +127,11 @@ const SignupMember = () => {
                     label="Password"
                     variant="outlined"
                     fullWidth
+<<<<<<< HEAD
                     sx={{ mt: 2 }}
+=======
+                    sx={{ mt: 2, py: 1 }}
+>>>>>>> f2791af ("first commit of new signupmember branch")
                   />
                 </Grid>
               </Grid>
@@ -111,7 +140,11 @@ const SignupMember = () => {
                   type="submit"
                   variant="contained"
                   aria-label="Sign Up"
+<<<<<<< HEAD
                   sx={{ mt: 2 }}
+=======
+                  sx={{ mt: 2, py: 1 }}
+>>>>>>> f2791af ("first commit of new signupmember branch")
                 >
                   SIGN UP
                 </Button>
@@ -129,7 +162,11 @@ const SignupMember = () => {
           )}
         </Formik>
         {error && (
+<<<<<<< HEAD
           <Alert severity="error" sx={{ mt: 2 }}>
+=======
+          <Alert severity="error" color="error">
+>>>>>>> f2791af ("first commit of new signupmember branch")
             {error}
           </Alert>
         )}

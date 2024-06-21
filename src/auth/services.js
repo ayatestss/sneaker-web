@@ -12,6 +12,7 @@ const googleProvider = new GoogleAuthProvider();
 export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(FirebaseAuth, googleProvider);
+<<<<<<< HEAD
     const user = result.user;
     return user;
   } catch (e) {
@@ -22,6 +23,8 @@ export const signInWithGoogle = async () => {
 export const signUpWithGoogle = async () => {
   try {
     const result = await signInWithPopup(FirebaseAuth, googleProvider);
+=======
+>>>>>>> f2791af ("first commit of new signupmember branch")
     const user = result.user;
     return user;
   } catch (e) {
