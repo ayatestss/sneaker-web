@@ -1,12 +1,13 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
-import { useContext } from 'react';
-import { AuthContext } from './context/authContext';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { useMode, ColorModeContext } from './theme/theme';
-import HomePage from './pages/HomePage/HomePage';
-import SignupPage from './pages/SignupPage/SignupPage';
-import ErrorPage from './pages/ErrorPage';
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { useMode, ColorModeContext } from "./theme/theme";
+import HomePage from "./pages/HomePage/HomePage";
+import SignupPage from "./pages/SignupPage/SignupPage";
+import ErrorPage from "./pages/ErrorPage";
+import StripeWidget from "./components/Stripe-Widget/Stripe-Widget";
 
 function App() {
   const { status } = useContext(AuthContext);
@@ -24,6 +25,7 @@ function App() {
 
               {/* Error Page Route */}
               <Route path="*" element={<ErrorPage />} />
+              <Route path="/stripe" element={<StripeWidget />} />
             </Routes>
           </div>
         </div>
