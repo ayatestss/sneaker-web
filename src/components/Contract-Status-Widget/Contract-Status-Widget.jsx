@@ -27,8 +27,8 @@ export default function ContractStatusWidget() {
           flexDirection: "row", // Align items horizontally
           justifyContent: "space-around", // Space items evenly
           alignItems: "center",
-          height: "250px", // Height of the widget
-          width: "50%", // Width of the widget
+          height: "150px", // Height of the widget
+          width: "80%", // Width of the widget
           maxWidth: "600px", // Maximum width
           bgcolor: "black", // Background color of the widget
           color: "white", // Text color
@@ -39,24 +39,24 @@ export default function ContractStatusWidget() {
         }}
       >
         <Box sx={{ textAlign: "center" }}>
-          <Typography component="div" sx={{ fontSize: "60px" }}>
+          <Typography variant="h3" component="div" gutterBottom>
             {dummyData.contractStatusCounts.notStarted}
           </Typography>
-          <Typography variant="h3">Not Started</Typography>
+          <Typography variant="subtitle1">Not Started</Typography>
         </Box>
 
         <Box sx={{ textAlign: "center" }}>
-          <Typography component="div" sx={{ fontSize: "60px" }}>
+          <Typography variant="h3" component="div" gutterBottom>
             {dummyData.contractStatusCounts.done}
           </Typography>
-          <Typography variant="h3">Done</Typography>
+          <Typography variant="subtitle1">Done</Typography>
         </Box>
 
         <Box sx={{ textAlign: "center" }}>
-          <Typography component="div" sx={{ fontSize: "60px" }}>
+          <Typography variant="h3" component="div" gutterBottom>
             {dummyData.contractStatusCounts.inProgress}
           </Typography>
-          <Typography variant="h3">In Progress</Typography>
+          <Typography variant="subtitle1">In Progress</Typography>
         </Box>
       </Box>
     </Box>
