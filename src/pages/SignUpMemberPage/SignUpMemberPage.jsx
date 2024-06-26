@@ -23,7 +23,9 @@ const SignupMember = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, setSubmitting) => {
+    setSubmitting(true);
+    setError("");
     try {
       const firebaseId = await signUpWithEmailPassword(
         values.email,
@@ -32,10 +34,13 @@ const SignupMember = () => {
       navigate("/signup-info");
     } catch (error) {
       setError(error.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const handleGoogleSignUp = async () => {
+    setError("");
     try {
       const firebaseId = await signUpWithGoogle();
       navigate("/signup-info");
@@ -46,7 +51,7 @@ const SignupMember = () => {
 
   const initialValues = { email: "", password: "" };
 
-  const validationSchema = Yup.object().shape({
+  const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
@@ -79,7 +84,7 @@ const SignupMember = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, values }) => (
+          {({ isSubmitting }) => (
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -94,7 +99,7 @@ const SignupMember = () => {
                     label="Password"
                     variant="outlined"
                     fullWidth
-                    sx={{ mt: 2, py: 1 }}
+                    sx={{ mt: 2 }}
                   />
                 </Grid>
               </Grid>
@@ -103,7 +108,7 @@ const SignupMember = () => {
                   type="submit"
                   variant="contained"
                   aria-label="Sign Up"
-                  sx={{ mt: 2, py: 1 }}
+                  sx={{ mt: 2 }}
                 >
                   SIGN UP
                 </Button>
@@ -121,7 +126,7 @@ const SignupMember = () => {
           )}
         </Formik>
         {error && (
-          <Alert severity="error" color="error">
+          <Alert severity="error" sx={{ mt: 2 }}>
             {error}
           </Alert>
         )}
