@@ -76,6 +76,7 @@ function StripeWidget() {
       <Stack direction="column" marginLeft={15}>
         <Button
           variant="outlined"
+          size="large"
           sx={{
             mb: 2,
             color: "white",
@@ -86,6 +87,7 @@ function StripeWidget() {
         </Button>
         <CustomButton
           variant="outlined"
+          size="large"
           onClick={() => console.log("Navigate to Stripe Dashboard")}
         >
           <RedDot />
