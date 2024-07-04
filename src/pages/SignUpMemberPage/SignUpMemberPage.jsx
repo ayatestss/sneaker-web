@@ -27,7 +27,6 @@ const SignupMember = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     setSubmitting(true);
     setError("");
-    // testing
 
     try {
       const firebaseId = await signUpWithEmailPassword(
@@ -100,6 +99,7 @@ const SignupMember = () => {
                   <FormikTextField
                     name="password"
                     label="Password"
+                    type="Password"
                     variant="outlined"
                     fullWidth
                     sx={{ mt: 2 }}
