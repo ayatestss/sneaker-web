@@ -3,6 +3,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { FirebaseAuth } from "./firebase";
 
