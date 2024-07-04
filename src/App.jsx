@@ -9,6 +9,7 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import ErrorPage from "./pages/ErrorPage";
 import StripeSignupPage from "./pages/StripeSignUpPage/StripeSignupPage";
 import LoginPage from "./pages/Login/LoginPage";
+import SignupMember from "./pages/SignUpMemberPage/SignUpMemberPage";
 import { ProtectedRoute } from "./components/PrivateRoute";
 import { ApolloProvider } from "@apollo/client";
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="signupmember" element={<SignupMember />} />
                 {/* Protected Routes */}
                 <Route
                   path="/signup"
