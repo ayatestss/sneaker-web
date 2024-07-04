@@ -27,6 +27,7 @@ const SignupMember = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     setSubmitting(true);
     setError("");
+    // testing
 
     try {
       const firebaseId = await signUpWithEmailPassword(
