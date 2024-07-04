@@ -19,6 +19,16 @@ export const signInWithGoogle = async () => {
   }
 };
 
+export const signUpWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(FirebaseAuth, googleProvider);
+    const user = result.user;
+    return user;
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const signInWithEmailAndPass = async (email, password) => {
   try {
     const result = await signInWithEmailAndPassword(

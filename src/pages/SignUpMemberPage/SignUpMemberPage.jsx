@@ -5,9 +5,11 @@ import { Formik, Form, useField } from "formik";
 import { useNavigate } from "react-router-dom";
 import { Button, Alert, Grid, TextField, Stack, Box } from "@mui/material";
 import * as Yup from "yup";
+import { signUpWithEmailPassword, signUpWithGoogle } from "../../auth/services";
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
+
   const isError = meta.touched && meta.error;
   return (
     <TextField
@@ -22,8 +24,9 @@ const FormikTextField = ({ name, ...props }) => {
 const SignupMember = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  //const [submitting, setSubmitting] = useState("");
 
-  const handleSubmit = async (values, setSubmitting) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     setSubmitting(true);
     setError("");
     try {
