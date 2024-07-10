@@ -54,6 +54,7 @@ function App() {
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="signupmember" element={<SignupMember />} />
+
                 {/* Protected Routes */}
                 <Route
                   path="/signup"

@@ -16,47 +16,59 @@ export default function ContractStatusWidget() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh", // Full viewport height to center vertically
-        width: "100%", // Full width
-        bgcolor: "background.default", // Background color of the page
+        height: "100vh",
+        width: "100%",
+        bgcolor: "background.default",
       }}
     >
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row", // Align items horizontally
-          justifyContent: "space-around", // Space items evenly
+          flexDirection: "row",
+          justifyContent: "space-around",
           alignItems: "center",
-          height: "150px", // Height of the widget
-          width: "80%", // Width of the widget
-          maxWidth: "600px", // Maximum width
-          bgcolor: "black", // Background color of the widget
-          color: "white", // Text color
-          borderRadius: "16px", // Rounded corners
-          boxShadow: "0px 0px 10px #000", // Shadow effect
-          border: "2px solid white", // White border
-          padding: "16px", // Padding inside the box
+          height: "250px",
+          width: "60%",
+          maxWidth: "600px",
+          bgcolor: "black",
+          color: "white",
+          borderRadius: "16px",
+          boxShadow: "0px 0px 10px #000",
+          border: "4px solid white",
+          padding: "50px",
         }}
       >
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h3" component="div" gutterBottom>
+          <Typography
+            component="div"
+            gutterBottom
+            sx={{ fontSize: "80px", marginBottom: "0px" }}
+          >
             {dummyData.contractStatusCounts.notStarted}
           </Typography>
-          <Typography variant="subtitle1">Not Started</Typography>
+          <Typography variant="h3">Not Started</Typography>
         </Box>
 
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h3" component="div" gutterBottom>
+          <Typography
+            component="div"
+            gutterBottom
+            sx={{ fontSize: "80px", marginBottom: "0px" }}
+          >
             {dummyData.contractStatusCounts.done}
           </Typography>
-          <Typography variant="subtitle1">Done</Typography>
+          <Typography variant="h3">Done</Typography>
         </Box>
 
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h3" component="div" gutterBottom>
+          <Typography
+            component="div"
+            gutterBottom
+            sx={{ fontSize: "80px", marginBottom: "0px" }}
+          >
             {dummyData.contractStatusCounts.inProgress}
           </Typography>
-          <Typography variant="subtitle1">In Progress</Typography>
+          <Typography variant="h3">In Progress</Typography>
         </Box>
       </Box>
     </Box>
