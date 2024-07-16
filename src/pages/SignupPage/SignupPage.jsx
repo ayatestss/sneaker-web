@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, useField } from 'formik';
 import {
   Button,
@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { CREATE_MEMBER } from './signup';
-import { AuthContext } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContextv2';
 
