@@ -32,8 +32,6 @@ export const AuthProvider = ({ children }) => {
       const moreInfo = getAdditionlInfo(result);
       const { user } = result;
 
-      console.log({ moreInfo, token });
-
       // Store the auth token in localStorage
       if (user && token) {
         localStorage.setItem('authToken', token);
@@ -82,10 +80,9 @@ export const AuthProvider = ({ children }) => {
       setUser(data.currentMember);
       setLoading(false);
     } else if (!authToken) {
-      console.log('no token so we log you out');
       navigate('/login');
     } else if (error) {
-      console.error('Ther is an error so we handle it', error.message);
+      console.error('There is an error so we handle it', error.message);
     }
   }, [data, error, authToken]);
   const values = {
