@@ -48,18 +48,6 @@ export default function ContractStatusWidget() {
           </Typography>
           <Typography variant="h3">Not Started</Typography>
         </Box>
-
-        <Box sx={{ textAlign: "center" }}>
-          <Typography
-            component="div"
-            gutterBottom
-            sx={{ fontSize: "80px", marginBottom: "0px" }}
-          >
-            {dummyData.contractStatusCounts.done}
-          </Typography>
-          <Typography variant="h3">Done</Typography>
-        </Box>
-
         <Box sx={{ textAlign: "center" }}>
           <Typography
             component="div"
@@ -69,6 +57,17 @@ export default function ContractStatusWidget() {
             {dummyData.contractStatusCounts.inProgress}
           </Typography>
           <Typography variant="h3">In Progress</Typography>
+        </Box>
+
+        <Box sx={{ textAlign: "center" }}>
+          <Typography
+            component="div"
+            gutterBottom
+            sx={{ fontSize: "80px", marginBottom: "0px" }}
+          >
+            {dummyData.contractStatusCounts.done}
+          </Typography>
+          <Typography variant="h3">Completed</Typography>
         </Box>
       </Box>
     </Box>
