@@ -7,13 +7,13 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../context/authContext';
 import Logo from '../../assets/ss-logo.svg';
 import GoogleIcon from '@mui/icons-material/Google';
 import * as Yup from 'yup'; // Import Yup validation library
 
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContextv2';
 
 const FormikTextField = ({ name, label, type = 'text', ...rest }) => (
   <Field name={name}>
@@ -35,14 +35,15 @@ const FormikTextField = ({ name, label, type = 'text', ...rest }) => (
 export default function LoginPage() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  const { handleLoginWithGoogle, handleLoginWithEmailAndPass } =
-    useContext(AuthContext);
+  const { user, handleLoginWithEmailAndPass, handleGoogleLogin } = useAuth();
+
+  console.log({ user });
 
   const handleLogin = async (type, values) => {
     try {
       switch (type) {
         case 'google':
-          await handleLoginWithGoogle();
+          await handleGoogleLogin();
           break;
         case 'email':
           await handleLoginWithEmailAndPass(values.email, values.password);

@@ -13,6 +13,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_MEMBER } from './signup';
 import { AuthContext } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContextv2';
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
@@ -31,9 +32,10 @@ const FormikTextField = ({ name, ...props }) => {
 
 const SignupPage = () => {
   const navigate = useNavigate();
-  const { currentUser } = useContext(AuthContext);
 
-  const user = currentUser();
+  const { user } = useAuth();
+
+  console.log('current member', { user });
   const handleSubmit = async (values) => {
     try {
       await createMember({

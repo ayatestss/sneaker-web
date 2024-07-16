@@ -4,19 +4,24 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-} from "firebase/auth";
-import { FirebaseAuth } from "./firebase";
+  getAdditionalUserInfo,
+} from 'firebase/auth';
+import { FirebaseAuth } from './firebase';
 
 const googleProvider = new GoogleAuthProvider();
+
+export const getAdditionlInfo = (result) => {
+  const additionalUserInfo = getAdditionalUserInfo(result);
+  return additionalUserInfo;
+};
 
 export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(FirebaseAuth, googleProvider);
 
-    const user = result.user;
-    return user;
+    return result;
   } catch (e) {
-    throw e;
+    return e;
   }
 };
 
@@ -53,7 +58,6 @@ export const signUpWithEmailPassword = async (email, password) => {
       password
     );
     const user = result.user;
-
     return user;
   } catch (error) {
     throw error;
@@ -62,9 +66,9 @@ export const signUpWithEmailPassword = async (email, password) => {
 
 export const onAuthStateHasChanged = (setSession) => {
   onAuthStateChanged(FirebaseAuth, (user) => {
-    if (!user) return setSession({ status: "no-authenticated", userId: null });
+    if (!user) return setSession({ status: 'no-authenticated', userId: null });
 
-    setSession({ status: "authenticated", userId: user.uid });
+    setSession({ status: 'authenticated', userId: user.uid });
   });
 };
 
