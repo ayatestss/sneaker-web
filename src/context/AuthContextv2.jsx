@@ -7,6 +7,7 @@ import {
   signUpWithEmailPassword,
   signInWithEmailAndPass,
   signInWithGoogle,
+  logOut,
 } from '../auth/services';
 import { CREATE_MEMBER } from '../pages/SignUpMemberPage/graphql/addMember';
 
@@ -90,6 +91,7 @@ export const AuthProvider = ({ children }) => {
     handleLoginWithEmailAndPass,
     handleSignupWithEmailAndPassword,
     handleGoogleLogin,
+    handleLogout,
     loading,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
@@ -104,6 +106,18 @@ const handleLoginWithEmailAndPass = async (email, password) => {
     if (user && token) {
       localStorage.setItem('authToken', token.token);
     }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const handleLogout = async () => {
+  try {
+    await logOut();
+
+    localStorage.removeItem('authToken');
+
+    return;
   } catch (error) {
     throw error;
   }

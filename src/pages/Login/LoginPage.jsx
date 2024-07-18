@@ -51,7 +51,7 @@ export default function LoginPage() {
         default:
           break;
       }
-      navigate('/signup');
+      navigate('/dashboard');
     } catch (error) {
       setError(error.message);
       console.log(errorCode, errorMessage);
