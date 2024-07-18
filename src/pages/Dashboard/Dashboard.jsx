@@ -27,13 +27,15 @@ export const Dashboard = () => {
   const WidgetPlaceholder = ({ color, height, children }) => (
     <div
       style={{
-        backgroundColor: color,
+        backgroundColor: color, // to be removed
         height: height,
         marginBottom: '8px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         padding: '20px',
+        border: '2px solid white',
+        borderRadius: '16px',
       }}
     >
       {children}
@@ -62,19 +64,52 @@ export const Dashboard = () => {
               height: '100%',
             }}
           >
-            <WidgetPlaceholder color="lightgreen" height="33%">
+            <WidgetPlaceholder color="lightgreen" height="100%">
               {/* Widget 1 content */}
             </WidgetPlaceholder>
-            <WidgetPlaceholder color="lightpink" height="33%">
+            <WidgetPlaceholder color="lightpink" height="100%">
               {/* Widget 2 content */}
             </WidgetPlaceholder>
-            <WidgetPlaceholder color="lightyellow" height="34%">
-              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 2 }}>
+            <WidgetPlaceholder color="red" height="100%">
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  gap: 2,
+                  width: '100%',
+                }}
+              >
                 <img src={image} alt="QR Code" style={{ maxWidth: '50%' }} />
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', gap: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'center',
+                    gap: 1,
+                  }}
+                >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <div style={{ width: 14, height: 14, borderRadius: '50%', backgroundColor: 'red' }} />
-                    <Typography component="a" href={url} target="_blank" rel="noopener noreferrer" sx={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+                    <div
+                      style={{
+                        width: 14,
+                        height: 14,
+                        borderRadius: '50%',
+                        backgroundColor: 'red',
+                      }}
+                    />
+                    <Typography
+                      component="a"
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        textDecoration: 'none',
+                        color: 'black',
+                        fontWeight: 'bold',
+                      }}
+                    >
                       Link
                     </Typography>
                   </Box>
