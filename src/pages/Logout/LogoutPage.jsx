@@ -1,13 +1,13 @@
-import { useEffect, useContext } from 'react';
-import { AuthContext } from '../../context/authContext';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContextv2';
 
 export const LogoutPage = () => {
-  const { handleLogOut } = useContext(AuthContext);
+  const { handleLogout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogoutPage = async () => {
-    await handleLogOut();
+    await handleLogout();
     navigate('/login');
   };
 

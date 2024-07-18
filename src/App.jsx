@@ -7,6 +7,7 @@ import SignupPage from './pages/SignupPage/SignupPage';
 import ErrorPage from './pages/ErrorPage';
 import StripeSignupPage from './pages/StripeSignUpPage/StripeSignupPage';
 import LoginPage from './pages/Login/LoginPage';
+import { LogoutPage } from './pages/Logout/LogoutPage';
 import SignupMember from './pages/SignUpMemberPage/SignUpMemberPage';
 import { ProtectedRoute } from './components/PrivateRoute';
 import { ApolloProvider } from '@apollo/client';
@@ -49,6 +50,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/logout" element={<LogoutPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="signupmember" element={<SignupMember />} />
