@@ -1,73 +1,105 @@
-import React, { useState } from "react";
+import React from "react";
+import { Formik, Form, Field } from "formik";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-
-const steps = ["Step1", "Step2", "Step3"];
+import { Container, TextField, Button, Stack, Typography } from "@mui/material";
+import PhotoInput from "./PhotoInput";
 
 export default function ContractForm() {
-  const [activeStep, setActiveStep] = useState(0);
-
-  const islastStep = activeStep === steps.length;
-
-  const handleNext = () => {
-    setActiveStep((prev) => prev + 1);
+  const initialValues = {
+    brand: "",
+    model: "",
+    serviceWanted: "",
+    notes: "",
+    pictures: [],
+    size: 0,
   };
 
-  const handleBack = () => {
-    setActiveStep((prev) => prev - 1);
-  };
+  const FormikTextField = ({ name, label, type = "text", ...rest }) => (
+    <Field name={name}>
+      {({ field, meta }) => (
+        <TextField
+          {...field}
+          label={label}
+          type={type}
+          variant="outlined"
+          fullWidth
+          error={meta.touched && meta.error}
+          helperText={meta.touched && meta.error}
+          {...rest}
+        />
+      )}
+    </Field>
+  );
 
-  const handleReset = () => {
-    setActiveStep(0);
+  const handleSubmit = (values) => {
+    console.log(values);
   };
 
   return (
     <>
       <Box sx={{ width: "100%" }}>
-        <h1>Stepper form</h1>
+        <Container>
+          <Box>
+            <Typography
+              style={{
+                paddingTop: "10px",
+                paddingBottom: "10px",
+              }}
+              variant="h1"
+            >
+              Shoe Info
+            </Typography>
+          </Box>
 
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map((label, index) => {
-            const stepProps = {};
-            const labelProps = {};
-            return (
-              <Step key={label} {...stepProps}>
-                <StepLabel {...labelProps}>{label}</StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-
-        {islastStep ? (
-          <>
-            <h2>Complete!</h2>
-          </>
-        ) : (
-          <>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                sx={{ mr: 1 }}
-              >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </Box>
-          </>
-        )}
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            {({ values, setFieldValue }) => {
+              return (
+                <Form>
+                  <Box>
+                    <Stack spacing={2}>
+                      <FormikTextField name="brand" label="Brand" />
+                      <FormikTextField name="model" label="Model" />
+                      <FormikTextField
+                        name="size"
+                        label="Size"
+                        type="number"
+                        min={0}
+                      />
+                      <FormikTextField
+                        name="serviceWanted"
+                        label="What do you want done?"
+                        multiline
+                        rows={4}
+                      />
+                      <FormikTextField
+                        name="notes"
+                        label="Notes"
+                        multiline
+                        rows={4}
+                      />
+                      <PhotoInput
+                        values={values}
+                        setFieldValue={setFieldValue}
+                      />
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        type="submit"
+                        sx={{
+                          mt: 2,
+                          color: "white",
+                          py: 1,
+                        }}
+                      >
+                        Submit
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Container>
       </Box>
     </>
   );

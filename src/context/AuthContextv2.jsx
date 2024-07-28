@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       setUser(data.currentMember);
       setLoading(false);
     } else if (!authToken) {
-      navigate('/login');
+      // navigate('/login');
     } else if (error) {
       console.error('There is an error so we handle it', error.message);
     }
