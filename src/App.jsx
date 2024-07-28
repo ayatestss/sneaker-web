@@ -14,6 +14,7 @@ import { ApolloProvider } from '@apollo/client';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Dashboard } from './pages/Dashboard/Dashboard';
+import ContractForm from './pages/ContractForm/ContractForm';
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
+                <Route path='/contract' element={<ContractForm />} />
                 <Route
                   path="/dashboard"
                   element={
