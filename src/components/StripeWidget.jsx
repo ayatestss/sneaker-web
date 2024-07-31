@@ -39,19 +39,22 @@ function StripeWidget() {
     <Box
       sx={{
         border: "3px solid #ccc",
-        borderRadius: "15px",
-        height: "250px",
-        width: "500px",
+        borderRadius: "16px",
+        height: "auto",
+        width: "100%",
+        maxWidth: "600px",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
+        boxShadow: "0px 0px 10px #000",
+        padding: "20px",
+        marginBottom: "20px",
+        marginTop: "10px",
+        bgcolor: "black",
+        color: "white",
       }}
     >
-      <Stack>
+      <Stack spacing={2} sx={{ width: { xs: "100%", sm: "auto" } }}>
         <Box
           sx={{
             display: "flex",
@@ -59,27 +62,49 @@ function StripeWidget() {
             borderRadius: "50px",
             justifyContent: "center",
             width: "150px",
+            margin: "10px",
           }}
         >
-          <Typography sx={{ mt: 1, fontSize: 30 }}>
+          <Typography
+            gutterBottom
+            sx={{ mt: 1, fontSize: { xs: "14px", sm: "18px", md: "24px" } }}
+          >
             +{dummyData.growthPercentage}%
           </Typography>
         </Box>
 
-        <Typography variant="h4" sx={{ paddingTop: "15px" }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            paddingTop: "15px",
+            fontSize: { xs: "14px", sm: "18px", md: "24px" },
+          }}
+        >
           <WhiteDot /> Next Payout: {dummyData.nextPayout.date}
         </Typography>
-        <Typography sx={{ fontSize: 60 }}>
+        <Typography
+          gutterBottom
+          sx={{ fontSize: { xs: "14px", sm: "18px", md: "24px" } }}
+        >
           ${dummyData.nextPayout.amount}
         </Typography>
       </Stack>
-      <Stack direction="column" marginLeft={15}>
+      <Stack
+        direction="column"
+        spacing={2}
+        sx={{
+          width: { xs: "100%", sm: "auto" },
+          alignItems: { xs: "center", sm: "flex-start" },
+          mt: { xs: 2, sm: 0 },
+        }}
+      >
         <Button
           variant="outlined"
           size="large"
           sx={{
-            mb: 2,
             color: "white",
+            textAlign: "center",
           }}
           onClick={() => console.log("Navigate to statements")}
         >
@@ -87,7 +112,7 @@ function StripeWidget() {
         </Button>
         <CustomButton
           variant="outlined"
-          size="large"
+          sx={{ width: "129px" }}
           onClick={() => console.log("Navigate to Stripe Dashboard")}
         >
           <RedDot />
