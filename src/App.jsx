@@ -14,12 +14,7 @@ import { ApolloProvider } from "@apollo/client";
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
-import { Blockers } from "./components/Blockers";
-import CheckYourEmail from "./pages/ForgotPassword/CheckYourEmail";
-import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import PasswordReset from "./pages/ForgotPassword/PasswordReset";
-import SetANewPassword from "./pages/ForgotPassword/SetANewPassword";
-import SuccessfulPage from "./pages/ForgotPassword/SuccessfulPage";
+import PaymentStatus from "./pages/PaymentStatus/PaymentStatus";
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -58,12 +53,14 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
-                <Route path="/ForgotPassword" element={<ForgotPassword />} />
-                <Route path="/CheckYourEmail" element={<CheckYourEmail />} />
-                <Route path="/PasswordReset" element={<PasswordReset />} />
-                <Route path="/SetANewPassword" element={<SetANewPassword />} />
-                <Route path="/SuccessfulPage" element={<SuccessfulPage />} />
-
+                <Route
+                  path="/paymentSuccess"
+                  element={<PaymentStatus success={true} />}
+                />
+                <Route
+                  path="/paymentFail"
+                  element={<PaymentStatus success={false} />}
+                />{" "}
                 <Route
                   path="/dashboard"
                   element={
@@ -84,7 +81,6 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-
                 {/* Error Page Route */}
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
