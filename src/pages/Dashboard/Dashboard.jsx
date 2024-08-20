@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Container, Grid, Box, Typography } from "@mui/material";
 import ImageDownloadButton from "./ImageDownloadButton";
-import StripeWidget from "../../components/StripeWidget";
+import ContractStatusWidget from "../../components/ContractStatusWidget";
 
 // Define the query to get the current member's QR widget data
 const GET_MEMBER_QR_WIDGET_DATA = gql`
@@ -66,10 +66,9 @@ export const Dashboard = () => {
             }}
           >
             <WidgetPlaceholder color="lightgreen" height="100%">
-              {/* Widget 1 content */}
+              <ContractStatusWidget />
             </WidgetPlaceholder>
             <WidgetPlaceholder color="lightpink" height="100%">
-              <StripeWidget />
             </WidgetPlaceholder>
             <WidgetPlaceholder color="red" height="100%">
               <Box
