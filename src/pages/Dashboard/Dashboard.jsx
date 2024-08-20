@@ -69,7 +69,6 @@ export const Dashboard = () => {
               <ContractStatusWidget />
             </WidgetPlaceholder>
             <WidgetPlaceholder color="lightpink" height="100%">
-              {/* Widget 2 content */}
             </WidgetPlaceholder>
             <WidgetPlaceholder color="red" height="100%">
               <Box
