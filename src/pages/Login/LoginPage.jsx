@@ -54,7 +54,6 @@ export default function LoginPage() {
       navigate('/dashboard');
     } catch (error) {
       setError(error.message);
-      console.log(errorCode, errorMessage);
     }
   };
 
