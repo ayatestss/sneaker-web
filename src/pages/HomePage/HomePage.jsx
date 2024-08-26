@@ -9,9 +9,11 @@ import ScrollToNextIcon from "./ScrollToNextIcon";
 import PricingTable from "./PricingTable";
 import { useNavigate } from "react-router-dom";
 import ContactSection from "./ContactSection";
+import ContractWidget from "./ContractWidget";
 
 function HomePage() {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const isLargeScreen = useMediaQuery("(min-width:1200px)"); // For large monitors
 
   const featuresSectionRef = useRef(null); // Create a ref for the FeaturesSection
   const pricingSectionRef = useRef(null);
@@ -48,7 +50,6 @@ function HomePage() {
       >
         <Box
           sx={{
-            height: "100vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -102,7 +103,7 @@ function HomePage() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={2}
           >
-            <StyledButton onClick={handleSignupClick}>Buisness</StyledButton>
+            <StyledButton onClick={handleSignupClick}>Business</StyledButton>
             <StyledButton onClick={handleSignupClick}>Customer</StyledButton>
           </Stack>
 
@@ -113,29 +114,31 @@ function HomePage() {
 
         <Box
           sx={{
-            height: isSmallScreen ? "100%" : "100vh",
             width: "100%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
+            paddingTop: isLargeScreen ? "10px" : "20px", // Less space above for large screens
+            paddingBottom: isLargeScreen ? "60px" : "40px", // More space below for large screens
           }}
           ref={featuresSectionRef}
         >
           <FeaturesSection refFnc={() => scrollToRef(pricingSectionRef)} />
         </Box>
+
         <Box
           sx={{
-            height: "100vh",
             width: "100%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
+            paddingY: isSmallScreen ? "20px" : "40px",
             textAlign: "center",
           }}
         >
-          <Box sx={{ width: "100%", height: "100%", paddingTop: "10%" }}>
+          <Box sx={{ width: "100%" }}>
             <Typography
               fontWeight="bold"
               gutterBottom
@@ -162,19 +165,25 @@ function HomePage() {
             scrollToNext={() => scrollToRef(contactSectionRef)}
           />
         </Box>
+
         <Box
           sx={{
             width: "100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            paddingTop: "12%",
+            paddingY: isSmallScreen ? "20px" : "40px",
           }}
           ref={contactSectionRef}
         >
           <ContactSection />
         </Box>
       </Box>
+
+      <Box mt={5} sx={{ marginTop: "0" }}>
+        <ContractWidget />
+      </Box>
+
       <Footer />
     </Box>
   );
