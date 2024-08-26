@@ -1,15 +1,15 @@
-import { useMutation, useQuery } from '@apollo/client';
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { CURRENT_MEMBER } from './graphql/getMemberById';
-import { useNavigate } from 'react-router-dom';
+import { useMutation, useQuery } from "@apollo/client";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { CURRENT_MEMBER } from "./graphql/getMemberById";
+import { redirect, useNavigate } from "react-router-dom";
 import {
   getAdditionlInfo,
   signUpWithEmailPassword,
   signInWithEmailAndPass,
   signInWithGoogle,
   logOut,
-} from '../auth/services';
-import { CREATE_MEMBER } from '../pages/SignUpMemberPage/graphql/addMember';
+} from "../auth/services";
+import { CREATE_MEMBER } from "../pages/SignUpMemberPage/graphql/addMember";
 
 const AuthContext = createContext();
 
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
-  const [authToken, setAuthToken] = useState(localStorage.getItem('authToken'));
+  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
   const { data, error, refetch } = useQuery(CURRENT_MEMBER, {
     skip: !authToken,
   });
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   const [createMember] = useMutation(CREATE_MEMBER);
 
   const handleGoogleLogin = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const result = await signInWithGoogle();
       const token = await result.user.getIdToken();
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       const { user } = result;
 
       if (user && token) {
-        localStorage.setItem('authToken', token);
+        localStorage.setItem("authToken", token);
 
         if (moreInfo.isNewUser) {
           await createMember({
@@ -46,18 +46,20 @@ export const AuthProvider = ({ children }) => {
               },
             },
           });
+
+          setUser({
+            uid: user.uid,
+            email: user.email,
+          });
+          // redirect("/signup");
         }
 
-        setUser({
-          uid: user.uid,
-          email: user.email
-        })
+        await refetchUser();
       }
-      await refetch();
     } catch (error) {
       throw error;
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -67,7 +69,7 @@ export const AuthProvider = ({ children }) => {
       const token = await user.getIdToken();
 
       if (user && token) {
-        localStorage.setItem('authToken', token);
+        localStorage.setItem("authToken", token);
       }
       await createMember({
         variables: {
@@ -88,15 +90,22 @@ export const AuthProvider = ({ children }) => {
       setUser(data.currentMember);
       setLoading(false);
     } else if (!authToken) {
-      navigate('/login');
+      // navigate('/login');
       setLoading(false);
     } else if (error) {
-      console.error('There is an error so we handle it', error.message);
+      console.error("There is an error so we handle it", error.message);
       setLoading(false);
     }
   }, [data, error, authToken]);
+
+  const refetchUser = async () => {
+    setLoading(true);
+    await refetch();
+  };
+
   const values = {
     user,
+    refetchUser,
     handleLoginWithEmailAndPass,
     handleSignupWithEmailAndPassword,
     handleGoogleLogin,
@@ -113,7 +122,7 @@ const handleLoginWithEmailAndPass = async (email, password) => {
 
     // Store the auth token in localStorage
     if (user && token) {
-      localStorage.setItem('authToken', token.token);
+      localStorage.setItem("authToken", token.token);
     }
   } catch (error) {
     throw error;
@@ -124,7 +133,7 @@ export const handleLogout = async () => {
   try {
     await logOut();
 
-    localStorage.removeItem('authToken');
+    localStorage.removeItem("authToken");
 
     return;
   } catch (error) {

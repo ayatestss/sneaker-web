@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Formik, Form, useField } from 'formik';
+import React, { useState } from "react";
+import { Formik, Form, useField } from "formik";
 import {
   Button,
   Typography,
@@ -8,11 +8,11 @@ import {
   Container,
   Alert,
   Box,
-} from '@mui/material';
-import { useMutation } from '@apollo/client';
-import { UPDATE_MEMBER } from './signup';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContextv2';
+} from "@mui/material";
+import { useMutation } from "@apollo/client";
+import { UPDATE_MEMBER } from "./signup";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContextv2";
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
@@ -32,9 +32,8 @@ const FormikTextField = ({ name, ...props }) => {
 const SignupPage = () => {
   const navigate = useNavigate();
 
-  const { user } = useAuth();
+  const { user, refetchUser } = useAuth();
 
-  console.log('current member', { user });
   const handleSubmit = async (values) => {
     try {
       await updateMember({
@@ -47,15 +46,17 @@ const SignupPage = () => {
             zipcode: values.zipcode,
             state: values.state,
             phoneNumber: values.phoneNumber,
+            isNewUser: false,
           },
         },
       });
-      navigate('/dashboard');
+      await refetchUser();
+      navigate("/dashboard");
     } catch (error) {
       setErrorMessage(error.message);
     }
   };
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [updateMember, { data, loading }] = useMutation(UPDATE_MEMBER);
 
@@ -63,14 +64,14 @@ const SignupPage = () => {
     return <>loading</>;
   }
   return (
-    <Container maxWidth="md" sx={{ height: '100vh' }}>
+    <Container maxWidth="md" sx={{ height: "100vh" }}>
       <div
         style={{
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Typography pb={4} variant="h1">
@@ -78,21 +79,21 @@ const SignupPage = () => {
         </Typography>
         <Formik
           initialValues={{
-            email: user.email || '',
-            firstName: '',
-            lastName: '',
-            addressLineOne: '',
-            addressLineTwo: '',
-            zipcode: '',
-            state: '',
-            phoneNumber: '',
+            email: user.email || "",
+            firstName: "",
+            lastName: "",
+            addressLineOne: "",
+            addressLineTwo: "",
+            zipcode: "",
+            state: "",
+            phoneNumber: "",
           }}
           onSubmit={handleSubmit}
           validate={(values) => {
             const errors = {};
 
             if (!values.firstName) {
-              errors.firstName = 'First Name is required';
+              errors.firstName = "First Name is required";
             }
 
             // Add similar validation rules for other fields
