@@ -21,8 +21,9 @@ function App() {
   const [theme, colorMode] = useMode();
 
   const httpLink = createHttpLink({
-    uri: "http://localhost:4000/graphql",
+    uri: `${import.meta.env.VITE_API_URL}/graphql`,
   });
+  
 
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
