@@ -1,14 +1,22 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import { gql, useQuery } from "@apollo/client";
+
+const GET_MEMBER_CONTRACT_STATUS = gql`
+  query GetMemberContractStatus {
+    memberContractStatus {
+      finished
+      notStarted
+      started
+    }
+  }
+`;
 
 export default function ContractStatusWidget() {
-  const dummyData = {
-    contractStatusCounts: {
-      notStarted: 8,
-      done: 30,
-      inProgress: 14,
-    },
-  };
+  const { data, loading, error } = useQuery(GET_MEMBER_CONTRACT_STATUS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Box
@@ -46,7 +54,7 @@ export default function ContractStatusWidget() {
               marginBottom: "0px",
             }}
           >
-            {dummyData.contractStatusCounts.notStarted}
+            {data.memberContractStatus.notStarted}
           </Typography>
           <Typography
             variant="h6"
@@ -64,7 +72,7 @@ export default function ContractStatusWidget() {
               marginBottom: "0px",
             }}
           >
-            {dummyData.contractStatusCounts.inProgress}
+            {data.memberContractStatus.started}
           </Typography>
           <Typography
             variant="h6"
@@ -83,7 +91,7 @@ export default function ContractStatusWidget() {
               marginBottom: "0px",
             }}
           >
-            {dummyData.contractStatusCounts.done}
+            {data.memberContractStatus.finished}
           </Typography>
           <Typography
             variant="h6"
