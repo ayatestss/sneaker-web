@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Grid, Box, Typography } from "@mui/material";
 import ContractStatusWidget from "../../components/ContractStatusWidget";
 import { QrWidget } from "../../components/qrWidget";
+import StripeWidget from "../../components/StripeWidget";
 
 export const Dashboard = () => {
   const WidgetPlaceholder = ({ color, height, children }) => (
@@ -46,9 +47,12 @@ export const Dashboard = () => {
               <ContractStatusWidget />
             </WidgetPlaceholder>
             <WidgetPlaceholder
-              color="lightpink"
+        
+          
               height="100%"
-            ></WidgetPlaceholder>
+            >
+              <StripeWidget />
+            </WidgetPlaceholder>
             <WidgetPlaceholder color="red" height="100%">
               <QrWidget />
             </WidgetPlaceholder>
