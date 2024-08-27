@@ -1,41 +1,18 @@
 import React from "react";
-import { useQuery, gql } from "@apollo/client";
 import { Container, Grid, Box, Typography } from "@mui/material";
-import ImageDownloadButton from "./ImageDownloadButton";
 import ContractStatusWidget from "../../components/ContractStatusWidget";
-
-// Define the query to get the current member's QR widget data
-const GET_MEMBER_QR_WIDGET_DATA = gql`
-  query GetMemberQrWidgetData {
-    currentMember {
-      qrWidgetData {
-        image
-        url
-      }
-    }
-  }
-`;
+import { QrWidget } from "../../components/qrWidget";
 
 export const Dashboard = () => {
-  const { loading, error, data } = useQuery(GET_MEMBER_QR_WIDGET_DATA);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  // Extract QR data from the response
-  const { image, url } = data.currentMember.qrWidgetData;
-
   const WidgetPlaceholder = ({ color, height, children }) => (
     <div
       style={{
-        backgroundColor: color, // to be removed
         height: height,
         marginBottom: "8px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         padding: "20px",
-        border: "2px solid white",
         borderRadius: "16px",
       }}
     >
@@ -68,54 +45,12 @@ export const Dashboard = () => {
             <WidgetPlaceholder color="lightgreen" height="100%">
               <ContractStatusWidget />
             </WidgetPlaceholder>
-            <WidgetPlaceholder color="lightpink" height="100%">
-            </WidgetPlaceholder>
+            <WidgetPlaceholder
+              color="lightpink"
+              height="100%"
+            ></WidgetPlaceholder>
             <WidgetPlaceholder color="red" height="100%">
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  gap: 2,
-                  width: "100%",
-                }}
-              >
-                <img src={image} alt="QR Code" style={{ maxWidth: "50%" }} />
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    justifyContent: "center",
-                    gap: 1,
-                  }}
-                >
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <div
-                      style={{
-                        width: 14,
-                        height: 14,
-                        borderRadius: "50%",
-                        backgroundColor: "red",
-                      }}
-                    />
-                    <Typography
-                      component="a"
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{
-                        textDecoration: "none",
-                        color: "black",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Link
-                    </Typography>
-                  </Box>
-                  <ImageDownloadButton imageSrc={image} />
-                </Box>
-              </Box>
+              <QrWidget />
             </WidgetPlaceholder>
           </Box>
         </Grid>

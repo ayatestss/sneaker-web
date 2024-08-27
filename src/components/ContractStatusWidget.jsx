@@ -16,10 +16,8 @@ export default function ContractStatusWidget() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
         width: "100%",
         bgcolor: "background.default",
-        padding: "16px",
       }}
     >
       <Box
@@ -35,7 +33,6 @@ export default function ContractStatusWidget() {
           bgcolor: "black",
           color: "white",
           borderRadius: "16px",
-          boxShadow: "0px 0px 10px #000",
           border: "4px solid white",
           padding: "20px",
         }}
