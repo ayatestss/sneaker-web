@@ -5,17 +5,17 @@ import {
   Box,
   Alert,
   Typography,
-} from '@mui/material';
-import React, { useContext, useState } from 'react';
-import Logo from '../../assets/ss-logo.svg';
-import GoogleIcon from '@mui/icons-material/Google';
-import * as Yup from 'yup'; // Import Yup validation library
+} from "@mui/material";
+import React, { useContext, useState } from "react";
+import Logo from "../../assets/ss-logo.svg";
+import GoogleIcon from "@mui/icons-material/Google";
+import * as Yup from "yup"; // Import Yup validation library
 
-import { Formik, Form, Field } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContextv2';
+import { Formik, Form, Field } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContextv2";
 
-const FormikTextField = ({ name, label, type = 'text', ...rest }) => (
+const FormikTextField = ({ name, label, type = "text", ...rest }) => (
   <Field name={name}>
     {({ field, meta }) => (
       <TextField
@@ -34,69 +34,66 @@ const FormikTextField = ({ name, label, type = 'text', ...rest }) => (
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { user, handleLoginWithEmailAndPass, handleGoogleLogin } = useAuth();
-
-  console.log({ user });
 
   const handleLogin = async (type, values) => {
     try {
       switch (type) {
-        case 'google':
+        case "google":
           await handleGoogleLogin();
           break;
-        case 'email':
+        case "email":
           await handleLoginWithEmailAndPass(values.email, values.password);
           break;
         default:
           break;
       }
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
-      console.log(errorCode, errorMessage);
     }
   };
 
   const initialValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
-    password: Yup.string().required('Password is required'),
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string().required("Password is required"),
   });
 
   return (
     <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        bgcolor: 'black',
-        padding: '20px',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        bgcolor: "black",
+        padding: "20px",
       }}
     >
       <Stack
         alignItems="center"
         spacing={2}
-        sx={{ width: '100%', maxWidth: '360px', px: 2 }}
+        sx={{ width: "100%", maxWidth: "360px", px: 2 }}
       >
         <Box
           component="img"
           src={Logo}
           alt="Logo"
           sx={{
-            width: '80%',
-            maxWidth: '300px',
-            height: 'auto',
+            width: "80%",
+            maxWidth: "300px",
+            height: "auto",
             my: 4,
-            '@media (min-width:600px)': {
-              maxWidth: '80%',
+            "@media (min-width:600px)": {
+              maxWidth: "80%",
             },
           }}
         />
@@ -116,12 +113,12 @@ export default function LoginPage() {
                 <Typography
                   variant="caption"
                   sx={{
-                    alignSelf: 'flex-start',
-                    color: 'white',
-                    cursor: 'pointer',
-                    '&:hover': { color: 'white' },
+                    alignSelf: "flex-start",
+                    color: "white",
+                    cursor: "pointer",
+                    "&:hover": { color: "white" },
                   }}
-                  onClick={() => console.log('Navigate to forgot password')}
+                  onClick={() => console.log("Navigate to forgot password")}
                 >
                   Forgot password?
                 </Typography>
@@ -132,11 +129,11 @@ export default function LoginPage() {
                   disabled={isSubmitting}
                   sx={{
                     mt: 2,
-                    color: 'white',
+                    color: "white",
                     py: 1,
                   }}
                   onClick={() => {
-                    handleLogin('email', values);
+                    handleLogin("email", values);
                   }}
                 >
                   Sign In
@@ -147,15 +144,20 @@ export default function LoginPage() {
                   startIcon={<GoogleIcon />}
                   sx={{
                     mt: 1,
-                    color: 'white',
+                    color: "white",
                     py: 1,
                   }}
-                  onClick={() => handleLogin('google')}
+                  onClick={() => {
+                    handleLogin("google");
+                    if (user.isNewUser) {
+                      navigate("/signup");
+                    }
+                  }}
                 >
                   Sign in with Google
                 </Button>
                 {error && (
-                  <Alert severity="error" sx={{ mt: 2, width: '100%' }}>
+                  <Alert severity="error" sx={{ mt: 2, width: "100%" }}>
                     {error}
                   </Alert>
                 )}
@@ -163,17 +165,17 @@ export default function LoginPage() {
                   variant="body2"
                   sx={{
                     mt: 4,
-                    color: 'white',
-                    textAlign: 'center',
-                    '& span': {
-                      color: 'yellow',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        textDecoration: 'underline',
+                    color: "white",
+                    textAlign: "center",
+                    "& span": {
+                      color: "yellow",
+                      cursor: "pointer",
+                      "&:hover": {
+                        textDecoration: "underline",
                       },
                     },
                   }}
-                  onClick={() => navigate('/register')}
+                  onClick={() => navigate("/register")}
                 >
                   Not in the society? <span>Create an Account</span>
                 </Typography>

@@ -5,6 +5,7 @@ export const CURRENT_MEMBER = gql`
     currentMember {
       id
       email
+      isNewUser
     }
   }
 `;

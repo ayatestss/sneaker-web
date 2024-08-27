@@ -1,7 +1,8 @@
-import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { Container, Grid, Box, Typography } from '@mui/material';
-import ImageDownloadButton from './ImageDownloadButton';
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
+import { Container, Grid, Box, Typography } from "@mui/material";
+import ImageDownloadButton from "./ImageDownloadButton";
+import ContractStatusWidget from "../../components/ContractStatusWidget";
 
 // Define the query to get the current member's QR widget data
 const GET_MEMBER_QR_WIDGET_DATA = gql`
@@ -29,13 +30,13 @@ export const Dashboard = () => {
       style={{
         backgroundColor: color, // to be removed
         height: height,
-        marginBottom: '8px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '20px',
-        border: '2px solid white',
-        borderRadius: '16px',
+        marginBottom: "8px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
+        border: "2px solid white",
+        borderRadius: "16px",
       }}
     >
       {children}
@@ -43,14 +44,14 @@ export const Dashboard = () => {
   );
 
   return (
-    <Container maxWidth="lg" style={{ height: '100vh' }}>
+    <Container maxWidth="lg" style={{ height: "100vh" }}>
       <Typography variant="h1" fontWeight="bold">
         Welcome Kyle
       </Typography>
 
-      <Grid container spacing={2} style={{ height: '100%' }}>
+      <Grid container spacing={2} style={{ height: "100%" }}>
         <Grid item xs={12} md={6}>
-          <div style={{ backgroundColor: 'lightblue', height: '100%' }}>
+          <div style={{ backgroundColor: "lightblue", height: "100%" }}>
             {/* Left Widget content could be placed here */}
           </div>
         </Grid>
@@ -58,45 +59,44 @@ export const Dashboard = () => {
         <Grid item xs={12} md={6}>
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              height: "100%",
             }}
           >
             <WidgetPlaceholder color="lightgreen" height="100%">
-              {/* Widget 1 content */}
+              <ContractStatusWidget />
             </WidgetPlaceholder>
             <WidgetPlaceholder color="lightpink" height="100%">
-              {/* Widget 2 content */}
             </WidgetPlaceholder>
             <WidgetPlaceholder color="red" height="100%">
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
                   gap: 2,
-                  width: '100%',
+                  width: "100%",
                 }}
               >
-                <img src={image} alt="QR Code" style={{ maxWidth: '50%' }} />
+                <img src={image} alt="QR Code" style={{ maxWidth: "50%" }} />
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    justifyContent: 'center',
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    justifyContent: "center",
                     gap: 1,
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <div
                       style={{
                         width: 14,
                         height: 14,
-                        borderRadius: '50%',
-                        backgroundColor: 'red',
+                        borderRadius: "50%",
+                        backgroundColor: "red",
                       }}
                     />
                     <Typography
@@ -105,9 +105,9 @@ export const Dashboard = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       sx={{
-                        textDecoration: 'none',
-                        color: 'black',
-                        fontWeight: 'bold',
+                        textDecoration: "none",
+                        color: "black",
+                        fontWeight: "bold",
                       }}
                     >
                       Link
