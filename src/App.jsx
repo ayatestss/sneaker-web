@@ -55,8 +55,9 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
-                <Route path="/paymentSuccess" element={<PaymentStatus success={true} />} />
-                <Route path="/paymentFail" element={<PaymentStatus success={false} />} />                <Route
+                <Route path="/paymentSuccess/:contractId" element={<PaymentStatus success={true} />} />
+                <Route path="/paymentFail" element={<PaymentStatus success={false} />} />
+               <Route
                   path="/dashboard"
                   element={
                     <>

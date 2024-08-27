@@ -2,10 +2,13 @@ import React from 'react';
 import { Container, Box, Typography, Button, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useParams } from 'react-router-dom';
+import sneakerSociety from '../../../assets/SNEAKER SOCIETY (Transparency).png';
 
 const PaymentStatus = ({ success }) => {
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+    const { contractId } = useParams();
 
     const styles = {
         container: {
@@ -36,9 +39,10 @@ const PaymentStatus = ({ success }) => {
             alignItems: 'center',
             margin: '0 auto'
         },
-        iconText: {
-            color: '#fff',
-            fontSize: isDesktop ? '16px' : '20px'
+        image: {
+            width: '100%',  // Fit image to the width of iconCircle
+            height: '100%', // Fit image to the height of iconCircle
+            objectFit: 'contain', // Maintain aspect ratio while fitting in the circle
         },
         heading: {
             fontSize: isDesktop ? '28px' : '30px',
@@ -73,13 +77,11 @@ const PaymentStatus = ({ success }) => {
             <Box style={styles.content}>
                 <Box style={styles.icon}>
                     <Box style={styles.iconCircle}>
-                        <Typography style={styles.iconText}>
-                            {success ? 'Checkmark icon: Gold' : 'Checkmark icon: RED'}
-                        </Typography>
+                        <img src={sneakerSociety} alt="Sneaker Society Logo" style={styles.image} />
                     </Box>
                 </Box>
                 <Typography variant="h4" style={styles.heading}>
-                    {success ? 'Payment Successful' : 'Payment Unsuccessful'}
+                    {success ? 'Payment Successful' : 'Payment Failed'}
                 </Typography>
                 {success ? (
                     <>
