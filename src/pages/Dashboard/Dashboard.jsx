@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Grid, Box, Typography } from "@mui/material";
 import ContractStatusWidget from "../../components/ContractStatusWidget";
 import { QrWidget } from "../../components/qrWidget";
-import StripeWidget from "../../components/StripeWidget";
+import { StripeWidget } from "../../components/StripeWidget";
 import ContractWidget from "../HomePage/ContractWidget";
 
 export const Dashboard = () => {
