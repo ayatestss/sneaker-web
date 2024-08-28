@@ -95,7 +95,7 @@ export const StripeWidget = () => {
           gutterBottom
           sx={{ fontSize: { xs: "14px", sm: "18px", md: "24px" } }}
         >
-          ${data.stripeWidgetData.payoutAmount}
+          {data.stripeWidgetData.payoutAmount}
         </Typography>
       </Stack>
       <Stack
