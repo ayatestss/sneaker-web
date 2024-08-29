@@ -15,6 +15,8 @@ import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Blockers } from "./components/Blockers";
+import { UserSignUp } from "./pages/SignupPage/UserSignup";
+import { UserDashboard } from "./pages/Dashboard/UserDashboard";
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -23,7 +25,6 @@ function App() {
   const httpLink = createHttpLink({
     uri: `${import.meta.env.VITE_API_URL}/graphql`,
   });
-  
 
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
@@ -54,6 +55,17 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
+                <Route path="user/signup" element={<UserSignUp />} />
+                <Route
+                  path="user/dashboard"
+                  element={
+                    <>
+                      <ProtectedRoute>
+                        <UserDashboard />
+                      </ProtectedRoute>
+                    </>
+                  }
+                />
                 <Route
                   path="/dashboard"
                   element={

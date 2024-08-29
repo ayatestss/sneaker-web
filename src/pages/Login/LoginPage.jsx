@@ -37,21 +37,27 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const { user, handleLoginWithEmailAndPass, handleGoogleLogin } = useAuth();
 
-  const handleLogin = async (type, values) => {
+  const handleLogin = async (type, values, setSubmitting) => {
     try {
       switch (type) {
         case "google":
           await handleGoogleLogin();
+          navigate("/dashboard");
           break;
         case "email":
-          await handleLoginWithEmailAndPass(values.email, values.password);
+          await handleLoginWithEmailAndPass(
+            values.email,
+            values.password,
+            "USER"
+          );
+          setSubmitting(false);
           break;
         default:
           break;
       }
-      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
+      setSubmitting(false);
     }
   };
 
@@ -101,7 +107,7 @@ export default function LoginPage() {
           initialValues={initialValues}
           validationSchema={validationSchema}
         >
-          {({ isSubmitting, values }) => {
+          {({ setSubmitting, isSubmitting, values }) => {
             return (
               <Form>
                 <FormikTextField name="email" label="Email" />
@@ -133,7 +139,7 @@ export default function LoginPage() {
                     py: 1,
                   }}
                   onClick={() => {
-                    handleLogin("email", values);
+                    handleLogin("email", values, setSubmitting);
                   }}
                 >
                   Sign In

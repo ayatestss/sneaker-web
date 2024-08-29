@@ -1,7 +1,7 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContextv2';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContextv2";
 
-export const ProtectedRoute = ({ redirectPath = '/login', children }) => {
+export const ProtectedRoute = ({ redirectPath = "/login", children }) => {
   const { user, loading } = useAuth();
 
   if (loading)
@@ -12,6 +12,7 @@ export const ProtectedRoute = ({ redirectPath = '/login', children }) => {
     );
 
   if (!user) {
+    console.log("Rerouting");
     return <Navigate to={redirectPath} replace />;
   }
 
