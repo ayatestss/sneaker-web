@@ -13,6 +13,7 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_MEMBER } from "./signup";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContextv2";
+import { usStates } from "../../utils/usStates";
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
@@ -95,9 +96,10 @@ const SignupPage = () => {
             if (!values.firstName) {
               errors.firstName = "First Name is required";
             }
-
-            // Add similar validation rules for other fields
-
+            if (!values.zipcode) {
+              errors.zipcode = "Zip Code is required";
+            } else if (!/^\d{5}(-\d{4})?$/.test(values.zipcode)) {
+            }
             return errors;
           }}
         >
@@ -152,13 +154,17 @@ const SignupPage = () => {
                     label="Zipcode"
                     variant="outlined"
                     fullWidth
+                    inputProps={{
+                      inputMode: "numeric",
+                      pattern: "[0-9]*",
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormikTextField
                     name="state"
                     label="State"
-                    variant="outlined"
+                    options={usStates}
                     fullWidth
                   />
                 </Grid>
