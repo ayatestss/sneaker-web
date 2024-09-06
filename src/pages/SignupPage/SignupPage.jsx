@@ -17,8 +17,36 @@ import { usStates } from "../../utils/usStates";
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
-
   const isError = meta.touched && meta.error;
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    const numbers = value.replace(/\D/g, "");
+    form.setFieldValue(field.name, numbers);
+
+    if (name === "phoneNumber") {
+      value = value.replace(/\D/g, "");
+      // Format as (xxx) xxx-xxxx
+      if (value.length > 0) {
+        value = value
+          .match(/^(\d{0,3})(\d{0,3})(\d{0,4})/)
+          .slice(1)
+          .join("-");
+        value = value.replace(/^(\d{3})-?/, "($1) ");
+      }
+    } else if (name === "zipcode") {
+      // Remove non-numeric characters for zipcode
+      value = value.replace(/\D/g, "");
+    }
+
+    helpers.setValue(value);
+  };
+  const ZipCodeInput = ({ field, form, ...props }) => {
+    const handleChange = (event) => {
+      const { value } = event.target;
+      const numbers = value.replace(/\D/g, '');
+      form.setFieldValue(field.name, numbers);
+    };
 
   return (
     <TextField
@@ -26,6 +54,11 @@ const FormikTextField = ({ name, ...props }) => {
       {...props}
       error={isError}
       helperText={isError ? meta.error : props.helperText}
+      inputProps={{
+        ...props.inputProps,
+        maxLength:
+          name === "phoneNumber" ? 14 : name === "zipcode" ? 5 : undefined,
+      }}
     />
   );
 };
@@ -46,7 +79,7 @@ const SignupPage = () => {
             addressLineTwo: values.addressLineTwo,
             zipcode: values.zipcode,
             state: values.state,
-            phoneNumber: values.phoneNumber,
+            phoneNumber: values.phoneNumber.replace(/\D/g, ""),
             isNewUser: false,
           },
         },
@@ -64,6 +97,7 @@ const SignupPage = () => {
   if (loading) {
     return <>loading</>;
   }
+
   return (
     <Container maxWidth="md" sx={{ height: "100vh" }}>
       <div
@@ -99,6 +133,14 @@ const SignupPage = () => {
             if (!values.zipcode) {
               errors.zipcode = "Zip Code is required";
             } else if (!/^\d{5}(-\d{4})?$/.test(values.zipcode)) {
+              errors.zipcode =
+                "Invalid Zip Code. Use format: 12345 or 12345-6789";
+            }
+            if (!values.phoneNumber) {
+              errors.phoneNumber = "Phone Number is required";
+            } else if (!/^\(\d{3}\)\s\d{3}-\d{4}$/.test(values.phoneNumber)) {
+              errors.phoneNumber =
+                "Invalid Phone Number. Please enter 10 digits.";
             }
             return errors;
           }}
@@ -154,6 +196,7 @@ const SignupPage = () => {
                     label="Zipcode"
                     variant="outlined"
                     fullWidth
+                    component={ZipCodeInput}
                     inputProps={{
                       inputMode: "numeric",
                       pattern: "[0-9]*",
