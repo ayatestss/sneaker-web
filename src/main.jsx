@@ -10,7 +10,6 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { AuthProvider } from './context/AuthContextv2';
-import { ProSidebarProvider } from 'react-pro-sidebar';
 import { ApolloLink } from '@apollo/client/link/core';
 import { setContext } from '@apollo/client/link/context';
 
@@ -42,9 +41,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ApolloProvider client={client}>
       <BrowserRouter>
         <AuthProvider>
-          {/* <ProSidebarProvider> */}
           <App />
-          {/* </ProSidebarProvider> */}
         </AuthProvider>
       </BrowserRouter>
     </ApolloProvider>

@@ -56,28 +56,23 @@ function App() {
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="user/signup" element={<UserSignUp />} />
+                <Route path="signupmember" element={<SignupMember />} />
                 <Route
                   path="user/dashboard"
                   element={
-                    <>
-                      <ProtectedRoute>
-                        <UserDashboard />
-                      </ProtectedRoute>
-                    </>
+                    <ProtectedRoute>
+                      <UserDashboard />
+                    </ProtectedRoute>
                   }
                 />
                 <Route
                   path="/dashboard"
                   element={
-                    <>
-                      <Blockers />
-                      <ProtectedRoute>
-                        <Dashboard />
-                      </ProtectedRoute>
-                    </>
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
                   }
                 />
-                <Route path="signupmember" element={<SignupMember />} />
                 <Route
                   path="/signup"
                   element={

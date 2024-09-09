@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
   const {
+    loading: currentMemberLoading,
     data: currentMemberData,
     error: currentMemberError,
     refetch: currentMemberRefetch,
@@ -47,6 +48,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   const {
+    loading: currentUserLoading,
     data: currentUserData,
     error: currentUserError,
     refetch: currentUserRefetch,
@@ -128,7 +130,7 @@ export const AuthProvider = ({ children }) => {
             },
           },
         });
-        await currentUserRefetch()
+        await currentUserRefetch();
       }
 
       await refetchUser();
@@ -140,9 +142,7 @@ export const AuthProvider = ({ children }) => {
   const handleLoginWithEmailAndPass = async (email, password, userType) => {
     try {
       const result = await signInWithEmailAndPass(email, password);
-      console.log(result);
       const token = await result.user.getIdToken();
-      console.log({ token });
       const { user } = result;
 
       // Store the auth token in localStorage
@@ -165,28 +165,47 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (currentMemberData && currentMemberData.currentMember) {
+    if (currentMemberData?.currentMember) {
       setUser(currentMemberData.currentMember);
       setLoading(false);
-    } else if (currentUserData && currentUserData.currentUser) {
-      console.log("setting User");
+    } else if (currentUserData?.currentUser) {
       setUser(currentUserData.currentUser);
       setLoading(false);
     } else if (!authToken) {
-      // navigate('/login');
       setLoading(false);
-    } else if (currentMemberError) {
+    } else if (currentMemberError || currentUserError) {
       console.error(
-        "There is an error so we handle it",
-        currentMemberError.message
+        "Error fetching user data:",
+        currentMemberError || currentUserError
       );
       setLoading(false);
     }
-  }, [currentMemberData, currentMemberError, authToken, currentUserData, user]);
+  }, [
+    currentMemberData,
+    currentUserData,
+    authToken,
+    currentMemberError,
+    currentUserError,
+  ]);
+
+  useEffect(() => {
+    if (currentMemberLoading || currentUserLoading) {
+      setLoading(true);
+    }
+  }, [currentMemberLoading, currentUserLoading]);
 
   const refetchUser = async () => {
     setLoading(true);
-    await currentMemberRefetch();
+    try {
+      await currentMemberRefetch();
+      if (!currentMemberData?.currentMember) {
+        await currentUserRefetch();
+      }
+    } catch (error) {
+      console.error("Error refetching user:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const values = {

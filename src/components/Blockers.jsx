@@ -11,7 +11,7 @@ export const Blockers = () => {
         if (!loading) {
             // Handle cases where user is undefined or not authenticated
             if (!user) {
-                console.log('navigate to login cinve no user')
+                console.log('navigate to login no user')
                 if (location.pathname !== '/login') {
                     navigate('/login'); // Redirect to login if user is not authenticated
                 }
