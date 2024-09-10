@@ -44,25 +44,25 @@ const FormikTextField = ({ name, ...props }) => {
   const ZipCodeInput = ({ field, form, ...props }) => {
     const handleChange = (event) => {
       const { value } = event.target;
-      const numbers = value.replace(/\D/g, '');
+      const numbers = value.replace(/\D/g, "");
       form.setFieldValue(field.name, numbers);
     };
 
-  return (
-    <TextField
-      {...field}
-      {...props}
-      error={isError}
-      helperText={isError ? meta.error : props.helperText}
-      inputProps={{
-        ...props.inputProps,
-        maxLength:
-          name === "phoneNumber" ? 14 : name === "zipcode" ? 5 : undefined,
-      }}
-    />
-  );
+    return (
+      <TextField
+        {...field}
+        {...props}
+        error={isError}
+        helperText={isError ? meta.error : props.helperText}
+        inputProps={{
+          ...props.inputProps,
+          maxLength:
+            name === "phoneNumber" ? 14 : name === "zipcode" ? 5 : undefined,
+        }}
+      />
+    );
+  };
 };
-
 const SignupPage = () => {
   const navigate = useNavigate();
 
