@@ -15,58 +15,56 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContextv2";
 import { usStates } from "../../utils/usStates";
 
+const handleInputChange = (event, field) => {
+  const { name, value } = event.target;
+  let formattedValue = value;
+
+  if (name === "phoneNumber") {
+    formattedValue = value.replace(/\D/g, "").slice(0, 10);
+    formattedValue = formattedValue.replace(
+      /^(\d{3})(\d{3})(\d{4})$/,
+      "($1) $2-$3"
+    );
+  } else if (name === "zipcode") {
+    formattedValue = value.replace(/\D/g, "").slice(0, 5);
+  }
+
+  return formattedValue;
+};
+
 const FormikTextField = ({ name, ...props }) => {
-  const [field, meta] = useField(name);
+  const [field, meta, helpers] = useField(name);
   const isError = meta.touched && meta.error;
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    const numbers = value.replace(/\D/g, "");
-    form.setFieldValue(field.name, numbers);
+  return (
+    <TextField
+      {...field}
+      {...props}
+      error={isError}
+      helperText={isError ? meta.error : ""}
+      onChange={(e) => {
+        const formattedValue = handleInputChange(e, field);
 
-    if (name === "phoneNumber") {
-      value = value.replace(/\D/g, "");
-      // Format as (xxx) xxx-xxxx
-      if (value.length > 0) {
-        value = value
-          .match(/^(\d{0,3})(\d{0,3})(\d{0,4})/)
-          .slice(1)
-          .join("-");
-        value = value.replace(/^(\d{3})-?/, "($1) ");
-      }
-    } else if (name === "zipcode") {
-      // Remove non-numeric characters for zipcode
-      value = value.replace(/\D/g, "");
-    }
-
-    helpers.setValue(value);
-  };
-  const ZipCodeInput = ({ field, form, ...props }) => {
-    const handleChange = (event) => {
-      const { value } = event.target;
-      const numbers = value.replace(/\D/g, "");
-      form.setFieldValue(field.name, numbers);
-    };
-
-    return (
-      <TextField
-        {...field}
-        {...props}
-        error={isError}
-        helperText={isError ? meta.error : props.helperText}
-        inputProps={{
-          ...props.inputProps,
-          maxLength:
-            name === "phoneNumber" ? 14 : name === "zipcode" ? 5 : undefined,
-        }}
-      />
-    );
-  };
+        helpers.setValue(formattedValue);
+      }}
+    />
+  );
 };
+
+const ZipCodeInput = ({ field, form, ...props }) => (
+  <TextField
+    {...field}
+    {...props}
+    label="Zip Code"
+    onChange={(e) => handleInputChange(e, field, form)}
+  />
+);
+
 const SignupPage = () => {
   const navigate = useNavigate();
-
   const { user, refetchUser } = useAuth();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [updateMember, { loading }] = useMutation(UPDATE_MEMBER);
 
   const handleSubmit = async (values) => {
     try {
@@ -90,13 +88,24 @@ const SignupPage = () => {
       setErrorMessage(error.message);
     }
   };
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const [updateMember, { data, loading }] = useMutation(UPDATE_MEMBER);
-
-  if (loading) {
-    return <>loading</>;
-  }
+  const validate = (values) => {
+    const errors = {};
+    if (!values.firstName) errors.firstName = "First Name is required";
+    if (!values.lastName) errors.lastName = "Last Name is required";
+    if (!values.zipcode) {
+      errors.zipcode = "Zip Code is required";
+    } else if (!/^\d{5}(-\d{4})?$/.test(values.zipcode)) {
+      errors.zipcode = "Invalid Zip Code. Use format: 12345 or 123456789";
+    }
+    if (!values.phoneNumber) {
+      errors.phoneNumber = "Phone Number is required";
+    } else if (!/^\(\d{3}\)\s\d{3}-\d{4}$/.test(values.phoneNumber)) {
+      errors.phoneNumber = "Invalid Phone Number. Please enter 10 digits.";
+    }
+    return errors;
+  };
+  if (loading) return <div>Loading... </div>;
 
   return (
     <Container maxWidth="md" sx={{ height: "100vh" }}>
@@ -114,38 +123,19 @@ const SignupPage = () => {
         </Typography>
         <Formik
           initialValues={{
-            email: user.email || "",
-            firstName: "",
-            lastName: "",
-            addressLineOne: "",
-            addressLineTwo: "",
-            zipcode: "",
-            state: "",
-            phoneNumber: "",
+            email: user?.email || "",
+            firstName: user?.firstName || "",
+            lastName: user?.lastName || "",
+            addressLineOne: user?.addressLineOne || "",
+            addressLineTwo: user?.addressLineTwo || "",
+            zipcode: user?.zipcode || "",
+            state: user?.state || "",
+            phoneNumber: user?.phoneNumber || "",
           }}
           onSubmit={handleSubmit}
-          validate={(values) => {
-            const errors = {};
-
-            if (!values.firstName) {
-              errors.firstName = "First Name is required";
-            }
-            if (!values.zipcode) {
-              errors.zipcode = "Zip Code is required";
-            } else if (!/^\d{5}(-\d{4})?$/.test(values.zipcode)) {
-              errors.zipcode =
-                "Invalid Zip Code. Use format: 12345 or 12345-6789";
-            }
-            if (!values.phoneNumber) {
-              errors.phoneNumber = "Phone Number is required";
-            } else if (!/^\(\d{3}\)\s\d{3}-\d{4}$/.test(values.phoneNumber)) {
-              errors.phoneNumber =
-                "Invalid Phone Number. Please enter 10 digits.";
-            }
-            return errors;
-          }}
+          validate={validate}
         >
-          {() => (
+          {({ errors, touched }) => (
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -193,28 +183,50 @@ const SignupPage = () => {
                 <Grid item xs={12} sm={6}>
                   <FormikTextField
                     name="zipcode"
-                    label="Zipcode"
+                    label="Zip Code"
                     variant="outlined"
+                    inputProps={{
+                      maxLength: 5,
+                    }}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key !== "Backspace" &&
+                        e.key !== "Delete" &&
+                        e.key !== "Tab" &&
+                        (e.key < "0" || e.key > "9")
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
+                    helperText="Please enter a valid 5-digit zip code"
                     fullWidth
                     component={ZipCodeInput}
-                    inputProps={{
-                      inputMode: "numeric",
-                      pattern: "[0-9]*",
-                    }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormikTextField
                     name="state"
                     label="State"
-                    options={usStates}
+                    select
                     fullWidth
-                  />
+                    SelectProps={{
+                      shrink: true,
+                    }}
+                  >
+                    {usStates.map((state, index) => (
+                      <option key={index} value={state}>
+                        {state}
+                      </option>
+                    ))}
+                  </FormikTextField>
                 </Grid>
                 <Grid item xs={12}>
                   <FormikTextField
                     name="phoneNumber"
                     label="Phone Number"
+                    type="tel"
+                    inputProps={{ maxLength: 10, pattern: "[0-9]{10}" }}
+                    helperText="Please enter a valid 10-digit phone number"
                     variant="outlined"
                     fullWidth
                   />
