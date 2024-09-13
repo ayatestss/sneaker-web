@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, useField } from "formik";
+import { Formik, Form, useField, Field } from "formik";
 import {
   Button,
   Typography,
@@ -8,15 +8,36 @@ import {
   Container,
   Alert,
   Box,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { UPDATE_MEMBER } from "./signup";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContextv2";
+import { usStates } from "../../utils/usStates";
+
+const handleInputChange = (event, field) => {
+  const { name, value } = event.target;
+  let formattedValue = value;
+
+  if (name === "phoneNumber") {
+    formattedValue = value.replace(/\D/g, "").slice(0, 10);
+    formattedValue = formattedValue.replace(
+      /^(\d{3})(\d{3})(\d{4})$/,
+      "($1) $2-$3"
+    );
+  } else if (name === "zipcode") {
+    formattedValue = value.replace(/\D/g, "").slice(0, 5);
+  }
+
+  return formattedValue;
+};
 
 const FormikTextField = ({ name, ...props }) => {
-  const [field, meta] = useField(name);
-
+  const [field, meta, helpers] = useField(name);
   const isError = meta.touched && meta.error;
 
   return (
@@ -24,15 +45,34 @@ const FormikTextField = ({ name, ...props }) => {
       {...field}
       {...props}
       error={isError}
-      helperText={isError ? meta.error : props.helperText}
+      helperText={isError ? meta.error : ""}
+      onChange={(e) => {
+        const formattedValue = handleInputChange(e, field);
+
+        helpers.setValue(formattedValue);
+      }}
     />
   );
 };
 
+const ZipCodeInput = ({ field, form, ...props }) => (
+  <TextField
+    {...field}
+    {...props}
+    label="Zip Code"
+    onChange={(e) => handleInputChange(e, field, form)}
+  />
+);
+
 const SignupPage = () => {
   const navigate = useNavigate();
-
   const { user, refetchUser } = useAuth();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [updateMember, { loading }] = useMutation(UPDATE_MEMBER);
+
+  const handleStateChange = (event) => {
+    setSelectedState(event.target.value);
+  };
 
   const handleSubmit = async (values) => {
     try {
@@ -45,7 +85,7 @@ const SignupPage = () => {
             addressLineTwo: values.addressLineTwo,
             zipcode: values.zipcode,
             state: values.state,
-            phoneNumber: values.phoneNumber,
+            phoneNumber: values.phoneNumber.replace(/\D/g, ""),
             isNewUser: false,
           },
         },
@@ -56,13 +96,25 @@ const SignupPage = () => {
       setErrorMessage(error.message);
     }
   };
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const [updateMember, { data, loading }] = useMutation(UPDATE_MEMBER);
+  const validate = (values) => {
+    const errors = {};
+    if (!values.firstName) errors.firstName = "First Name is required";
+    if (!values.lastName) errors.lastName = "Last Name is required";
+    if (!values.zipcode) {
+      errors.zipcode = "Zip Code is required";
+    } else if (!/^\d{5}(-\d{4})?$/.test(values.zipcode)) {
+      errors.zipcode = "Invalid Zip Code. Use format: 12345 or 123456789";
+    }
+    if (!values.phoneNumber) {
+      errors.phoneNumber = "Phone Number is required";
+    } else if (!/^\(\d{3}\)\s\d{3}-\d{4}$/.test(values.phoneNumber)) {
+      errors.phoneNumber = "Invalid Phone Number. Please enter 10 digits.";
+    }
+    return errors;
+  };
+  if (loading) return <div>Loading... </div>;
 
-  if (loading) {
-    return <>loading</>;
-  }
   return (
     <Container maxWidth="md" sx={{ height: "100vh" }}>
       <div
@@ -79,29 +131,19 @@ const SignupPage = () => {
         </Typography>
         <Formik
           initialValues={{
-            email: user.email || "",
-            firstName: "",
-            lastName: "",
-            addressLineOne: "",
-            addressLineTwo: "",
-            zipcode: "",
-            state: "",
-            phoneNumber: "",
+            email: user?.email || "",
+            firstName: user?.firstName || "",
+            lastName: user?.lastName || "",
+            addressLineOne: user?.addressLineOne || "",
+            addressLineTwo: user?.addressLineTwo || "",
+            zipcode: user?.zipcode || "",
+            state: user?.state || "",
+            phoneNumber: user?.phoneNumber || "",
           }}
           onSubmit={handleSubmit}
-          validate={(values) => {
-            const errors = {};
-
-            if (!values.firstName) {
-              errors.firstName = "First Name is required";
-            }
-
-            // Add similar validation rules for other fields
-
-            return errors;
-          }}
+          validate={validate}
         >
-          {() => (
+          {({ values, setFieldValue, errors, touched }) => (
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -149,23 +191,58 @@ const SignupPage = () => {
                 <Grid item xs={12} sm={6}>
                   <FormikTextField
                     name="zipcode"
-                    label="Zipcode"
+                    label="Zip Code"
                     variant="outlined"
+                    inputProps={{
+                      maxLength: 5,
+                    }}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key !== "Backspace" &&
+                        e.key !== "Delete" &&
+                        e.key !== "Tab" &&
+                        (e.key < "0" || e.key > "9")
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
+                    helperText="Please enter a valid 5-digit zip code"
                     fullWidth
+                    component={ZipCodeInput}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <FormikTextField
-                    name="state"
-                    label="State"
-                    variant="outlined"
-                    fullWidth
-                  />
+                  <FormControl fullWidth>
+                    <InputLabel id="state-label">State</InputLabel>
+                    <Field
+                      name="state"
+                      as={Select}
+                      labelId="state-label"
+                      value={values.state}
+                      onChange={(e) => setFieldValue("state", e.target.value)}
+                      fullWidth
+                      error={touched.state && !!errors.state}
+                    >
+                      {usStates.map((state, index) => (
+                        <MenuItem key={index} value={state}>
+                          {state}
+                        </MenuItem>
+                      ))}
+                    </Field>
+                    {touched.state && errors.state ? (
+                      <Typography variant="caption" color="error">
+                        {errors.state}
+                      </Typography>
+                    ) : null}
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <FormikTextField
                     name="phoneNumber"
                     label="Phone Number"
+                    type="tel"
+                    inputProps={{ maxLength: 10, pattern: "[0-9]{10}" }}
+                    helperText="Please enter a valid 10-digit phone number"
                     variant="outlined"
                     fullWidth
                   />
