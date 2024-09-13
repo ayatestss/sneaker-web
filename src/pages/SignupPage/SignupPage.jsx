@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, useField } from "formik";
+import { Formik, Form, useField, Field } from "formik";
 import {
   Button,
   Typography,
@@ -8,6 +8,10 @@ import {
   Container,
   Alert,
   Box,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { UPDATE_MEMBER } from "./signup";
@@ -65,6 +69,10 @@ const SignupPage = () => {
   const { user, refetchUser } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [updateMember, { loading }] = useMutation(UPDATE_MEMBER);
+
+  const handleStateChange = (event) => {
+    setSelectedState(event.target.value);
+  };
 
   const handleSubmit = async (values) => {
     try {
@@ -135,7 +143,7 @@ const SignupPage = () => {
           onSubmit={handleSubmit}
           validate={validate}
         >
-          {({ errors, touched }) => (
+          {({ values, setFieldValue, errors, touched }) => (
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -204,21 +212,29 @@ const SignupPage = () => {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <FormikTextField
-                    name="state"
-                    label="State"
-                    select
-                    fullWidth
-                    SelectProps={{
-                      shrink: true,
-                    }}
-                  >
-                    {usStates.map((state, index) => (
-                      <option key={index} value={state}>
-                        {state}
-                      </option>
-                    ))}
-                  </FormikTextField>
+                  <FormControl fullWidth>
+                    <InputLabel id="state-label">State</InputLabel>
+                    <Field
+                      name="state"
+                      as={Select}
+                      labelId="state-label"
+                      value={values.state}
+                      onChange={(e) => setFieldValue("state", e.target.value)}
+                      fullWidth
+                      error={touched.state && !!errors.state}
+                    >
+                      {usStates.map((state, index) => (
+                        <MenuItem key={index} value={state}>
+                          {state}
+                        </MenuItem>
+                      ))}
+                    </Field>
+                    {touched.state && errors.state ? (
+                      <Typography variant="caption" color="error">
+                        {errors.state}
+                      </Typography>
+                    ) : null}
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <FormikTextField
