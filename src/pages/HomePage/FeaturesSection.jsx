@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Grid, Container } from '@mui/material';
+import { Typography, Box, Grid } from '@mui/material';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
@@ -25,7 +25,7 @@ function FeaturesSection({ refFnc }) {
     {
       title: 'Brand Building and Trust',
       description:
-      'Establish your brand and gain trust within the sneaker community. Build a reputation that sets you apart as a trusted seller or buyer.',
+        'Establish your brand and gain trust within the sneaker community. Build a reputation that sets you apart as a trusted seller or buyer.',
       icon: <VolunteerActivismIcon style={{ fontSize: 48, color: 'clear' }} />,
     },
     {
@@ -72,6 +72,9 @@ function FeaturesSection({ refFnc }) {
       sx={{
         height: '100%',
         color: 'white',
+        '@media (max-width: 1024px)': {
+          marginBottom: '40px', // Add space between sections for 1024px width
+        },
       }}
     >
       <Typography
@@ -86,17 +89,15 @@ function FeaturesSection({ refFnc }) {
       </Typography>
       <Box sx={{ textAlign: 'left', paddingX: '20px' }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {features.map((feature) => {
-            return (
-              <Grid item xs={12} md={6}>
-                <FeatureBox
-                  icon={feature.icon}
-                  header={feature.title}
-                  subHeading={feature.description}
-                />
-              </Grid>
-            );
-          })}
+          {features.map((feature) => (
+            <Grid item xs={12} md={6} key={feature.title}>
+              <FeatureBox
+                icon={feature.icon}
+                header={feature.title}
+                subHeading={feature.description}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Box>
       <Box>
