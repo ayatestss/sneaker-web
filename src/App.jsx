@@ -17,6 +17,7 @@ import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Blockers } from "./components/Blockers";
 import { UserSignUp } from "./pages/SignupPage/UserSignup";
 import { UserDashboard } from "./pages/Dashboard/UserDashboard";
+import { UserInfo } from "./pages/User/UserInfo";
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -78,6 +79,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <SignupPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="user/info"
+                  element={
+                    <ProtectedRoute>
+                      <UserInfo />
                     </ProtectedRoute>
                   }
                 />

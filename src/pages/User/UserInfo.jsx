@@ -9,10 +9,15 @@ import {
   Alert,
   Box,
 } from "@mui/material";
-import { useMutation } from "@apollo/client";
-import { UPDATE_MEMBER } from "./signup";
+import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContextv2";
+
+const UPDATE_USER = gql`
+  mutation updateNewUser($data: UpdateUserInput!) {
+    updateUser(data: $data)
+  }
+`;
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
@@ -29,14 +34,14 @@ const FormikTextField = ({ name, ...props }) => {
   );
 };
 
-const SignupPage = () => {
+export const UserInfo = () => {
   const navigate = useNavigate();
 
   const { user, refetchUser } = useAuth();
 
   const handleSubmit = async (values) => {
     try {
-      await updateMember({
+      await updateUser({
         variables: {
           data: {
             firstName: values.firstName,
@@ -51,14 +56,14 @@ const SignupPage = () => {
         },
       });
       await refetchUser();
-      navigate("/dashboard");
+      navigate("user/dashboard");
     } catch (error) {
       setErrorMessage(error.message);
     }
   };
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [updateMember, { data, loading }] = useMutation(UPDATE_MEMBER);
+  const [updateUser, { data, loading }] = useMutation(UPDATE_USER);
 
   if (loading) {
     return <>loading</>;
@@ -173,7 +178,7 @@ const SignupPage = () => {
               </Grid>
               <Box sx={{ paddingTop: 2 }}>
                 <Button type="submit" variant="contained" color="primary">
-                  Sign Up
+                  Save
                 </Button>
               </Box>
             </Form>
@@ -188,5 +193,3 @@ const SignupPage = () => {
     </Container>
   );
 };
-
-export default SignupPage;

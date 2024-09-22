@@ -11,7 +11,7 @@ export const UserDashboard = () => {
   return (
     <Container>
       <NewUserModal />
-      <Typography variant="h1">User Dashboard</Typography>
+      <Typography variant="h1">Welcome!</Typography>
     </Container>
   );
 };
