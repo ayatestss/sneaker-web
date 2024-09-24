@@ -18,6 +18,7 @@ import { Blockers } from "./components/Blockers";
 import { UserSignUp } from "./pages/SignupPage/UserSignup";
 import { UserDashboard } from "./pages/Dashboard/UserDashboard";
 import { UserInfo } from "./pages/User/UserInfo";
+import Chat from "./pages/MemberChat/MemberChat";
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -58,6 +59,22 @@ function App() {
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
                 <Route path="user/signup" element={<UserSignUp />} />
                 <Route path="signupmember" element={<SignupMember />} />
+                <Route
+                  path="user/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <UserDashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="chat"
+                  element={
+                    <ProtectedRoute>
+                      <Chat />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="user/dashboard"
                   element={

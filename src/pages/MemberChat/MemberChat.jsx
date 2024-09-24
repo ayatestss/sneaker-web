@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Avatar,
@@ -19,24 +19,50 @@ import SendIcon from "@mui/icons-material/Send";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArchiveIcon from "@mui/icons-material/Archive";
-import MenuIcon from "@mui/icons-material/Menu"; // Import MenuIcon for the new button
+import MenuIcon from "@mui/icons-material/Menu";
 import MemberChatSidebar from "./MemberChatSidebar";
 import MicOff from "../MemberChat/Icons/MicOff";
 import InsertPhoto from "../MemberChat/Icons/InsertPhoto";
 import AttachFile from "../MemberChat/Icons/AttachFile";
+import { gql, useQuery } from "@apollo/client";
+
+const CURRENT_CHAT_QUERY = gql`
+  query currentChat($chatId: ID!) {
+    getChatById(chatId: $chatId) {
+      id
+      name
+      member {
+        firstName
+      }
+      user {
+        firstName
+      }
+      messages {
+        senderType
+        content
+        createdAt
+      }
+    }
+  }
+`;
+
 const Chat = () => {
+  // const { messages: chatMessages } = data.getChatById;
+  // console.log({ chatMessages });
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([
-    { text: "Hi John!", sender: "Jane", timestamp: new Date() },
-    { text: "Hey Jane!", sender: "John", timestamp: new Date() },
-    { text: "How are you?", sender: "Jane", timestamp: new Date() },
-    {
-      text: "I'm good, thanks. How about you?",
-      sender: "John",
-      timestamp: new Date(),
+  const [messages, setMessages] = useState([]);
+
+  const { data, loading, error } = useQuery(CURRENT_CHAT_QUERY, {
+    variables: {
+      chatId: "66f0dc116a23f6d4bef2640e", // REPLACE WIHT CTX!!
     },
-    { text: "I am doing well!", sender: "Jane", timestamp: new Date() },
-  ]);
+  });
+
+  useEffect(() => {
+    if (!loading && data && data.getChatById) {
+      setMessages(data.getChatById.messages);
+    }
+  }, [loading, data]);
 
   const handleSend = (e) => {
     e.preventDefault();
@@ -44,7 +70,7 @@ const Chat = () => {
     const now = new Date(); // get current date/time
     setMessages([
       ...messages,
-      { text: message, sender: "me", timestamp: now }, // add timestamp property
+      { text: message, sender: "USER", timestamp: now }, // add timestamp property
     ]);
     setMessage("");
   };
@@ -66,12 +92,17 @@ const Chat = () => {
       setSelectedFile(null);
     }
   };
-  // Add this state hook to manage the sidebar visibility
+  // // Add this state hook to manage the sidebar visibility
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // Add this function to toggle the sidebar
+  // // Add this function to toggle the sidebar
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  if (loading) {
+    return <>Loadiing</>;
+  }
+
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
@@ -129,32 +160,32 @@ const Chat = () => {
             </Button>
           </Box>
         </AppBar>
-        <Box
-        // sx={{ flexGrow: 1, overflowY: "auto", padding: "16px" }}
-        >
+        <Box>
           <List sx={{ marginBottom: "16px" }}>
             {messages.map((message, i) => (
               <ListItem
                 key={i}
                 alignItems="flex-start"
                 sx={{
-                  "&.me": {
+                  alignItems: "center",
+                  "&.USER": {
                     flexDirection: "row-reverse",
                     textAlign: "right",
                   },
                 }}
-                className={message.sender === "me" ? "me" : ""}
+                className={message.senderType === "USER" ? "USER" : ""}
               >
                 <Avatar
                   sx={{
                     bgcolor:
-                      message.sender === "me"
+                      message.senderType === "USER"
                         ? "secondary.main"
                         : "primary.main",
-                    mr: message.sender === "me" ? 0 : 2,
+                    mr: message.senderType === "USER" ? 0 : 2,
+                    ml: message.senderType === "USER" ? 2 : 0,
                   }}
                 >
-                  {message.sender[0].toUpperCase()}
+                  {message.senderType[0]}
                 </Avatar>
                 <Box
                   component="div"
@@ -162,16 +193,26 @@ const Chat = () => {
                     borderRadius: "10px",
                     padding: "8px 12px",
                     backgroundColor:
-                      message.sender === "me"
+                      message.senderType === "USER"
                         ? "secondary.light"
                         : "primary.light",
                   }}
                 >
                   <Typography sx={{ color: "common.white" }}>
-                    {message.text}
+                    {message.content}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {new Date(message.timestamp).toLocaleString()}
+                    {new Date(parseInt(message.createdAt)).toLocaleString(
+                      undefined,
+                      {
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                        timeZoneName: "short",
+                      }
+                    )}
                   </Typography>
                 </Box>
               </ListItem>
