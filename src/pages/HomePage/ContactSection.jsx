@@ -1,3 +1,4 @@
+import React from 'react';
 import { Typography, Box, Link, IconButton, Grid } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import { FaInstagram } from 'react-icons/fa';
@@ -10,7 +11,9 @@ const ContactSection = () => {
         height: '100%',
         width: '100%',
         px: 5,
-        paddingBottom: '10%',
+        '@media (max-width: 1024px)': {
+          marginBottom: '40px', // Add space between sections for 1024px width
+        },
       }}
     >
       <Grid container spacing={8} alignItems="center" justifyContent="center">
@@ -49,7 +52,7 @@ const ContactSection = () => {
               Email
               <br />
               <Link
-                href="mailto:help@thesneakersociety.com"
+                href="mailto:help@thesneakerssociety.com"
                 sx={{
                   color: 'white',
                   fontSize: { xs: '1.1rem' },
@@ -106,7 +109,7 @@ const ContactSection = () => {
             <img
               src={Sneakers}
               alt="Sneaker Society Logo"
-              style={{ width: '50%', marginTop: '20%', }}
+              style={{ width: '50%', marginTop: '20%' }}
             />
           </Box>
         </Grid>
@@ -114,4 +117,5 @@ const ContactSection = () => {
     </Box>
   );
 };
+
 export default ContactSection;
