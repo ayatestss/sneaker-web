@@ -17,6 +17,11 @@ import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Blockers } from "./components/Blockers";
 import PaymentStatus from "./pages/PaymentStatus/PaymentStatus";
 import SignUpUser from "./pages/Signup User/SignupUser";
+import CheckYourEmail from "./pages/ForgotPassword/CheckYourEmail";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import PasswordReset from "./pages/ForgotPassword/PasswordReset";
+import SetANewPassword from "./pages/ForgotPassword/SetANewPassword";
+import SuccessfulPage from "./pages/ForgotPassword/SuccessfulPage";
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -63,6 +68,12 @@ function App() {
                   path="/paymentFail/:contractId"
                   element={<PaymentStatus success={false} />}
                 />
+                <Route path="/ForgotPassword" element={<ForgotPassword />} />
+                <Route path="/CheckYourEmail" element={<CheckYourEmail />} />
+                <Route path="/PasswordReset" element={<PasswordReset />} />
+                <Route path="/SetANewPassword" element={<SetANewPassword />} />
+                <Route path="/SuccessfulPage" element={<SuccessfulPage />} />
+
                 <Route
                   path="/dashboard"
                   element={

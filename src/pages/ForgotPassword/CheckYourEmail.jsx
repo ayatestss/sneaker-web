@@ -92,40 +92,65 @@ const CheckYourEmail = ({ email }) => {
               paddingTop: "10px",
             }}
           >
-            We sent a reset link to {email}. Click the link to reset your
-            password.
+            We sent a reset link to {email}. Enter the 5 digit code that
+            mentioned in the email
           </Typography>
         </Box>
-        <Stack direction="row" sx={{ marginTop: "20px" }}>
-          <Typography
-            variant="h5"
-            sx={{
-              color: "white",
-              marginRight: "5px",
-            }}
-          >
-            Haven't got the email yet?
-          </Typography>
-          <Link
-            variant="h5"
-            sx={{
-              color: "white",
-            }}
-            onClick={handleResendEmail}
-          >
-            Resend Email
-          </Link>
-        </Stack>
-        {error && (
-          <Alert severity="error" sx={{ mt: 2 }}>
-            {error}
-          </Alert>
-        )}
-        {success && (
-          <Alert severity="error" sx={{ mt: 2 }}>
-            {success}
-          </Alert>
-        )}
+      </Stack>
+
+      <Stack
+        direction="column"
+        sx={{
+          paddingLeft: "40px",
+          paddingTop: "40px",
+          paddingBottom: "30px",
+          alignItems: "center",
+        }}
+      >
+        <TextField
+          label="Verification Code"
+          onChange={(e) => setVerificationCode(e.target.value)}
+          sx={{ width: "200px", marginBottom: "20px" }}
+        />
+        <Button
+          variant="contained"
+          sx={{ borderRadius: "10px", width: "200px" }}
+          onClick={handleVerifyCode}
+        >
+          Verify Code
+        </Button>
+        <>
+          <Stack direction="row" sx={{ marginTop: "20px" }}>
+            <Typography
+              variant="h5"
+              sx={{
+                color: "white",
+                marginRight: "5px",
+              }}
+            >
+              Haven't got the email yet?
+            </Typography>
+            <Link
+              variant="h5"
+              sx={{
+                color: "white",
+              }}
+              onClick={handleResendEmail}
+            >
+              Resend Email
+            </Link>
+          </Stack>
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
+          {success && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {success}
+            </Alert>
+          )}
+        </>
       </Stack>
     </Box>
   );

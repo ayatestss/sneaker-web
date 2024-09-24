@@ -133,7 +133,6 @@ const SetANewPassword = () => {
                 ),
               }}
             />
-
             <Typography
               variant="h4"
               sx={{
