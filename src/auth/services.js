@@ -8,7 +8,6 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { FirebaseAuth } from "./firebase";
-import { logEvent } from "firebase/analytics";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -69,21 +68,18 @@ export const signUpWithEmailPassword = async (email, password) => {
 export const resetPassword = async (email) => {
   try {
     await sendPasswordResetEmail(FirebaseAuth, email);
-    logEvent(analytics, "password_reset_requested", { email });
     return { success: true };
   } catch (error) {
-    logEvent(analytics, "password_reset_error", { error: error.code });
     let errorMessage;
     switch (error.code) {
       case "auth/user-not-found":
-        errorMessage = "No user found with this email address.";
+        errorMessage = "No user found with this email.";
         break;
       case "auth/invalid-email":
         errorMessage = "Invalid email address";
         break;
       default:
         errorMessage = "An error occurred. Please try again later.";
-        console.error(error);
     }
     return { success: false, error: errorMessage };
   }

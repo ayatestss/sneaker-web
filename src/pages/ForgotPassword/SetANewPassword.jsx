@@ -18,7 +18,6 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, InputAdornment } from "@mui/material";
-import { logEvent } from "firebase/analytics";
 
 const SetANewPassword = () => {
   const navigate = useNavigate();
@@ -49,19 +48,15 @@ const SetANewPassword = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      setError: "";
+      setError("");
       setLoading(true);
       try {
         const actionCode = new URLSearchParams(window.location.search).get(
           "oobCode"
         );
         await confirmPasswordReset(FirebaseAuth, actionCode, values.password);
-        logEvent(analytics, "password_reset_successful");
-        await confirmPasswordReset(FirebaseAuth, actionCode, values.password);
-        logEvent(analytics, "password_reset_successful");
         navigate("/successful-page");
       } catch (error) {
-        logEvent(analytics, "password_reset_error", { error: error.code });
         setError("An error occurred. Please try again.");
         console.error(error);
       } finally {
@@ -180,6 +175,19 @@ const SetANewPassword = () => {
               required
               outlined
               sx={{ width: "400px", paddingBottom: "30px" }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                      aria-label="toggle password visbility"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Stack
               direction="column"
