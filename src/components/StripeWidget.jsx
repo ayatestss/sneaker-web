@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { styled } from "@mui/system";
+import { gql, useQuery } from "@apollo/client";
 
 const RedDot = styled("span")({
   height: "10px",
@@ -26,14 +27,21 @@ const CustomButton = styled(Button)({
   color: "white",
 });
 
-function StripeWidget() {
-  const dummyData = {
-    nextPayout: {
-      date: "2 days",
-      amount: 1500,
-    },
-    growthPercentage: 20,
-  };
+const GET_STRIPE_WIDGET_DATA = gql`
+  query GetStripeWidgetData {
+    stripeWidgetData {
+      nextPayoutDays
+      payoutAmount
+      percentChange
+    }
+  }
+`;
+
+export const StripeWidget = () => {
+  const { data, loading, error } = useQuery(GET_STRIPE_WIDGET_DATA);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Box
@@ -69,7 +77,7 @@ function StripeWidget() {
             gutterBottom
             sx={{ mt: 1, fontSize: { xs: "14px", sm: "18px", md: "24px" } }}
           >
-            +{dummyData.growthPercentage}%
+            {data.stripeWidgetData.percentChange}%
           </Typography>
         </Box>
 
@@ -81,13 +89,13 @@ function StripeWidget() {
             fontSize: { xs: "14px", sm: "18px", md: "24px" },
           }}
         >
-          <WhiteDot /> Next Payout: {dummyData.nextPayout.date}
+          <WhiteDot /> Next Payout: {data.stripeWidgetData.nextPayoutDays} days
         </Typography>
         <Typography
           gutterBottom
           sx={{ fontSize: { xs: "14px", sm: "18px", md: "24px" } }}
         >
-          ${dummyData.nextPayout.amount}
+          {data.stripeWidgetData.payoutAmount}
         </Typography>
       </Stack>
       <Stack
@@ -121,6 +129,4 @@ function StripeWidget() {
       </Stack>
     </Box>
   );
-}
-
-export default StripeWidget;
+};

@@ -2,7 +2,8 @@ import React from "react";
 import { Container, Grid, Box, Typography } from "@mui/material";
 import ContractStatusWidget from "../../components/ContractStatusWidget";
 import { QrWidget } from "../../components/qrWidget";
-import StripeWidget from "../../components/StripeWidget";
+import { StripeWidget } from "../../components/StripeWidget";
+import ContractWidget from "../HomePage/ContractWidget";
 
 export const Dashboard = () => {
   const WidgetPlaceholder = ({ color, height, children }) => (
@@ -29,9 +30,7 @@ export const Dashboard = () => {
 
       <Grid container spacing={2} style={{ height: "100%" }}>
         <Grid item xs={12} md={6}>
-          <div style={{ backgroundColor: "lightblue", height: "100%" }}>
-            {/* Left Widget content could be placed here */}
-          </div>
+          <ContractWidget />
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -46,11 +45,7 @@ export const Dashboard = () => {
             <WidgetPlaceholder color="lightgreen" height="100%">
               <ContractStatusWidget />
             </WidgetPlaceholder>
-            <WidgetPlaceholder
-        
-          
-              height="100%"
-            >
+            <WidgetPlaceholder height="100%">
               <StripeWidget />
             </WidgetPlaceholder>
             <WidgetPlaceholder color="red" height="100%">

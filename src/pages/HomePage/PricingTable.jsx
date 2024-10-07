@@ -10,6 +10,9 @@ const PricingTable = ({ features, onButtonClick }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        '@media (max-width: 1024px)': {
+          marginBottom: '40px', // Add space between sections for 1024px width
+        },
       }}
     >
       <Box
@@ -40,8 +43,9 @@ const PricingTable = ({ features, onButtonClick }) => {
         </Box>
         <hr sx={{ mt: 4, border: '5px solid' }} />
         <Box sx={{ pt: 4 }}>
-          {features.map((feat) => (
+          {features.map((feat, index) => (
             <Typography
+              key={index}
               sx={{
                 fontWeight: 'semibold',
                 display: 'flex',

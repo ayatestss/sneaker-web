@@ -6,7 +6,6 @@ import { TypeAnimation } from 'react-type-animation';
 import StyledButton from './StackedButton';
 import FeaturesSection from './FeaturesSection';
 import ScrollToNextIcon from './ScrollToNextIcon';
-import PricingCard from './PricingCard';
 import PricingTable from './PricingTable';
 import { useNavigate } from 'react-router-dom';
 import ContactSection from './ContactSection';
@@ -14,6 +13,7 @@ import ContractWidget from './ContractWidget';
 
 function HomePage() {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
+  const isLargeScreen = useMediaQuery('(min-width:1200px)'); // For large monitors
 
   const featuresSectionRef = useRef(null); // Create a ref for the FeaturesSection
   const pricingSectionRef = useRef(null);
@@ -22,14 +22,14 @@ function HomePage() {
   const scrollToRef = (ref) => {
     window.scrollTo({
       top: ref.current.offsetTop - (isSmallScreen ? 120 : 100),
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   const navigate = useNavigate();
 
   const handleSignupClick = () => {
-    navigate('/signup');
+    navigate("/signup");
   };
 
   return (
@@ -43,14 +43,13 @@ function HomePage() {
 
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Box
           sx={{
-            height: '100vh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -62,22 +61,22 @@ function HomePage() {
             variant="h2"
             component="h1"
             sx={{
-              fontWeight: '700',
-              fontSize: { lg: '96px', md: '4rem', sm: '3rem', xs: '3rem' },
-              marginTop: { xs: '20px', md: '0' },
-              marginBottom: '32px',
-              wordWrap: 'break-word',
+              fontWeight: "700",
+              fontSize: { lg: "96px", md: "4rem", sm: "3rem", xs: "3rem" },
+              marginTop: { xs: "20px", md: "0" },
+              marginBottom: "32px",
+              wordWrap: "break-word",
               lineHeight: { xs: 1.2, sm: 1.3 },
             }}
           >
-            <Box sx={{ height: '100px' }}>
+            <Box sx={{ height: "100px" }}>
               <TypeAnimation
                 sequence={[
-                  'Elevate your Collection',
+                  "Elevate your Collection",
                   1000,
-                  'Streamline your Process',
+                  "Streamline your Process",
                   1000,
-                  'Build your Brand',
+                  "Build your Brand",
                   1000,
                 ]}
                 speed={50}
@@ -89,10 +88,10 @@ function HomePage() {
           <Typography
             variant="h6"
             sx={{
-              fontWeight: '400',
-              fontSize: { xs: '16px', md: '1.25rem' },
-              maxWidth: '800px',
-              marginBottom: '48px',
+              fontWeight: "400",
+              fontSize: { xs: "16px", md: "1.25rem" },
+              maxWidth: "800px",
+              marginBottom: "48px",
             }}
           >
             Your all-in-one solution: Where restoration experts elevate their
@@ -104,7 +103,7 @@ function HomePage() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={2}
           >
-            <StyledButton onClick={handleSignupClick}>Buisness</StyledButton>
+            <StyledButton onClick={handleSignupClick}>Business</StyledButton>
             <StyledButton onClick={handleSignupClick}>Customer</StyledButton>
           </Stack>
 
@@ -115,35 +114,37 @@ function HomePage() {
 
         <Box
           sx={{
-            height: isSmallScreen ? '100%' : '100vh',
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            paddingTop: isLargeScreen ? '10px' : '20px', // Less space above for large screens
+            paddingBottom: isLargeScreen ? '60px' : '40px', // More space below for large screens
           }}
           ref={featuresSectionRef}
         >
           <FeaturesSection refFnc={() => scrollToRef(pricingSectionRef)} />
         </Box>
+
         <Box
           sx={{
-            height: '100vh',
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            paddingY: isSmallScreen ? '20px' : '40px',
             textAlign: 'center',
           }}
         >
-          <Box sx={{ width: '100%', height: '100%', paddingTop: '10%' }}>
+          <Box sx={{ width: '100%' }}>
             <Typography
               fontWeight="bold"
               gutterBottom
               ref={pricingSectionRef}
               sx={{
-                fontSize: { xs: '3rem', sm: '5.2rem' },
+                fontSize: { xs: "3rem", sm: "5.2rem" },
                 lineHeight: 1.4,
               }}
             >
@@ -152,10 +153,10 @@ function HomePage() {
 
             <PricingTable
               features={[
-                'Unlimited Prospect Intakes',
-                'Direct Messaging',
-                'Direct Stripe Payments',
-                'Business analytics',
+                "Unlimited Prospect Intakes",
+                "Direct Messaging",
+                "Direct Stripe Payments",
+                "Business analytics",
               ]}
               onButtonClick={handleSignupClick}
             />
@@ -164,22 +165,25 @@ function HomePage() {
             scrollToNext={() => scrollToRef(contactSectionRef)}
           />
         </Box>
+
         <Box
           sx={{
             width: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingTop: '12%'
+            paddingY: isSmallScreen ? '20px' : '40px',
           }}
           ref={contactSectionRef}
         >
           <ContactSection />
         </Box>
       </Box>
-      <Box mt={5}>
+
+      <Box mt={5} sx={{marginTop: '0'}}>
         <ContractWidget />
       </Box>
+
       <Footer />
     </Box>
   );
