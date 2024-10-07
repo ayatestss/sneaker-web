@@ -58,7 +58,7 @@ function App() {
                   element={<PaymentStatus success={true} />}
                 />
                 <Route
-                  path="/paymentFail"
+                  path="/paymentFail/:contractId"
                   element={<PaymentStatus success={false} />}
                 />
                 <Route

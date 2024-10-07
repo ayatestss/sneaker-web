@@ -3,7 +3,7 @@ import { Container, Box, Typography, Button, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useParams } from 'react-router-dom';
-import sneakerSociety from '../../../assets/SNEAKER SOCIETY (Transparency).png';
+import { MdCheckCircle, MdError } from 'react-icons/md';
 
 const PaymentStatus = ({ success }) => {
     const theme = useTheme();
@@ -30,7 +30,7 @@ const PaymentStatus = ({ success }) => {
             marginBottom: '20px'
         },
         iconCircle: {
-            backgroundColor: 'red',
+            backgroundColor: success ? 'green' : 'red', // Change background based on success
             borderRadius: '50%',
             width: isDesktop ? '120px' : '150px',
             height: isDesktop ? '120px' : '150px',
@@ -39,10 +39,9 @@ const PaymentStatus = ({ success }) => {
             alignItems: 'center',
             margin: '0 auto'
         },
-        image: {
-            width: '100%',  // Fit image to the width of iconCircle
-            height: '100%', // Fit image to the height of iconCircle
-            objectFit: 'contain', // Maintain aspect ratio while fitting in the circle
+        iconStyle: {
+            color: '#fff', // White icon color
+            fontSize: isDesktop ? '80px' : '100px' // Icon size depending on screen size
         },
         heading: {
             fontSize: isDesktop ? '28px' : '30px',
@@ -77,7 +76,11 @@ const PaymentStatus = ({ success }) => {
             <Box style={styles.content}>
                 <Box style={styles.icon}>
                     <Box style={styles.iconCircle}>
-                        <img src={sneakerSociety} alt="Sneaker Society Logo" style={styles.image} />
+                        {success ? (
+                            <MdCheckCircle style={styles.iconStyle} />
+                        ) : (
+                            <MdError style={styles.iconStyle} />
+                        )}
                     </Box>
                 </Box>
                 <Typography variant="h4" style={styles.heading}>
@@ -89,7 +92,10 @@ const PaymentStatus = ({ success }) => {
                             Your transaction has been successfully processed. We appreciate your business!
                         </Typography>
                         <Typography variant="body1" style={styles.emailInfo}>
-                            Email was sent to: test@gmail.com
+                            Email was sent to:
+                            <a href="mailto:test@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>
+                                test@gmail.com
+                            </a>
                         </Typography>
                         <Button variant="outlined" style={styles.resendButton}>Resend</Button>
                     </>
