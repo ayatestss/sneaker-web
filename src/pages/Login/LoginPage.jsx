@@ -51,9 +51,19 @@ export default function LoginPage() {
       }
       navigate("/dashboard");
     } catch (error) {
-      setError(error.message);
+      // Mapping Firebase errors to custom messages
+      if (error.code === "auth/user-not-found") {
+        setError("Account not found. Please register.");
+      } else if (error.code === "auth/wrong-password") {
+        setError("Incorrect password. Please try again.");
+      } else if (error.code === "auth/invalid-email") {
+        setError("Invalid email address. Please check your email.");
+      } else {
+        setError("Login failed. Please try again.");
+      }
     }
   };
+
 
   const initialValues = {
     email: "",
