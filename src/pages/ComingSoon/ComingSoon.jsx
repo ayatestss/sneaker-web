@@ -54,7 +54,7 @@ opacity: 1;
   return (
     <Box sx={{ bgcolor: "background.default", height: "100vh" }}>
       <Stack alignItems="center" spacing={3} pb={7} width="auto">
-        <a href="/homepage">
+        <a href="/">
           <img src={Logo} style={{ height: "30vh", width: "auto" }} />
         </a>
         <Typography

@@ -60,7 +60,6 @@ const SignupMember = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        padding: "20px",
       }}
     >
       <Stack
@@ -68,12 +67,12 @@ const SignupMember = () => {
         spacing={2}
         sx={{ width: "100%", maxWidth: "360px", px: 2 }}
       >
-        <a href="/homepage">
+        <a href="/">
           <Box
             component="img"
             src={Logo}
             alt="Logo"
-            sx={{ width: "80%", maxWidth: "300px", height: "auto", my: 4 }}
+            sx={{ width: "100%", maxWidth: "300px", height: "auto", my: 4 }}
           />
         </a>
         <Formik

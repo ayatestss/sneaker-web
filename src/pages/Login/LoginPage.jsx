@@ -6,7 +6,7 @@ import {
   Alert,
   Typography,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/ss-logo.svg";
 import GoogleIcon from "@mui/icons-material/Google";
 import * as Yup from "yup"; // Import Yup validation library
@@ -75,7 +75,6 @@ export default function LoginPage() {
         alignItems: "center",
         height: "100vh",
         bgcolor: "black",
-        padding: "20px",
       }}
     >
       <Stack
@@ -83,18 +82,18 @@ export default function LoginPage() {
         spacing={2}
         sx={{ width: "100%", maxWidth: "360px", px: 2 }}
       >
-        <a href="/homepage">
+        <a href="/">
           <Box
             component="img"
             src={Logo}
             alt="Logo"
             sx={{
-              width: "80%",
-              maxWidth: "300px",
+              width: "100%",
+              justifyContent: "center",
               height: "auto",
               my: 4,
               "@media (min-width:600px)": {
-                maxWidth: "80%",
+                maxWidth: "100%",
               },
             }}
           />
