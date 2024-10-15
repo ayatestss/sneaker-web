@@ -4,7 +4,7 @@ import ContractStatusWidget from "../../components/ContractStatusWidget";
 import { QrWidget } from "../../components/qrWidget";
 import { StripeWidget } from "../../components/StripeWidget";
 import ContractWidget from "../HomePage/ContractWidget";
-import { useAuth } from "../../context/AuthContextv2";
+import { useAuth } from "../../context/AuthContext";
 
 export const Dashboard = () => {
   const { user } = useAuth();
