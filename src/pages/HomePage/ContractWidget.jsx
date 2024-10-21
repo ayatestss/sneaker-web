@@ -14,6 +14,7 @@ import {
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 function ContractWidget() {
+  // Updated with 25 contracts
   const [contracts, setContracts] = useState([
     {
       id: 1,
@@ -63,7 +64,7 @@ function ContractWidget() {
       status: "In Review",
       date: "03/01/2023",
       selected: false,
-    }, // Added 7th contract for pagination example
+    },
     {
       id: 11,
       client: "Richard Cochechagua",
@@ -112,14 +113,73 @@ function ContractWidget() {
       status: "In Review",
       date: "03/01/2023",
       selected: false,
-    }, // Added 7th contract for pagination example
+    },
+    {
+      id: 100,
+      client: "Sarah Lee",
+      status: "In Progress",
+      date: "04/15/2023",
+      selected: false,
+    },
+    {
+      id: 101,
+      client: "James Sullivan",
+      status: "Not Started",
+      date: "05/21/2023",
+      selected: false,
+    },
+    {
+      id: 102,
+      client: "Michael Johnson",
+      status: "Done",
+      date: "06/30/2023",
+      selected: false,
+    },
+    {
+      id: 103,
+      client: "Amanda Robertson",
+      status: "Complete",
+      date: "07/18/2023",
+      selected: false,
+    },
+    {
+      id: 104,
+      client: "Emily Watson",
+      status: "In Review",
+      date: "08/05/2023",
+      selected: false,
+    },
+    {
+      id: 105,
+      client: "Emily Watson",
+      status: "In Review",
+      date: "08/05/2023",
+      selected: false,
+    },
+    {
+      id: 106,
+      client: "Emily Watson",
+      status: "In Review",
+      date: "08/05/2023",
+      selected: false,
+    },
+    {
+      id: 107,
+      client: "Emily Watson",
+      status: "In Review",
+      date: "08/05/2023",
+      selected: false,
+    },
   ]);
+
   const [selectAll, setSelectAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const contractsPerPage = 6;
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // Dynamically set contracts per page based on screen size
+  const contractsPerPage = isSmallScreen ? 6 : 20;
 
   const getStatusChipProps = (status) => {
     switch (status) {
@@ -157,6 +217,7 @@ function ContractWidget() {
     setSelectAll(newContracts.every((contract) => contract.selected));
   };
 
+  // Calculate the contracts to display based on the current page
   const indexOfLastContract = currentPage * contractsPerPage;
   const indexOfFirstContract = indexOfLastContract - contractsPerPage;
   const currentContracts = contracts.slice(
