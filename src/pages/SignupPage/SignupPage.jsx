@@ -12,7 +12,7 @@ import {
 import { useMutation } from "@apollo/client";
 import { UPDATE_MEMBER } from "./signup";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContextv2";
+import { useAuth } from "../../context/AuthContext";
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
