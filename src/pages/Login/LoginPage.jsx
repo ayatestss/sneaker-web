@@ -13,7 +13,7 @@ import * as Yup from "yup"; // Import Yup validation library
 
 import { Formik, Form, Field } from "formik";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContextv2";
+import { useAuth } from "../../context/AuthContext";
 
 const FormikTextField = ({ name, label, type = "text", ...rest }) => (
   <Field name={name}>
