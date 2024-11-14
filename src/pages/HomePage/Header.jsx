@@ -9,7 +9,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import Sneakers from "../../../assets/sneakers-header.png";
 import StyledButton from "./StackedButton";
 
-const Header = ({ pricingRef, contactRef, featureRef, onButtonClick }) => {
+const Header = ({
+  pricingRef,
+  contactRef,
+  featureRef,
+  onButtonClick,
+  onRedirectClick,
+}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -67,7 +73,11 @@ const Header = ({ pricingRef, contactRef, featureRef, onButtonClick }) => {
                 <Tab label="Pricing" onClick={pricingRef} />
                 <Tab label="Contact" onClick={contactRef} />
               </Tabs>
-              <StyledButton onClick={onButtonClick}>Sign Up</StyledButton>
+
+              <div style={{ padding: "20px" }}>
+                <StyledButton onClick={onButtonClick}>Login</StyledButton>{" "}
+              </div>
+              <StyledButton onClick={onRedirectClick}>Sign Up</StyledButton>
             </div>
           </Hidden>
 

@@ -33,7 +33,7 @@ function HomePage() {
   };
 
   const redirectSignupClick = () => {
-    navigate("/signupmember");
+    navigate("member/signup");
   };
 
   return (
