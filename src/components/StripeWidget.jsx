@@ -40,10 +40,15 @@ export const StripeWidget = () => {
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
         }}
       >
-        <GoAlertFill style={{ color: "red", fontSize: "20px", marginBottom: "10px" }} />
-        <Typography variant="body1" sx={{ marginBottom: "10px", fontSize: "16px" }}>
-          Please set up Stripe to begin
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+          }}>
+          <GoAlertFill style={{ color: "red", fontSize: "20px", marginBottom: "10px", paddingRight: "10px" }} />
+          <Typography variant="body1" sx={{ marginBottom: "10px", fontSize: "16px" }}>
+            Please set up stripe to begin
+          </Typography>
+        </Box>
         <Button
           variant="outlined"
           size="small"
