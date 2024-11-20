@@ -4,8 +4,10 @@ import ContractStatusWidget from "../../components/ContractStatusWidget";
 import { QrWidget } from "../../components/qrWidget";
 import { StripeWidget } from "../../components/StripeWidget";
 import ContractWidget from "../HomePage/ContractWidget";
+import { useAuth } from "../../context/AuthContextv2";
 
 export const Dashboard = () => {
+  const { user } = useAuth();
   const WidgetPlaceholder = ({ color, height, children }) => (
     <div
       style={{
@@ -25,7 +27,7 @@ export const Dashboard = () => {
   return (
     <Container maxWidth="lg" style={{ height: "100vh" }}>
       <Typography variant="h1" fontWeight="bold">
-        Welcome Kyle
+        Welcome, {user.firstName || "User"}
       </Typography>
 
       <Grid container spacing={2} style={{ height: "100%" }}>
