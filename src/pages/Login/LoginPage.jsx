@@ -64,7 +64,6 @@ export default function LoginPage() {
     }
   };
 
-
   const initialValues = {
     email: "",
     password: "",
@@ -93,20 +92,22 @@ export default function LoginPage() {
         spacing={2}
         sx={{ width: "100%", maxWidth: "360px", px: 2 }}
       >
-        <Box
-          component="img"
-          src={Logo}
-          alt="Logo"
-          sx={{
-            width: "80%",
-            maxWidth: "300px",
-            height: "auto",
-            my: 4,
-            "@media (min-width:600px)": {
-              maxWidth: "80%",
-            },
-          }}
-        />
+        <a href="/">
+          <Box
+            component="img"
+            src={Logo}
+            alt="Logo"
+            sx={{
+              width: "100%",
+              justifyContent: "center",
+              height: "auto",
+              my: 4,
+              "@media (min-width:600px)": {
+                maxWidth: "100%",
+              },
+            }}
+          />
+        </a>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
