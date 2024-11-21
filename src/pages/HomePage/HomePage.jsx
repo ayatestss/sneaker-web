@@ -32,6 +32,10 @@ function HomePage() {
     navigate("/signup");
   };
 
+  const redirectSignupClick = () => {
+    navigate("member/signup");
+  };
+
   return (
     <Box>
       <Header
@@ -39,6 +43,7 @@ function HomePage() {
         featureRef={() => scrollToRef(featuresSectionRef)}
         contactRef={() => scrollToRef(contactSectionRef)}
         onButtonClick={handleSignupClick}
+        onRedirectClick={redirectSignupClick}
       />
 
       <Box
