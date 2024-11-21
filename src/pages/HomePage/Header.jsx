@@ -43,8 +43,82 @@ const Header = ({
               <StyledButton onClick={onRedirectClick}>Sign Up</StyledButton>
             </div>
           </Hidden>
+
+          {/* Mobile Hamburger Button */}
+          <Hidden mdUp>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleSidebar}>
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
         </Toolbar>
       </AppBar>
+
+      {/* Overlay for sidebar (mobile only) */}
+      <Hidden mdUp>
+        <div style={overlayStyles} onClick={toggleSidebar}></div>
+      </Hidden>
+
+      {/* Custom Sidebar (mobile only) */}
+      <Hidden mdUp>
+        <div style={sidebarStyles}>
+          <IconButton onClick={toggleSidebar} style={{ color: 'white', marginBottom: '20px' }}>
+            <CloseIcon />
+          </IconButton>
+
+          {/* Centering content and adjusting font size only on mobile */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '70%', // Centering content within 70% height of the sidebar
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: '30px', // Adjusting font size for mobile
+                color: 'white',
+                marginBottom: '20px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleMenuItemClick(featureRef)}
+            >
+              Features
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: '30px', // Adjusting font size for mobile
+                color: 'white',
+                marginBottom: '20px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleMenuItemClick(pricingRef)}
+            >
+              Pricing
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: '30px', // Adjusting font size for mobile
+                color: 'white',
+                marginBottom: '20px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleMenuItemClick(contactRef)}
+            >
+              Contact
+            </Typography>
+            <StyledButton
+              sx={{
+                fontSize: '30px', // Adjusting button font size for mobile
+              }}
+              onClick={onButtonClick}
+            >
+              Sign Up
+            </StyledButton>
+          </Box>
+        </div>
+      </Hidden>
     </>
   );
 };

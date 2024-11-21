@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContextv2';
+import { useAuth } from '../context/AuthContext';
 
 export const ProtectedRoute = ({ redirectPath = '/login', children }) => {
   const { user, loading } = useAuth();

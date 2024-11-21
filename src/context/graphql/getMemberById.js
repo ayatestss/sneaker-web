@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CURRENT_MEMBER = gql`
   query CurrentMember {
@@ -6,6 +6,7 @@ export const CURRENT_MEMBER = gql`
       id
       email
       isNewUser
+      firstName
     }
   }
 `;
