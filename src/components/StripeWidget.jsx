@@ -26,44 +26,60 @@ export const StripeWidget = () => {
     return (
       <Box
         sx={{
-          border: "1px solid #fff",
-          borderRadius: "16px",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
           justifyContent: "center",
-          width: "300px",
-          height: "150px",
-          bgcolor: "black",
-          color: "white",
-          padding: "20px",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+          alignItems: "center",
+          width: "100%",
+          bgcolor: "background.default",
         }}
       >
         <Box
           sx={{
             display: "flex",
-          }}>
-          <GoAlertFill style={{ color: "red", fontSize: "20px", marginBottom: "10px", paddingRight: "10px" }} />
-          <Typography variant="body1" sx={{ marginBottom: "10px", fontSize: "16px" }}>
-            Please set up stripe to begin
-          </Typography>
-        </Box>
-        <Button
-          variant="outlined"
-          size="small"
-          sx={{
+            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "auto",
+            width: "100%",
+            maxWidth: "600px",
+            bgcolor: "black",
             color: "white",
-            borderColor: "white",
-            textTransform: "none",
-            fontSize: "14px",
-            padding: "5px 15px",
+            borderRadius: "16px",
+            border: "4px solid white",
+            padding: "50px",
           }}
-          onClick={() => console.log("Navigate to Stripe Setup")}
         >
-          Set up Stripe
-        </Button>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center", // Align icon and text horizontally
+              gap: "8px", // Add spacing between icon and text
+              marginBottom: "16px", // Add spacing below the icon/text group
+            }}
+          >
+            <GoAlertFill style={{ color: "red", fontSize: "24px" }} />
+            <Typography variant="body1" sx={{ fontSize: "24px" }}>
+              Please set up stripe to begin
+            </Typography>
+          </Box>
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{
+              color: "white",
+              borderColor: "white",
+              textTransform: "none",
+              fontSize: "20px",
+              padding: "5px 15px",
+            }}
+            onClick={() => console.log("Navigate to Stripe Setup")}
+          >
+            Set up Stripe
+          </Button>
+        </Box>
       </Box>
+
     );
   }
 
