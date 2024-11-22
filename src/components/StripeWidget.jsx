@@ -1,31 +1,8 @@
 import React from "react";
 import { Box, Typography, Button, Stack } from "@mui/material";
-import { styled } from "@mui/system";
 import { gql, useQuery } from "@apollo/client";
-
-const RedDot = styled("span")({
-  height: "10px",
-  width: "10px",
-  backgroundColor: "red",
-  borderRadius: "50%",
-  display: "inline-block",
-  marginRight: "8px",
-});
-
-const WhiteDot = styled("span")({
-  height: "15px",
-  width: "15px",
-  backgroundColor: "white",
-  borderRadius: "50%",
-  display: "inline-block",
-  marginRight: "2px",
-});
-
-const CustomButton = styled(Button)({
-  display: "flex",
-  alignItems: "center",
-  color: "white",
-});
+import { useAuth } from "../context/AuthContext";
+import { GoAlertFill } from "react-icons/go";
 
 const GET_STRIPE_WIDGET_DATA = gql`
   query GetStripeWidgetData {
@@ -39,10 +16,74 @@ const GET_STRIPE_WIDGET_DATA = gql`
 
 export const StripeWidget = () => {
   const { data, loading, error } = useQuery(GET_STRIPE_WIDGET_DATA);
+  const { user } = useAuth(); // Access currentUser from useAuth()
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // Check if stripeConnectAccountId is not present on the user
+  if (!user.stripeConnectAccountId) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          bgcolor: "background.default",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "auto",
+            width: "100%",
+            maxWidth: "600px",
+            bgcolor: "black",
+            color: "white",
+            borderRadius: "16px",
+            border: "4px solid white",
+            padding: "50px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center", // Align icon and text horizontally
+              gap: "8px", // Add spacing between icon and text
+              marginBottom: "16px", // Add spacing below the icon/text group
+            }}
+          >
+            <GoAlertFill style={{ color: "red", fontSize: "24px" }} />
+            <Typography variant="body1" sx={{ fontSize: "24px" }}>
+              Please set up stripe to begin
+            </Typography>
+          </Box>
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{
+              color: "white",
+              borderColor: "white",
+              textTransform: "none",
+              fontSize: "20px",
+              padding: "5px 15px",
+            }}
+            onClick={() => console.log("Navigate to Stripe Setup")}
+          >
+            Set up Stripe
+          </Button>
+        </Box>
+      </Box>
+
+    );
+  }
+
+  // Display the default view if stripeConnectAccountId is present
   return (
     <Box
       sx={{
@@ -89,7 +130,7 @@ export const StripeWidget = () => {
             fontSize: { xs: "14px", sm: "18px", md: "24px" },
           }}
         >
-          <WhiteDot /> Next Payout: {data.stripeWidgetData.nextPayoutDays} days
+          Next Payout: {data.stripeWidgetData.nextPayoutDays} days
         </Typography>
         <Typography
           gutterBottom
@@ -118,14 +159,14 @@ export const StripeWidget = () => {
         >
           Statements
         </Button>
-        <CustomButton
+        <Button
           variant="outlined"
-          sx={{ width: "129px" }}
+          sx={{ width: "129px", color: "white", display: "flex", alignItems: "center" }}
           onClick={() => console.log("Navigate to Stripe Dashboard")}
         >
-          <RedDot />
+          <GoAlertFill style={{ color: "red", marginRight: "8px" }} />
           Stripe
-        </CustomButton>
+        </Button>
       </Stack>
     </Box>
   );
