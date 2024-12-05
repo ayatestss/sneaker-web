@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { CURRENT_MEMBER } from "./graphql/getMemberById";
+import { CURRENT_USER } from "./graphql/getCurrentUser";
 import { useNavigate } from "react-router-dom";
 import {
   getAdditionlInfo,
@@ -10,6 +11,7 @@ import {
   logOut,
 } from "../auth/services";
 import { CREATE_MEMBER } from "../pages/SignUpMemberPage/graphql/addMember";
+import { CREATE_USER } from "../pages/SignUpMemberPage/graphql/addUser";
 
 const AuthContext = createContext();
 
@@ -25,30 +27,57 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [authToken, setAuthToken] = useState(() => localStorage.getItem("authToken"));
+  const [authToken, setAuthToken] = useState(() =>
+    localStorage.getItem("authToken")
+  );
 
-  const { data, error, refetch } = useQuery(CURRENT_MEMBER, {
+  const {
+    data: currentMemberData,
+    error: currentMemberError,
+    refetch: currentMemberRefetch,
+  } = useQuery(CURRENT_MEMBER, {
     skip: !authToken,
     onError: (error) => {
       console.error("Error fetching current member:", error);
       if (error.message.includes("unauthorized")) {
         handleTokenError();
       }
-    }
+    },
+  });
+
+  const {
+    data: currentUserData,
+    error: currentUserError,
+    refetch: currentUserRefetch,
+  } = useQuery(CURRENT_USER, {
+    skip: !authToken,
+    onError: (error) => {
+      console.error("Error fetching current member:", error);
+      if (error.message.includes("unauthorized")) {
+        handleTokenError();
+      }
+    },
   });
 
   const [createMember] = useMutation(CREATE_MEMBER, {
     onError: (error) => {
       console.error("Error creating member:", error);
       throw error;
-    }
+    },
+  });
+
+  const [createUser] = useMutation(CREATE_USER, {
+    onError: (error) => {
+      console.error("Error creating user:", error);
+      throw error;
+    },
   });
 
   const handleTokenError = () => {
     localStorage.removeItem("authToken");
     setAuthToken(null);
     setUser(null);
-    navigate('/login');
+    navigate("/login");
   };
 
   const setToken = async (firebaseUser) => {
@@ -67,9 +96,14 @@ export const AuthProvider = ({ children }) => {
   const refetchUser = async () => {
     setLoading(true);
     try {
-      const { data } = await refetch();
-      if (data?.currentMember) {
-        setUser(data.currentMember);
+      const { data: currentMemberData } = await currentMemberRefetch();
+      if (currentMemberData?.currentMember) {
+        setUser(currentMemberData.currentMember);
+      }
+
+      const { data: currentUserData } = await currentUserRefetch();
+      if (currentUserData?.currentUser) {
+        setUser(currentUserData.currentUser);
       }
     } catch (error) {
       console.error("Error refetching user:", error);
@@ -79,7 +113,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (userType) => {
     setLoading(true);
     try {
       const result = await signInWithGoogle();
@@ -90,8 +124,19 @@ export const AuthProvider = ({ children }) => {
 
       await setToken(firebaseUser);
 
-      if (moreInfo.isNewUser) {
+      if (moreInfo.isNewUser && userType === "MEMBER") {
         await createMember({
+          variables: {
+            data: {
+              firebaseId: firebaseUser.uid,
+              email: firebaseUser.email,
+            },
+          },
+        });
+      }
+
+      if (moreInfo.isNewUser && userType === "USER") {
+        await createUser({
           variables: {
             data: {
               firebaseId: firebaseUser.uid,
@@ -111,20 +156,38 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleSignupWithEmailAndPassword = async (email, password) => {
+  const handleSignupWithEmailAndPassword = async (
+    email,
+    password,
+    userType
+  ) => {
     setLoading(true);
     try {
       const firebaseUser = await signUpWithEmailPassword(email, password);
       await setToken(firebaseUser);
-      
-      await createMember({
-        variables: {
-          data: {
-            firebaseId: firebaseUser.uid,
-            email: firebaseUser.email,
+
+      if (userType === "MEMBER") {
+        await createMember({
+          variables: {
+            data: {
+              firebaseId: firebaseUser.uid,
+              email: firebaseUser.email,
+            },
           },
-        },
-      });
+        });
+      }
+
+      if (userType === "USER") {
+        console.log("creating user");
+        await createUser({
+          variables: {
+            data: {
+              firebaseId: firebaseUser.uid,
+              email: firebaseUser.email,
+            },
+          },
+        });
+      }
 
       await refetchUser();
       return firebaseUser;
@@ -158,7 +221,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("authToken");
       setAuthToken(null);
       setUser(null);
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
       console.error("Logout error:", error);
       throw error;
@@ -168,16 +231,29 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (data?.currentMember) {
-      setUser(data.currentMember);
-    } else if (error) {
-      console.error("Error fetching current member:", error);
-      if (error.message.includes("unauthorized")) {
+    // Handle Member Data
+    if (currentMemberData?.currentMember) {
+      setUser(currentMemberData.currentMember);
+    } else if (currentMemberError) {
+      console.error("Error fetching current member:", currentMemberError);
+      if (currentMemberError.message.includes("unauthorized")) {
         handleTokenError();
       }
     }
+  
+    // Handle User Data
+    if (currentUserData?.currentUser) {
+      setUser(currentUserData.currentUser);
+    } else if (currentUserError) {
+      console.error("Error fetching current user:", currentUserError);
+      if (currentUserError.message.includes("unauthorized")) {
+        handleTokenError();
+      }
+    }
+  
+    // Set loading to false after processing both queries
     setLoading(false);
-  }, [data, error]);
+  }, [currentUserData, currentUserError, currentMemberData, currentMemberError]);
 
   const value = {
     user,
@@ -190,11 +266,7 @@ export const AuthProvider = ({ children }) => {
     handleLogout,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
