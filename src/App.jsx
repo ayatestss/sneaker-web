@@ -8,7 +8,7 @@ import ErrorPage from "./pages/ErrorPage";
 import StripeSignupPage from "./pages/StripeSignUpPage/StripeSignupPage";
 import LoginPage from "./pages/Login/LoginPage";
 import { LogoutPage } from "./pages/Logout/LogoutPage";
-import SignupMember from "./pages/SignUpMemberPage/SignUpMemberPage";
+import SignupMember  from "./pages/SignUpMemberPage/SignUpMemberPage";
 import { ProtectedRoute } from "./components/PrivateRoute";
 import { ApolloProvider } from "@apollo/client";
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
@@ -16,6 +16,7 @@ import { setContext } from "@apollo/client/link/context";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Blockers } from "./components/Blockers";
 import PaymentStatus from './pages/PaymentStatus/PaymentStatus';
+import SignUpUser from "./pages/Signup User/SignupUser";
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -69,6 +70,7 @@ function App() {
                   }
                 />
                 <Route path="member/signup" element={<SignupMember />} />
+                <Route path="user/signup" element={<SignUpUser />} />
                 <Route
                   path="/signup"
                   element={
