@@ -8,7 +8,7 @@ import ErrorPage from "./pages/ErrorPage";
 import StripeSignupPage from "./pages/StripeSignUpPage/StripeSignupPage";
 import LoginPage from "./pages/Login/LoginPage";
 import { LogoutPage } from "./pages/Logout/LogoutPage";
-import SignupMember from "./pages/SignUpMemberPage/SignUpMemberPage";
+import SignupMember  from "./pages/SignUpMemberPage/SignUpMemberPage";
 import { ProtectedRoute } from "./components/PrivateRoute";
 import { ApolloProvider } from "@apollo/client";
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
@@ -20,6 +20,8 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import PasswordReset from "./pages/ForgotPassword/PasswordReset";
 import SetANewPassword from "./pages/ForgotPassword/SetANewPassword";
 import SuccessfulPage from "./pages/ForgotPassword/SuccessfulPage";
+import PaymentStatus from './pages/PaymentStatus/PaymentStatus';
+import SignUpUser from "./pages/Signup User/SignupUser";
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -64,7 +66,10 @@ function App() {
                 <Route path="/SetANewPassword" element={<SetANewPassword />} />
                 <Route path="/SuccessfulPage" element={<SuccessfulPage />} />
 
-                <Route
+            
+                <Route path="/paymentSuccess/:contractId" element={<PaymentStatus success={true} />} />
+                <Route path="/paymentFail/:contractId" element={<PaymentStatus success={false} />} />
+               <Route
                   path="/dashboard"
                   element={
                     <>
@@ -75,7 +80,8 @@ function App() {
                     </>
                   }
                 />
-                <Route path="signupmember" element={<SignupMember />} />
+                <Route path="member/signup" element={<SignupMember />} />
+                <Route path="user/signup" element={<SignUpUser />} />
                 <Route
                   path="/signup"
                   element={

@@ -9,7 +9,7 @@ import {
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
-import { AuthProvider } from './context/AuthContextv2';
+import { AuthProvider } from './context/AuthContext';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import { ApolloLink } from '@apollo/client/link/core';
 import { setContext } from '@apollo/client/link/context';

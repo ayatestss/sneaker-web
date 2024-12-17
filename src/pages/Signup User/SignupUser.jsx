@@ -20,7 +20,7 @@ const FormikTextField = ({ name, ...props }) => {
   );
 };
 
-const SignUpMember = () => {
+const SignUpUser = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const { handleSignupWithEmailAndPassword, handleGoogleLogin } = useAuth();
@@ -29,10 +29,10 @@ const SignUpMember = () => {
     try {
       switch (type) {
         case 'google':
-          await handleGoogleLogin('MEMBER');
+          await handleGoogleLogin('USER');
           break;
         case 'email':
-          await handleSignupWithEmailAndPassword(values.email, values.password, 'MEMBER');
+          await handleSignupWithEmailAndPassword(values.email, values.password, 'USER');
           break;
         default:
           break;
@@ -108,7 +108,7 @@ const SignUpMember = () => {
                     handleLogin('email', values);
                   }}
                 >
-                  Sign up Member
+                  SIGN UP User
                 </Button>
                 <Button
                   variant="contained"
@@ -117,7 +117,7 @@ const SignUpMember = () => {
                   sx={{ mt: 2 }}
                   onClick={() => handleLogin('google')}
                 >
-                  Sign up User with Member
+                  SIGN UP user WITH GOOGLE
                 </Button>
               </Stack>
             </Form>
@@ -133,4 +133,4 @@ const SignUpMember = () => {
   );
 };
 
-export default SignUpMember;
+export default SignUpUser;
