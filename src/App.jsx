@@ -15,6 +15,8 @@ import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Blockers } from "./components/Blockers";
+import PaymentStatus from "./pages/PaymentStatus/PaymentStatus";
+import SignUpUser from "./pages/Signup User/SignupUser";
 import CheckYourEmail from "./pages/ForgotPassword/CheckYourEmail";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import PasswordReset from "./pages/ForgotPassword/PasswordReset";
@@ -60,6 +62,14 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="stripeOnboarding" element={<StripeSignupPage />} />
+                <Route
+                  path="/paymentSuccess/:contractId"
+                  element={<PaymentStatus success={true} />}
+                />
+                <Route
+                  path="/paymentFail/:contractId"
+                  element={<PaymentStatus success={false} />}
+                />
                 <Route path="/ForgotPassword" element={<ForgotPassword />} />
                 <Route path="/CheckYourEmail" element={<CheckYourEmail />} />
                 <Route path="/PasswordReset" element={<PasswordReset />} />
@@ -90,7 +100,6 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-
                 {/* Error Page Route */}
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
