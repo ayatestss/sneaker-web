@@ -22,6 +22,8 @@ const PasswordReset = () => {
         <ArrowBackIcon
           fontSize="large"
           sx={{ color: "white", marginBottom: "30px" }}
+          onClick={() => navigate(-1)}
+          aria-label="Go back"
         />
         <Typography
           variant="h3"

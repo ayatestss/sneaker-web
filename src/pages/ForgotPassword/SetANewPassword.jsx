@@ -12,13 +12,11 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useAuth } from "../../context/AuthContextv2";
 import { useNavigate } from "react-router-dom";
 import { confirmPasswordReset } from "firebase/auth";
-import zxcvbn from "zxcvbn";
 import { FirebaseAuth } from "../../auth/firebase";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, InputAdornment } from "@mui/material";
-import { logEvent } from "firebase/analytics";
 
 const SetANewPassword = () => {
   const navigate = useNavigate();
@@ -33,14 +31,9 @@ const SetANewPassword = () => {
       .matches(/[0-9]/, "Password must contain at least one number.")
       .required("Enter a password."),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("passwrd"), null], "Passwords must match")
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Confirm your new password."),
   });
-
-  const validatePassword = (password) => {
-    const result = zxcvbn(password);
-    return result.score >= 3;
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -49,19 +42,15 @@ const SetANewPassword = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      setError: "";
+      setError("");
       setLoading(true);
       try {
         const actionCode = new URLSearchParams(window.location.search).get(
           "oobCode"
         );
         await confirmPasswordReset(FirebaseAuth, actionCode, values.password);
-        logEvent(analytics, "password_reset_successful");
-        await confirmPasswordReset(FirebaseAuth, actionCode, values.password);
-        logEvent(analytics, "password_reset_successful");
-        navigate("/successful-page");
+        navigate("/successfulpage");
       } catch (error) {
-        logEvent(analytics, "password_reset_error", { error: error.code });
         setError("An error occurred. Please try again.");
         console.error(error);
       } finally {
@@ -69,8 +58,6 @@ const SetANewPassword = () => {
       }
     },
   });
-
-  const passwordStrength = validatePassword(formik.values.password);
 
   return (
     <Box>
@@ -129,7 +116,7 @@ const SetANewPassword = () => {
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
-              outlined
+              variant="outlined"
               required
               sx={{ width: "400px", marginBottom: "15px" }}
               InputProps={{
@@ -146,12 +133,7 @@ const SetANewPassword = () => {
                 ),
               }}
             />
-            <Typography
-              variant="body2"
-              sx={{ color: "white", marginBottom: "15px" }}
-            >
-              Password strength: {passwordStrength}
-            </Typography>
+
             <Typography
               variant="h4"
               sx={{
@@ -178,8 +160,21 @@ const SetANewPassword = () => {
                 formik.touched.confirmPassword && formik.errors.confirmPassword
               }
               required
-              outlined
+              variant="outlined"
               sx={{ width: "400px", paddingBottom: "30px" }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                      aria-label="toggle password visbility"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Stack
               direction="column"
@@ -193,7 +188,7 @@ const SetANewPassword = () => {
                 disabled={loading}
                 sx={{ borderRadius: "10px", width: "200px" }}
               >
-                {loading ? <CircularProgress size={24} /> : "Update Password"}{" "}
+                {loading ? <CircularProgress size={24} /> : "Update Password"}
               </Button>
             </Stack>
           </form>

@@ -10,6 +10,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import { resetPassword } from "../../auth/services";
+import CheckYourEmail from "./CheckYourEmail";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -120,7 +121,7 @@ const ForgotPassword = () => {
             name="email"
             type="email"
             value={email}
-            outlined
+            variant="outlined"
             sx={{ width: "400px", paddingBottom: "30px" }}
             onChange={(e) => setEmail(e.target.value)}
             required
