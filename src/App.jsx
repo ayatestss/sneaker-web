@@ -22,8 +22,6 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import PasswordReset from "./pages/ForgotPassword/PasswordReset";
 import SetANewPassword from "./pages/ForgotPassword/SetANewPassword";
 import SuccessfulPage from "./pages/ForgotPassword/SuccessfulPage";
-import PaymentStatus from './pages/PaymentStatus/PaymentStatus';
-import SignUpUser from "./pages/Signup User/SignupUser";
 
 function App() {
   // const { status } = useContext(AuthContext);

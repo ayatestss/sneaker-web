@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userType, setUserType] = useState(null);
   const [authToken, setAuthToken] = useState(() =>
     localStorage.getItem("authToken")
   );
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     error: currentMemberError,
     refetch: currentMemberRefetch,
   } = useQuery(CURRENT_MEMBER, {
-    skip: !authToken,
+    skip: !authToken || userType === 'USER',
     onError: (error) => {
       console.error("Error fetching current member:", error);
       if (error.message.includes("unauthorized")) {
@@ -50,9 +51,9 @@ export const AuthProvider = ({ children }) => {
     error: currentUserError,
     refetch: currentUserRefetch,
   } = useQuery(CURRENT_USER, {
-    skip: !authToken,
+    skip: !authToken || userType === 'MEMBER',
     onError: (error) => {
-      console.error("Error fetching current member:", error);
+      console.error("Error fetching current user:", error);
       if (error.message.includes("unauthorized")) {
         handleTokenError();
       }
@@ -96,14 +97,18 @@ export const AuthProvider = ({ children }) => {
   const refetchUser = async () => {
     setLoading(true);
     try {
-      const { data: currentMemberData } = await currentMemberRefetch();
-      if (currentMemberData?.currentMember) {
-        setUser(currentMemberData.currentMember);
+      const { data: memberData } = await currentMemberRefetch();
+      if (memberData?.currentMember) {
+        setUser(memberData.currentMember);
+        setUserType('MEMBER');
+        setLoading(false);
+        return;
       }
 
-      const { data: currentUserData } = await currentUserRefetch();
-      if (currentUserData?.currentUser) {
-        setUser(currentUserData.currentUser);
+      const { data: userData } = await currentUserRefetch();
+      if (userData?.currentUser) {
+        setUser(userData.currentUser);
+        setUserType('USER');
       }
     } catch (error) {
       console.error("Error refetching user:", error);
@@ -112,6 +117,41 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+
+  useEffect(() => {
+    const determineUserType = async () => {
+      if (!authToken) {
+        setLoading(false);
+        return;
+      }
+
+      // Check for member first
+      if (currentMemberData?.currentMember) {
+        setUser(currentMemberData.currentMember);
+        setUserType('MEMBER');
+        setLoading(false);
+        return;
+      }
+
+      // Only check for user if not a member
+      if (currentUserData?.currentUser) {
+        setUser(currentUserData.currentUser);
+        setUserType('USER');
+      }
+
+      setLoading(false);
+    };
+
+    determineUserType();
+  }, [currentMemberData, currentUserData, authToken]);
+
+  useEffect(() => {
+    if (currentMemberError?.message.includes("unauthorized") || 
+        currentUserError?.message.includes("unauthorized")) {
+      handleTokenError();
+    }
+  }, [currentMemberError, currentUserError]);
 
   const handleGoogleLogin = async (userType) => {
     setLoading(true);
@@ -203,7 +243,9 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const firebaseUser = await signInWithEmailAndPass(email, password);
+      console.log(firebaseUser);
       await setToken(firebaseUser);
+
       await refetchUser();
       return firebaseUser;
     } catch (error) {
@@ -221,6 +263,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("authToken");
       setAuthToken(null);
       setUser(null);
+      setUserType(null);
       navigate("/login");
     } catch (error) {
       console.error("Logout error:", error);
@@ -229,7 +272,6 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     // Handle Member Data
     if (currentMemberData?.currentMember) {
@@ -240,7 +282,7 @@ export const AuthProvider = ({ children }) => {
         handleTokenError();
       }
     }
-  
+
     // Handle User Data
     if (currentUserData?.currentUser) {
       setUser(currentUserData.currentUser);
@@ -250,14 +292,20 @@ export const AuthProvider = ({ children }) => {
         handleTokenError();
       }
     }
-  
+
     // Set loading to false after processing both queries
     setLoading(false);
-  }, [currentUserData, currentUserError, currentMemberData, currentMemberError]);
+  }, [
+    currentUserData,
+    currentUserError,
+    currentMemberData,
+    currentMemberError,
+  ]);
 
   const value = {
     user,
     loading,
+    userType,
     isAuthenticated: !!user && !!authToken,
     refetchUser,
     handleLoginWithEmailAndPass,
