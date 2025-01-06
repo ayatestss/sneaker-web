@@ -22,6 +22,7 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import PasswordReset from "./pages/ForgotPassword/PasswordReset";
 import SetANewPassword from "./pages/ForgotPassword/SetANewPassword";
 import SuccessfulPage from "./pages/ForgotPassword/SuccessfulPage";
+import StripePage from "./pages/StripePage";
 
 function App() {
   // const { status } = useContext(AuthContext);
@@ -73,7 +74,14 @@ function App() {
                 <Route path="/PasswordReset" element={<PasswordReset />} />
                 <Route path="/SetANewPassword" element={<SetANewPassword />} />
                 <Route path="/SuccessfulPage" element={<SuccessfulPage />} />
-
+                <Route
+                  path="/member/stripe"
+                  element={
+                    <ProtectedRoute>
+                      <StripePage />
+                    </ProtectedRoute>
+                  }
+                />
             
                 <Route path="/paymentSuccess/:contractId" element={<PaymentStatus success={true} />} />
                 <Route path="/paymentFail/:contractId" element={<PaymentStatus success={false} />} />
