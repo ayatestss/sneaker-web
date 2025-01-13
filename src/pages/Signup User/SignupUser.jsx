@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import Logo from "../../assets/ss-logo.svg";
-import GoogleIcon from "@mui/icons-material/Google";
-import { Formik, Form, useField } from "formik";
-import { useNavigate } from "react-router-dom";
-import { Button, Alert, Grid, TextField, Stack, Box } from "@mui/material";
-import * as Yup from "yup";
-import { useAuth } from "../../context/AuthContext";
+import React, { useState } from 'react';
+import Logo from '../../assets/ss-logo.svg';
+import GoogleIcon from '@mui/icons-material/Google';
+import { Formik, Form, useField } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { Button, Alert, Grid, TextField, Stack, Box } from '@mui/material';
+import * as Yup from 'yup';
+import { useAuth } from '../../context/AuthContext';
 
 const FormikTextField = ({ name, ...props }) => {
   const [field, meta] = useField(name);
@@ -20,63 +20,59 @@ const FormikTextField = ({ name, ...props }) => {
   );
 };
 
-const SignUpMember = () => {
+const SignUpUser = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const { handleSignupWithEmailAndPassword, handleGoogleLogin } = useAuth();
 
   const handleLogin = async (type, values) => {
     try {
       switch (type) {
-        case "google":
-          await handleGoogleLogin("MEMBER");
+        case 'google':
+          await handleGoogleLogin('USER');
           break;
-        case "email":
-          await handleSignupWithEmailAndPassword(
-            values.email,
-            values.password,
-            "MEMBER"
-          );
+        case 'email':
+          await handleSignupWithEmailAndPassword(values.email, values.password, 'USER');
           break;
         default:
           break;
       }
-      navigate("/signup");
+      navigate('/signup');
     } catch (error) {
       setError(error.message);
       console.log(errorCode, errorMessage);
     }
   };
 
-  const initialValues = { email: "", password: "" };
+  const initialValues = { email: '', password: '' };
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
+      .email('Invalid email address')
+      .required('Email is required'),
+    password: Yup.string().required('Password is required'),
   });
 
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        padding: "20px",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        padding: '20px',
       }}
     >
       <Stack
         alignItems="center"
         spacing={2}
-        sx={{ width: "100%", maxWidth: "360px", px: 2 }}
+        sx={{ width: '100%', maxWidth: '360px', px: 2 }}
       >
         <Box
           component="img"
           src={Logo}
           alt="Logo"
-          sx={{ width: "80%", maxWidth: "300px", height: "auto", my: 4 }}
+          sx={{ width: '80%', maxWidth: '300px', height: 'auto', my: 4 }}
         />
         <Formik
           initialValues={initialValues}
@@ -107,21 +103,21 @@ const SignUpMember = () => {
                   type="submit"
                   variant="contained"
                   aria-label="Sign Up"
-                  sx={{ mt: 2, color: "black", backgroundColor: "gold" }}
+                  sx={{ mt: 2 }}
                   onClick={() => {
-                    handleLogin("email", values);
+                    handleLogin('email', values);
                   }}
                 >
-                  Sign up Member
+                  SIGN UP User
                 </Button>
                 <Button
                   variant="contained"
                   aria-label="Sign Up With Google"
                   startIcon={<GoogleIcon />}
-                  sx={{ mt: 2, color: "black", backgroundColor: "gold" }}
-                  onClick={() => handleLogin("google")}
+                  sx={{ mt: 2 }}
+                  onClick={() => handleLogin('google')}
                 >
-                  Sign up with Google
+                  SIGN UP user WITH GOOGLE
                 </Button>
               </Stack>
             </Form>
@@ -137,4 +133,4 @@ const SignUpMember = () => {
   );
 };
 
-export default SignUpMember;
+export default SignUpUser;
