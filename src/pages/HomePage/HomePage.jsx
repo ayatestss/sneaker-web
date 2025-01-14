@@ -9,7 +9,6 @@ import ScrollToNextIcon from "./ScrollToNextIcon";
 import PricingTable from "./PricingTable";
 import { useNavigate } from "react-router-dom";
 import ContactSection from "./ContactSection";
-import ContractWidget from "./ContractWidget";
 
 function HomePage() {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -183,10 +182,6 @@ function HomePage() {
         >
           <ContactSection />
         </Box>
-      </Box>
-
-      <Box mt={5} sx={{ marginTop: "0" }}>
-        <ContractWidget />
       </Box>
 
       <Footer />
